@@ -1,7 +1,7 @@
 export type siteConfig = typeof siteConfig
 
 const siteConfig = {
-    name: 'Menup'
+  name: "Menup",
 }
 
 export default siteConfig

@@ -1,9 +1,10 @@
-import type { Metadata } from 'next'
-import { cn } from '@/lib/utils'
-import { fontSans } from '@/lib/fonts'
+import type { Metadata } from "next"
 
-import '@/styles/globals.css'
-import siteConfig from '@/config/site'
+import siteConfig from "@/config/site"
+import { fontSans } from "@/lib/fonts"
+import { cn } from "@/lib/utils"
+
+import "@/styles/globals.css"
 
 export const metadata: Metadata = {
   title: siteConfig.name,
@@ -16,12 +17,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-       <body
+      <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable
+          fontSans.variable,
         )}
-      >{children}</body>
+      >
+        {children}
+      </body>
     </html>
   )
 }
