@@ -26,7 +26,7 @@ export default function MarketingMobileNav({
       <SheetTrigger className="flex md:hidden">
         <Icons.menu className="h-6 w-6" />
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent side="left">
         <SheetHeader>
           <SheetTitle>
             <Logo />
