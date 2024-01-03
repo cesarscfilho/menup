@@ -1,3 +1,3 @@
-export default function DashboardIndex() {
-  return <div>DashboardIndex</div>
+export default function Index() {
+  return <div>Index</div>
 }

@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils"
 import { ToggleTheme } from "../toggle-theme"
 import { buttonVariants } from "../ui/button"
 
-export function Footer() {
+export function MarketingFooter() {
   return (
     <footer className="w-full border-t bg-background">
       <section className="container flex items-center gap-8 pb-8 pt-6 md:py-8">

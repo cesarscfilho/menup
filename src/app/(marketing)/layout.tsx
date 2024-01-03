@@ -1,3 +1,5 @@
+import { MarketingFooter } from "@/components/layout/marketing-footer"
+
 interface LayoutProps {
   children: React.ReactNode
 }
@@ -5,7 +7,8 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   return (
     <div className="flex min-h-screen flex-col">
-      <div className="flex-1">{children}</div>
+      <main className="flex-1">{children}</main>
+      <MarketingFooter />
     </div>
   )
 }
