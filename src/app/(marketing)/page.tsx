@@ -66,7 +66,7 @@ export default function Index() {
           </div>
         </div>
       </section>
-      <section>
+      <section id="features">
         <Container className="space-y-10 py-24">
           <div className="text-center">
             <h2 className="text-3xl font-extrabold leading-[1.15] lg:text-4xl">
@@ -88,7 +88,7 @@ export default function Index() {
           </div>
         </Container>
       </section>
-      <section>
+      <section id="numberOfUsers">
         <div className="md:py-15 border-y border-border py-10  backdrop-blur-[90px]">
           <div className="mx-auto grid w-full max-w-screen-xl gap-y-4 px-2.5 md:grid-cols-3 md:gap-y-0 lg:px-20">
             {marketingConfig.numberOfUsers.map((item) => (
@@ -105,7 +105,7 @@ export default function Index() {
           </div>
         </div>
       </section>
-      <section>
+      <section id="testimonials">
         <div className="space-y-10 py-32">
           <div className="text-center">
             <h2 className="text-3xl font-extrabold leading-[1.15] lg:text-4xl">
@@ -121,7 +121,7 @@ export default function Index() {
           />
         </div>
       </section>
-      <section className="border-t border-border backdrop-blur-[50px]">
+      <section id="faq" className="border-t border-border backdrop-blur-[50px]">
         <Container className="max-w-screen-lg py-20">
           <div className="grid space-y-6">
             <div className="text-start">
