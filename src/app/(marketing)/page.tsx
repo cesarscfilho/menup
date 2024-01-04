@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 import marketingConfig from "@/config/marketing"
 import {
   Accordion,
@@ -14,7 +16,7 @@ export default function Index() {
   return (
     <>
       <section>
-        <div className="mx-auto mb-10 mt-12 max-w-md px-2.5 text-center sm:max-w-xl sm:px-0">
+        <div className="mx-auto mt-12 max-w-md px-2.5 text-center sm:max-w-xl sm:px-0">
           <h1 className="mt-5 text-4xl font-extrabold leading-[1.15] sm:text-6xl sm:leading-[1.15]">
             Lorem ipsum dolor
             <br />
@@ -31,6 +33,36 @@ export default function Index() {
           <div className="mx-auto mt-5 flex max-w-fit space-x-4">
             <Button>Start for free</Button>
             <Button variant="outline">Get a demo</Button>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div className="mx-auto max-w-6xl space-y-16 px-6 py-20 lg:px-8">
+          <div className="text-center">
+            <h2 className="text-3xl font-extrabold leading-[1.15] lg:text-4xl">
+              Design modern and{" "}
+              <span className="text-orange-500">for anyone</span>
+            </h2>
+          </div>
+          <div className="flow-root">
+            <div className="-m-2 rounded-xl bg-muted-foreground/5 p-2 ring-1 ring-inset ring-border/10 lg:-m-4 lg:rounded-2xl lg:p-4">
+              <Image
+                src="/dashboard-dark.png"
+                alt="product preview"
+                width={1364}
+                height={866}
+                quality={100}
+                className="hidden rounded-md dark:block "
+              />
+              <Image
+                src="/dashboard-light.png"
+                alt="product preview"
+                width={1364}
+                height={866}
+                quality={100}
+                className="block rounded-md dark:hidden"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -77,7 +109,7 @@ export default function Index() {
         <div className="space-y-10 py-32">
           <div className="text-center">
             <h2 className="text-3xl font-extrabold leading-[1.15] lg:text-4xl">
-              Don&apos;t take it from us
+              <span className="text-red-500">Don&apos;t take</span> it from us
             </h2>
             <p className="text-muted-foreground sm:text-lg">
               Here&apos;s what our users have to say about Menup

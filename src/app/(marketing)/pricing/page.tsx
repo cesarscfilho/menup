@@ -5,6 +5,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import { Badge } from "@/components/ui/badge"
 import { Container } from "@/components/container"
 import PrincigCard from "@/components/pricing-card"
 
@@ -13,13 +14,15 @@ export default function PrincigPage() {
     <>
       <Container>
         <div className="mx-auto text-center sm:max-w-xl">
-          <h1 className="mt-5 text-4xl font-extrabold leading-[1.15] sm:leading-[1.15]">
-            Simple, affordable pricing
+          <h1 className="mt-5 text-5xl font-extrabold leading-[1.15] sm:leading-[1.15]">
+            Simple, <span className="text-blue-500">affordable pricing</span>
           </h1>
           <p className="mt-5 text-muted-foreground sm:text-xl">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat,
-            ullam officia cumque voluptas obcaecati.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </p>
+          <Badge variant="success" className="mt-10 px-2 py-1.5">
+            🎁 2 months FREE
+          </Badge>
         </div>
         <div className="grid grid-cols-1 gap-8 py-20 lg:grid-cols-3">
           <PrincigCard />
