@@ -5,7 +5,65 @@ const marketingConfig = {
   navItems: [
     { title: "Features", href: "/#features" },
     { title: "Pricing", href: "/pricing" },
+    { title: "Contact", href: "/contact" },
     { title: "FAQ", href: "/#faq" },
+  ],
+  footerNav: [
+    {
+      title: "Features",
+      items: [
+        {
+          title: "About",
+          href: "/pages/about",
+          external: false,
+        },
+        {
+          title: "Contact",
+          href: "/pages/Contact",
+          external: false,
+        },
+      ],
+    },
+    {
+      title: "Help",
+      items: [
+        {
+          title: "About",
+          href: "/pages/about",
+          external: false,
+        },
+        {
+          title: "Contact",
+          href: "/pages/Contact",
+          external: false,
+        },
+        {
+          title: "Terms",
+          href: "/pages/terms",
+          external: false,
+        },
+        {
+          title: "Privacy",
+          href: "/pages/privacy",
+          external: false,
+        },
+      ],
+    },
+    {
+      title: "Social",
+      items: [
+        {
+          title: "Twitter",
+          href: "/",
+          external: true,
+        },
+        {
+          title: "GitHub",
+          href: "/",
+          external: true,
+        },
+      ],
+    },
   ],
   testimonials: [
     {
