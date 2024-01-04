@@ -72,40 +72,33 @@ const marketingConfig = {
   ],
   features: [
     {
-      title: "Stripe",
+      title: "Visual Menu Display",
       description:
-        "A technology company that builds economic infrastructure for the internet.",
-      link: "https://stripe.com",
+        "Showcase visually appealing images of various dishes and categories.",
     },
     {
-      title: "Netflix",
+      title: "Easy Ordering Process",
       description:
-        "A streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries, and more on thousands of internet-connected devices.",
-      link: "https://netflix.com",
+        "Intuitive and user-friendly interface for seamless ordering.",
     },
     {
-      title: "Google",
+      title: "Customizable Orders",
       description:
-        "A multinational technology company that specializes in Internet-related services and products.",
-      link: "https://google.com",
+        "Offer customization options for each dish and easy modification of orders.",
     },
     {
-      title: "Meta",
+      title: "Special Offers and Deals",
       description:
-        "A technology company that focuses on building products that advance Facebook's mission of bringing the world closer together.",
-      link: "https://meta.com",
+        "Highlight special discounts, deals, or combo offers for users.",
     },
     {
-      title: "Amazon",
-      description:
-        "A multinational technology company focusing on e-commerce, cloud computing, digital streaming, and artificial intelligence.",
-      link: "https://amazon.com",
+      title: "Seamless Checkout Process",
+      description: "Smooth and hassle-free checkout experience for customers.",
     },
     {
-      title: "Microsoft",
+      title: "User Authentication",
       description:
-        "A multinational technology company that develops, manufactures, licenses, supports, and sells computer software, consumer electronics, personal computers, and related services.",
-      link: "https://microsoft.com",
+        "Secure user authentication and account management functionalities.",
     },
   ],
   numberOfUsers: [
