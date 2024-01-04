@@ -3,8 +3,8 @@ import { IconProps } from "@radix-ui/react-icons/dist/types"
 export const Icons = {
   logo: (props: IconProps) => (
     <svg
-      {...props}
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -12,10 +12,10 @@ export const Icons = {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <rect width="7" height="9" x="3" y="3" rx="1" />
-      <rect width="7" height="5" x="14" y="3" rx="1" />
-      <rect width="7" height="9" x="14" y="12" rx="1" />
-      <rect width="7" height="5" x="3" y="16" rx="1" />
+      <rect width="18" height="18" x="3" y="3" rx="2" />
+      <path d="M7 8h10" />
+      <path d="M7 12h10" />
+      <path d="M7 16h10" />
     </svg>
   ),
   menu: (props: IconProps) => (

@@ -3,22 +3,24 @@ import { Container } from "@/components/container"
 
 export default function Index() {
   return (
-    <section className="py-20 sm:py-32 lg:pb-32 xl:pb-36">
+    <section>
       <Container>
-        <div className="lg:grid lg:grid-cols-12 lg:gap-x-8 lg:gap-y-20">
-          <div className="relative z-10 mx-auto max-w-2xl space-y-6 lg:col-span-7 lg:max-w-none lg:pt-6 xl:col-span-6">
-            <h1 className="text-5xl font-bold tracking-tight">
-              Lorem ipsum dolor sit amet.
-            </h1>
-            <p className="text-lg text-muted-foreground">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat,
-              ullam officia cumque voluptas obcaecati, consequuntur praesentium
-              repellat labore non illum quia. Ab eaque ut error illo molestiae
-              consequuntur perferendis culpa?
-            </p>
-            <Button>Get started for free</Button>
+        <div className="mx-auto mb-10 mt-12 max-w-md px-2.5 text-center sm:max-w-xl sm:px-0">
+          <h1 className="mt-5 text-4xl font-extrabold leading-[1.15] sm:text-6xl sm:leading-[1.15]">
+            Lorem ipsum dolor
+            <br />
+            <span className="bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+              sit amet.
+            </span>
+          </h1>
+          <p className="mt-5 text-muted-foreground sm:text-xl">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat,
+            ullam officia cumque voluptas obcaecati.
+          </p>
+          <div className="mx-auto mt-5 flex max-w-fit space-x-4">
+            <Button>Start for free</Button>
+            <Button variant="outline">Get a demo</Button>
           </div>
-          <div></div>
         </div>
       </Container>
     </section>

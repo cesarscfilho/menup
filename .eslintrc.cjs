@@ -1,6 +1,7 @@
 module.exports = {
   extends: ["@rocketseat/eslint-config/next", "next/core-web-vitals"],
   rules: {
+    "@typescript-eslint/no-var-requires": "off",
     "prettier/prettier": [
       "error",
       {
