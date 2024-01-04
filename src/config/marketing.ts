@@ -37,6 +37,38 @@ const marketingConfig = {
       title: "Moby-Dick",
     },
   ],
+  faqs: [
+    {
+      id: "faq-1",
+      question: "O que é JavaScript?",
+      answer:
+        "JavaScript é uma linguagem de programação de alto nível, dinâmica e interpretada, utilizada principalmente para criar interatividade em páginas web.",
+    },
+    {
+      id: "faq-2",
+      question: "Quais são os principais recursos do JavaScript?",
+      answer:
+        "JavaScript oferece recursos poderosos, como manipulação do DOM, gerenciamento de eventos, chamadas assíncronas a servidores, entre outros.",
+    },
+    {
+      id: "faq-3",
+      question: "Como posso declarar uma variável em JavaScript?",
+      answer:
+        'Você pode declarar uma variável em JavaScript utilizando as palavras-chave "var", "let" ou "const", seguidas pelo nome da variável.',
+    },
+    {
+      id: "faq-4",
+      question: "O que é DOM em JavaScript?",
+      answer:
+        "O DOM (Document Object Model) em JavaScript é uma interface que representa um documento como uma árvore de objetos, permitindo a manipulação do conteúdo do documento.",
+    },
+    {
+      id: "faq-5",
+      question: "JavaScript é igual a Java?",
+      answer:
+        "Não, JavaScript e Java são linguagens de programação diferentes, com sintaxe, semântica e casos de uso diferentes. Elas não estão relacionadas.",
+    },
+  ],
 }
 
 export default marketingConfig

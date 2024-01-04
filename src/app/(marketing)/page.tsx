@@ -1,6 +1,12 @@
 import marketingConfig from "@/config/marketing"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button"
-import { InfiniteMovingCards } from "@/components/acertenity/infinite-moving-cards"
+import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards"
 import { Container } from "@/components/container"
 
 export default function Index() {
@@ -27,9 +33,10 @@ export default function Index() {
           </div>
         </Container>
       </section>
+      <section className="h-screen"></section>
       <section className="my-16 grid space-y-4">
         <div className="text-center">
-          <h2 className="text-4xl font-extrabold leading-[1.15]">
+          <h2 className="text-3xl font-extrabold leading-[1.15]">
             Don&apos;t take it from us
           </h2>
           <p className="mt-5 text-muted-foreground sm:text-xl">
@@ -40,6 +47,25 @@ export default function Index() {
           speed="normal"
           items={marketingConfig.testimonials}
         />
+      </section>
+      <section className="mt-10 border-t border-border backdrop-blur-[2px]">
+        <div className="mx-auto w-full max-w-screen-lg px-2.5 py-20 lg:px-20">
+          <div className="grid gap-5">
+            <div className="text-start">
+              <h2 className="text-4xl font-extrabold leading-[1.15]">FAQ</h2>
+            </div>
+            <div className="px-3 sm:px-0">
+              <Accordion type="single" collapsible className="w-full">
+                {marketingConfig.faqs.map((item) => (
+                  <AccordionItem key={item.id} value={item.id}>
+                    <AccordionTrigger>{item.question}</AccordionTrigger>
+                    <AccordionContent>{item.answer}</AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+          </div>
+        </div>
       </section>
     </>
   )
