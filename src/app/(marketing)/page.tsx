@@ -18,7 +18,9 @@ export default function Index() {
             <h1 className="mt-5 text-4xl font-extrabold leading-[1.15] sm:text-6xl sm:leading-[1.15]">
               Lorem ipsum dolor
               <br />
-              <span className="bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+              <span
+                className={`${marketingConfig.gradient} bg-clip-text text-transparent`}
+              >
                 sit amet.
               </span>
             </h1>
