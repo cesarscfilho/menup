@@ -8,7 +8,7 @@ export function Logo() {
   return (
     <Link href="/" className="flex items-center text-primary">
       <Icons.logo className="h-8 w-auto" />
-      <p className="ml-2 text-base font-bold">{siteConfig.name}</p>
+      <p className="ml-2 text-base font-extrabold">{siteConfig.name}</p>
     </Link>
   )
 }

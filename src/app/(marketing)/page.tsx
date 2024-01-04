@@ -35,13 +35,37 @@ export default function Index() {
           </div>
         </Container>
       </section>
-      <section className="h-screen"></section>
-      <section className="my-16 grid space-y-4">
+      <section className="py-20">
+        <div className="text-center">
+          <h2 className="text-3xl font-extrabold leading-[1.15]">
+            All tools, one place.
+          </h2>
+          <p className="text-muted-foreground sm:text-lg">
+            Automate your business with our fee-free platform.
+          </p>
+        </div>
+      </section>
+      <section className="border-y border-border py-10 backdrop-blur-[90px]">
+        <div className="mx-auto grid w-full max-w-screen-xl gap-y-4 px-2.5 md:grid-cols-3 md:gap-y-0 lg:px-20">
+          {marketingConfig.numberOfUsers.map((item) => (
+            <div
+              key={item.title}
+              className="flex flex-col items-center justify-center space-y-2"
+            >
+              <p className="text-4xl font-bold md:text-5xl">{item.title}</p>
+              <p className="font-semibold uppercase text-gray-500 md:text-lg">
+                {item.subtitle}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+      <section className="grid space-y-6 py-20">
         <div className="text-center">
           <h2 className="text-3xl font-extrabold leading-[1.15]">
             Don&apos;t take it from us
           </h2>
-          <p className="mt-5 text-muted-foreground sm:text-xl">
+          <p className="text-muted-foreground sm:text-lg">
             Here&apos;s what our users have to say about Menup
           </p>
         </div>
@@ -50,7 +74,7 @@ export default function Index() {
           items={marketingConfig.testimonials}
         />
       </section>
-      <section className="mt-10 border-t border-border backdrop-blur-[2px]">
+      <section className="border-t border-border py-10 backdrop-blur-[50px]">
         <div className="mx-auto w-full max-w-screen-lg px-2.5 py-20 lg:px-20">
           <div className="grid gap-5">
             <div className="text-start">
