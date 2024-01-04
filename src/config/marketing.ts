@@ -4,7 +4,7 @@ const marketingConfig = {
   gradient: "bg-gradient-to-r from-green-300 via-blue-500 to-purple-600",
   navItems: [
     { title: "Features", href: "/#features" },
-    { title: "Pricing", href: "/#pricing" },
+    { title: "Pricing", href: "/pricing" },
     { title: "FAQ", href: "/#faq" },
   ],
   testimonials: [
