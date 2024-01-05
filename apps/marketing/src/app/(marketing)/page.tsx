@@ -6,8 +6,10 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Button } from "@/components/ui/button";
+} from "@menup/ui";
+
+import { Button } from "@menup/ui";
+
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 import { Container } from "@/components/container";
 import { FeatureCard } from "@/components/feature-card";
