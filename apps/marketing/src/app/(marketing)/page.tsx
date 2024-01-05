@@ -1,16 +1,16 @@
-import Image from "next/image"
+import Image from "next/image";
 
-import marketingConfig from "@/config/marketing"
+import marketingConfig from "@/config/marketing";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion"
-import { Button } from "@/components/ui/button"
-import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards"
-import { Container } from "@/components/container"
-import { FeatureCard } from "@/components/feature-card"
+} from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
+import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
+import { Container } from "@/components/container";
+import { FeatureCard } from "@/components/feature-card";
 
 export default function Index() {
   return (
@@ -139,5 +139,5 @@ export default function Index() {
         </Container>
       </section>
     </>
-  )
+  );
 }

@@ -1,4 +1,4 @@
-import { IconProps } from "@radix-ui/react-icons/dist/types"
+import { IconProps } from "@radix-ui/react-icons/dist/types";
 
 export const Icons = {
   logo: (props: IconProps) => (
@@ -43,4 +43,4 @@ export const Icons = {
       />
     </svg>
   ),
-}
+};

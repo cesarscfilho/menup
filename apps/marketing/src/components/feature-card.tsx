@@ -1,5 +1,5 @@
-import * as React from "react"
-import { CheckIcon } from "@radix-ui/react-icons"
+import * as React from "react";
+import { CheckIcon } from "@radix-ui/react-icons";
 
 import {
   Card,
@@ -7,14 +7,14 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 
 export function FeatureCard({
   title,
   description,
 }: {
-  title: string
-  description: string
+  title: string;
+  description: string;
 }) {
   return (
     <Card className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-background shadow-sm transition-colors hover:bg-secondary/95">
@@ -28,5 +28,5 @@ export function FeatureCard({
         <CardDescription>{description}</CardDescription>
       </CardContent>
     </Card>
-  )
+  );
 }

@@ -1,20 +1,30 @@
 {
-  "name": "test",
+  "name": "menup",
   "private": true,
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "lint:strict": "eslint --max-warnings=0 apps/**/*.{ts,tsx}",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "format:check": "prettier -c \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
+    "@ianvs/prettier-plugin-sort-imports": "^4.1.1",
+    "@menup/tsconfig": "workspace:*",
+    "@menup/eslint-config": "workspace:*",
+    "eslint": "^8.56.0",
     "prettier": "^3.1.0",
+    "prettier-plugin-tailwindcss": "^0.5.10",
     "turbo": "latest"
   },
   "packageManager": "pnpm@8.9.0",
   "engines": {
     "node": ">=18"
-  }
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "packages/config/*"
+  ]
 }

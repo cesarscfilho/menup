@@ -1,21 +1,21 @@
-import type { Metadata } from "next"
+import type { Metadata } from "next";
 
-import siteConfig from "@/config/site"
-import { fontSans } from "@/lib/fonts"
-import { cn } from "@/lib/utils"
+import siteConfig from "@/config/site";
+import { fontSans } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
 
-import "@/styles/globals.css"
+import "@/styles/globals.css";
 
-import { ThemeProvider } from "@/components/theme-provider"
+import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
   title: siteConfig.name,
-}
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -35,5 +35,5 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }

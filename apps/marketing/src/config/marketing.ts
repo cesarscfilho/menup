@@ -1,4 +1,4 @@
-export type marketingConfig = typeof marketingConfig
+export type marketingConfig = typeof marketingConfig;
 
 const marketingConfig = {
   gradient: "bg-gradient-to-r from-green-300 via-blue-500 to-purple-600",
@@ -173,6 +173,6 @@ const marketingConfig = {
       subtitle: "Lorem ipsum",
     },
   ],
-}
+};
 
-export default marketingConfig
+export default marketingConfig;

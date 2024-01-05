@@ -1,6 +1,6 @@
-import { CheckIcon } from "@radix-ui/react-icons"
+import { CheckIcon } from "@radix-ui/react-icons";
 
-import { Button } from "./ui/button"
+import { Button } from "./ui/button";
 
 const includedFeatures = [
   "Private forum access",
@@ -11,7 +11,7 @@ const includedFeatures = [
   "Entry to annual conference",
   "Official member t-shirt",
   "Official member t-shirt",
-]
+];
 
 export default function PrincigCard() {
   return (
@@ -47,5 +47,5 @@ export default function PrincigCard() {
         </ul>
       </div>
     </div>
-  )
+  );
 }

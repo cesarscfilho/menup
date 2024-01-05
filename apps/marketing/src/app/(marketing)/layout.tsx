@@ -1,10 +1,10 @@
-import { MarketingFooter } from "@/components/layout/marketing-footer"
-import { MarketingHeader } from "@/components/layout/marketing-header"
+import { MarketingFooter } from "@/components/layout/marketing-footer";
+import { MarketingHeader } from "@/components/layout/marketing-header";
 
-import { Background } from "./background"
+import { Background } from "./background";
 
 interface LayoutProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 export default function Layout({ children }: LayoutProps) {
@@ -15,5 +15,5 @@ export default function Layout({ children }: LayoutProps) {
       <main className="flex-1">{children}</main>
       <MarketingFooter />
     </div>
-  )
+  );
 }

@@ -1,13 +1,13 @@
-import Link from "next/link"
-import { GitHubLogoIcon } from "@radix-ui/react-icons"
+import Link from "next/link";
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
 
-import marketingConfig from "@/config/marketing"
-import siteConfig from "@/config/site"
-import { cn } from "@/lib/utils"
+import marketingConfig from "@/config/marketing";
+import siteConfig from "@/config/site";
+import { cn } from "@/lib/utils";
 
-import { Logo } from "../logo"
-import { ToggleTheme } from "../toggle-theme"
-import { buttonVariants } from "../ui/button"
+import { Logo } from "../logo";
+import { ToggleTheme } from "../toggle-theme";
+import { buttonVariants } from "../ui/button";
 
 export function MarketingFooter() {
   return (
@@ -66,5 +66,5 @@ export function MarketingFooter() {
         </section>
       </div>
     </footer>
-  )
+  );
 }

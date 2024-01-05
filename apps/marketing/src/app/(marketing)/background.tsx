@@ -1,4 +1,4 @@
-import marketingConfig from "@/config/marketing"
+import marketingConfig from "@/config/marketing";
 
 export function Background() {
   return (
@@ -51,5 +51,5 @@ export function Background() {
         </div>
       </div>
     </>
-  )
+  );
 }
