@@ -30,9 +30,9 @@ export function MarketingHeader({ scroll = true }) {
 
         <div className="relative z-10 hidden items-center gap-16 md:flex">
           <Logo />
-          <nav className="hidden md:flex md:gap-10">
+          
             <MarketingNavLinks navItems={marketingConfig.navItems} />
-          </nav>
+
         </div>
         <div className="flex items-center gap-6">
           <Link
