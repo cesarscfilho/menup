@@ -1,7 +1,7 @@
 /** @type {import("eslint").Linter.Config} */
-const config = {
+module.exports = {
   root: true,
-  // extends: ["@menup"], // uses the config in `packages/config/eslint`
+  extends: ["@menup"], // uses the config in `packages/config/eslint`
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: "latest",
@@ -14,5 +14,3 @@ const config = {
     },
   },
 };
-
-module.exports = config;

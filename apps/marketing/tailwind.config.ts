@@ -1,1 +1,3 @@
-module.exports = require("@menup/ui/tailwind.config");
+const config = require("@menup/ui/tailwind.config");
+
+module.exports = config;

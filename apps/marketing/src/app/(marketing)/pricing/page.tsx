@@ -4,7 +4,8 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
+} from "@menup/ui";
+
 import { Badge } from "@/components/ui/badge";
 import { Container } from "@/components/container";
 import PrincigCard from "@/components/pricing-card";
