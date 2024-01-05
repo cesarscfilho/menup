@@ -1,14 +1,14 @@
-import marketingConfig from "@/config/marketing";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
+  Badge,
 } from "@menup/ui";
 
-import { Badge } from "@/components/ui/badge";
 import { Container } from "@/components/container";
 import PrincigCard from "@/components/pricing-card";
+import marketingConfig from "@/config/marketing";
 
 export default function PrincigPage() {
   return (
@@ -18,7 +18,7 @@ export default function PrincigPage() {
           <h1 className="mt-5 text-5xl font-extrabold leading-[1.15] sm:leading-[1.15]">
             Simple, <span className="text-blue-500">affordable pricing</span>
           </h1>
-          <p className="mt-5 text-muted-foreground sm:text-xl">
+          <p className="text-muted-foreground mt-5 sm:text-xl">
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </p>
           <Badge variant="success" className="mt-10 px-2 py-1.5">
@@ -31,7 +31,7 @@ export default function PrincigPage() {
           <PrincigCard />
         </div>
       </Container>
-      <section className="border-t border-border backdrop-blur-[50px]">
+      <section className="border-border border-t backdrop-blur-[50px]">
         <Container className="max-w-screen-lg py-20">
           <div className="grid space-y-6">
             <div className="text-start">

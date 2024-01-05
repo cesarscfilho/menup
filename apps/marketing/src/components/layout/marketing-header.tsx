@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { buttonVariants } from "@menup/ui";
 
 import marketingConfig from "@/config/marketing";
 import useScroll from "@/hooks/use-scroll";
 import { cn } from "@/lib/utils";
 import { Container } from "../container";
 import { Logo } from "../logo";
-import { buttonVariants } from "../ui/button";
 import MarketingMobileNav from "./marketing-mobile-nav";
 import { MarketingNavLinks } from "./marketing-nav-links";
 

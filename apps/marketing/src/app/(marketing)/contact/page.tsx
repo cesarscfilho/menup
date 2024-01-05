@@ -1,8 +1,13 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardFooter,
+  Input,
+  Label,
+  Textarea,
+} from "@menup/ui";
+
 import { Container } from "@/components/container";
 
 export default function ContactPage() {
@@ -12,7 +17,7 @@ export default function ContactPage() {
         <h1 className="mt-5 text-5xl font-extrabold leading-[1.15] sm:leading-[1.15]">
           <span className="text-cyan-400">Doubt? </span>contact us
         </h1>
-        <p className="mt-5 text-muted-foreground sm:text-xl">
+        <p className="text-muted-foreground mt-5 sm:text-xl">
           Lorem ipsum dolor sit amet consectetur adipisicing elit.
         </p>
       </div>

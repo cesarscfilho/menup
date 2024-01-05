@@ -1,6 +1,5 @@
+import { Button } from "@menup/ui";
 import { CheckIcon } from "@radix-ui/react-icons";
-
-import { Button } from "./ui/button";
 
 const includedFeatures = [
   "Private forum access",
@@ -15,16 +14,16 @@ const includedFeatures = [
 
 export default function PrincigCard() {
   return (
-    <div className="mx-auto w-full rounded-3xl bg-background ring-1 ring-border">
+    <div className="bg-background ring-border mx-auto w-full rounded-3xl ring-1">
       <div className="p-2 lg:mt-0">
-        <div className="rounded-2xl bg-muted/50 py-10 text-center ring-1 ring-inset ring-border lg:flex lg:flex-col lg:justify-center lg:py-16">
+        <div className="bg-muted/50 ring-border rounded-2xl py-10 text-center ring-1 ring-inset lg:flex lg:flex-col lg:justify-center lg:py-16">
           <div className="mx-auto max-w-xs px-6">
             <p className="text-base font-semibold">
               For startups & side projects
             </p>
             <p className="mt-6 flex items-baseline justify-center gap-x-2">
               <span className="text-5xl font-bold tracking-tight">$349</span>
-              <span className="text-sm font-semibold leading-6 tracking-wide text-muted-foreground">
+              <span className="text-muted-foreground text-sm font-semibold leading-6 tracking-wide">
                 USD
               </span>
             </p>
@@ -36,7 +35,7 @@ export default function PrincigCard() {
       <div className="p-8 sm:p-10 lg:flex-auto">
         <ul
           role="list"
-          className="leading-6sm:gap-6 grid grid-cols-1 gap-4 text-sm text-muted-foreground"
+          className="leading-6sm:gap-6 text-muted-foreground grid grid-cols-1 gap-4 text-sm"
         >
           {includedFeatures.map((feature) => (
             <li key={feature} className="flex gap-x-3">

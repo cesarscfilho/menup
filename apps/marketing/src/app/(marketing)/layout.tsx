@@ -1,6 +1,5 @@
 import { MarketingFooter } from "@/components/layout/marketing-footer";
 import { MarketingHeader } from "@/components/layout/marketing-header";
-
 import { Background } from "./background";
 
 interface LayoutProps {
