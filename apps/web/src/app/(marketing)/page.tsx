@@ -36,6 +36,7 @@ export default function Index() {
           </div>
         </div>
       </section>
+      
       <section>
         <div className="mx-auto max-w-6xl space-y-16 px-6 py-20 pb-10">
           <div className="text-center">

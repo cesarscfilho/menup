@@ -12,5 +12,6 @@ export * from "./components/label";
 
 export * from "./components/skeleton";
 export * from "./components/textarea";
+export * from "./components/avatar";
 
 export * from "./components/sheet";

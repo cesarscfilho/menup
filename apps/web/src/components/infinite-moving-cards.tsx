@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 
 import { cn } from "@/lib/utils";
+import { Avatar } from "@radix-ui/react-avatar";
+import { AvatarFallback, AvatarImage } from "@menup/ui";
 
 export const InfiniteMovingCards = ({
   items,
@@ -82,7 +84,7 @@ export const InfiniteMovingCards = ({
       <ul
         ref={scrollerRef}
         className={cn(
-          " flex w-max min-w-full shrink-0 flex-nowrap gap-4 py-4",
+          "flex w-max min-w-full shrink-0 flex-nowrap gap-4 py-4",
           start && "animate-scroll ",
           pauseOnHover && "hover:[animation-play-state:paused]",
         )}
@@ -92,7 +94,7 @@ export const InfiniteMovingCards = ({
             className="border-border bg-background relative w-[350px] max-w-full flex-shrink-0 rounded-2xl border px-8 py-6 md:w-[450px]"
             key={item.name}
           >
-            <blockquote>
+          
               <span className=" relative z-20 text-sm font-normal leading-[1.6]">
                 {item.quote}
               </span>
@@ -106,7 +108,6 @@ export const InfiniteMovingCards = ({
                   </span>
                 </span>
               </div>
-            </blockquote>
           </li>
         ))}
       </ul>
