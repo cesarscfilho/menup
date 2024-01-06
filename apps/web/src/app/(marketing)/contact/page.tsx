@@ -13,8 +13,8 @@ import { Container } from "@/components/container";
 export default function ContactPage() {
   return (
     <Container className="mb-20 space-y-12">
-      <div className="mx-auto text-center sm:max-w-xl">
-        <h1 className="mt-5 text-5xl font-extrabold leading-[1.15] sm:leading-[1.15]">
+      <div className="mx-auto text-center sm:max-w-xl mt-10">
+        <h1 className="text-5xl font-extrabold leading-[1.15] sm:leading-[1.15]">
           <span className="text-cyan-400">Doubt? </span>contact us
         </h1>
         <p className="text-muted-foreground mt-5 sm:text-xl">
