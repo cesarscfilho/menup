@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@menup/ui";
 
-export default function LoginPage() {
+export default function RegisterPage() {
   return (
     <div className="grid w-full grid-cols-1 md:grid-cols-3">
       <div className="col-span-1 flex items-center justify-center md:col-span-2">
