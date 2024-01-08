@@ -34,7 +34,7 @@ export function MarketingHeader({ scroll = true }) {
         </div>
         <div className="flex items-center gap-6">
           <Link
-            href="/"
+            href="/login"
             className={cn(buttonVariants({ variant: "default" }), "font-bold")}
           >
             Sign In
