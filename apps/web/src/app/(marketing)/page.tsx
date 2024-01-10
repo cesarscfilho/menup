@@ -6,6 +6,7 @@ import {
   AccordionTrigger,
   Button,
 } from "@menup/ui";
+import { PlayCircle } from "lucide-react";
 
 import { Container } from "@/components/container";
 import { FeatureCard } from "@/components/feature-card";
@@ -31,12 +32,15 @@ export default function Index() {
             ullam officia cumque voluptas obcaecati.
           </p>
           <div className="mx-auto mt-5 flex max-w-fit space-x-4">
+            <Button variant="outline">
+              <PlayCircle className="mr-2 h-4 w-4" />
+              Demo
+            </Button>
             <Button>Start for free</Button>
-            <Button variant="outline">Get a demo</Button>
           </div>
         </div>
       </section>
-      
+
       <section>
         <div className="mx-auto max-w-6xl space-y-16 px-6 py-20 pb-10">
           <div className="text-center">
