@@ -19,17 +19,16 @@ export default function Index() {
       <section>
         <div className="mx-auto mt-20 max-w-md px-2.5 text-center sm:max-w-xl sm:px-0 md:mt-24">
           <h1 className="mt-5 text-4xl font-extrabold leading-[1.15] sm:text-6xl sm:leading-[1.15]">
-            Lorem ipsum dolor
+            Digital menu
             <br />
             <span
               className={`${marketingConfig.gradient} bg-clip-text text-transparent`}
             >
-              sit amet.
+              Menup
             </span>
           </h1>
-          <p className="text-muted-foreground mt-5 sm:text-xl">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat,
-            ullam officia cumque voluptas obcaecati.
+          <p className="text-muted-foreground mt-5 sm:text-2xl">
+            Effortless online food delivery at your fingertips.
           </p>
           <div className="mx-auto mt-5 flex max-w-fit space-x-4">
             <Button variant="outline">
