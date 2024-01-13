@@ -14,7 +14,7 @@ export default function PrincigPage() {
   return (
     <>
       <Container>
-        <div className="mx-auto text-center sm:max-w-xl mt-10">
+        <div className="mx-auto mt-10 text-center sm:max-w-xl">
           <h1 className="text-5xl font-extrabold leading-[1.15] sm:leading-[1.15]">
             Simple, <span className="text-blue-500">affordable pricing</span>
           </h1>
@@ -27,7 +27,7 @@ export default function PrincigPage() {
         </div>
         <div className="grid grid-cols-1 gap-8 py-20 lg:grid-cols-3">
           <PrincigCard />
-          <PrincigCard popular={true}/>
+          <PrincigCard popular={true} />
           <PrincigCard />
         </div>
       </Container>
