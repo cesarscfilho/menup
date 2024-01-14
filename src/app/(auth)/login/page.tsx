@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+import SignInForm from '@/components/auth/signin-form'
 
 export default function LoginPage() {
   return (
@@ -21,10 +22,7 @@ export default function LoginPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4 px-5 py-7 backdrop-blur">
-          <Button className="w-full">Continue with Google</Button>
-          <Button variant="outline" className="w-full">
-            Continue with Email
-          </Button>
+          <SignInForm />
         </CardContent>
         <CardFooter>
           <p className="mx-auto text-sm text-muted-foreground">

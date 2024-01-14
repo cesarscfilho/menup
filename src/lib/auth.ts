@@ -7,6 +7,7 @@ import GitHubProvider from 'next-auth/providers/github'
 export const authConfig = {
   adapter: DrizzleAdapter(db),
   session: { strategy: 'jwt' },
+
   providers: [
     GitHubProvider({
       clientId: env.AUTH_GITHUB_ID,

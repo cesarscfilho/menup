@@ -7,9 +7,10 @@ import marketingConfig from '@/config/marketing'
 import { cn } from '@/lib/utils'
 import useScroll from '@/hooks/use-scroll'
 
+import { SignOutButton } from '../auth/signout-button'
 import { Container } from '../container'
 import { Logo } from '../logo'
-import { Button, buttonVariants } from '../ui/button'
+import { buttonVariants } from '../ui/button'
 import MarketingMobileNav from './marketing-mobile-nav'
 import { MarketingNavLinks } from './marketing-nav-links'
 
@@ -41,12 +42,12 @@ export function MarketingHeader({ scroll = true, user }: MarketingHeaderProps) {
         </div>
         <div className="flex items-center gap-6">
           {user ? (
-            <Button>Dashboard</Button>
+            <SignOutButton />
           ) : (
             <Link
               href="/login"
               className={cn(
-                buttonVariants({ variant: 'default' }),
+                buttonVariants({ variant: 'default', size: 'sm' }),
                 'font-bold',
               )}
             >
