@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { PlayCircle } from 'lucide-react'
 
 import marketingConfig from '@/config/marketing'
+import { auth } from '@/lib/auth'
 import {
   Accordion,
   AccordionContent,
@@ -13,7 +14,10 @@ import { Container } from '@/components/container'
 import { FeatureCard } from '@/components/feature-card'
 import { InfiniteMovingCards } from '@/components/infinite-moving-cards'
 
-export default function Index() {
+export default async function Index() {
+  const session = await auth()
+  console.log(session?.user)
+
   return (
     <>
       <section>
