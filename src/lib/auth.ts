@@ -2,7 +2,7 @@ import { db } from '@/db'
 import { env } from '@/env.mjs'
 import { DrizzleAdapter } from '@auth/drizzle-adapter'
 import NextAuth, { type NextAuthConfig } from 'next-auth'
-import GitHubProvider from 'next-auth/providers/GitHub'
+import GitHubProvider from 'next-auth/providers/github'
 
 export const authConfig = {
   adapter: DrizzleAdapter(db),
