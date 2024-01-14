@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { User } from '@auth/core/types'
 
 import marketingConfig from '@/config/marketing'
 import { cn } from '@/lib/utils'
@@ -8,11 +9,16 @@ import useScroll from '@/hooks/use-scroll'
 
 import { Container } from '../container'
 import { Logo } from '../logo'
-import { buttonVariants } from '../ui/button'
+import { Button, buttonVariants } from '../ui/button'
 import MarketingMobileNav from './marketing-mobile-nav'
 import { MarketingNavLinks } from './marketing-nav-links'
 
-export function MarketingHeader({ scroll = true }) {
+interface MarketingHeaderProps {
+  scroll?: boolean
+  user: User | undefined
+}
+
+export function MarketingHeader({ scroll = true, user }: MarketingHeaderProps) {
   const scrolled = useScroll(50)
 
   return (
@@ -34,12 +40,19 @@ export function MarketingHeader({ scroll = true }) {
           <MarketingNavLinks navItems={marketingConfig.navItems} />
         </div>
         <div className="flex items-center gap-6">
-          <Link
-            href="/login"
-            className={cn(buttonVariants({ variant: 'default' }), 'font-bold')}
-          >
-            Sign In
-          </Link>
+          {user ? (
+            <Button>Dashboard</Button>
+          ) : (
+            <Link
+              href="/login"
+              className={cn(
+                buttonVariants({ variant: 'default' }),
+                'font-bold',
+              )}
+            >
+              Sign In
+            </Link>
+          )}
         </div>
       </Container>
     </header>

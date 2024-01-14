@@ -6,6 +6,7 @@ import GitHubProvider from 'next-auth/providers/github'
 
 export const authConfig = {
   adapter: DrizzleAdapter(db),
+  session: { strategy: 'jwt' },
   providers: [
     GitHubProvider({
       clientId: env.AUTH_GITHUB_ID,
@@ -13,9 +14,23 @@ export const authConfig = {
     }),
   ],
   callbacks: {
-    async session({ session, user }) {
-      session.user.id = user.id
-      return session
+    jwt: async ({ token, user }) => {
+      if (user) {
+        return {
+          ...token,
+          id: user.id,
+        }
+      }
+      return token
+    },
+    session: async ({ session, token }) => {
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.id as string,
+        },
+      }
     },
   },
 } satisfies NextAuthConfig

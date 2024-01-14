@@ -16,8 +16,7 @@ import { InfiniteMovingCards } from '@/components/infinite-moving-cards'
 
 export default async function Index() {
   const session = await auth()
-  console.log(session?.user)
-
+  console.log(session)
   return (
     <>
       <section>
