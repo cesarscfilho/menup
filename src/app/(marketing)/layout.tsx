@@ -1,7 +1,8 @@
-import { MarketingHeader } from '@/components/layout/marketing-header'
-import { MarketingFooter } from '@/components/layout/marketing-footer'
-import { Background } from '@/components/background'
 import { db } from '@/db'
+
+import { Background } from '@/components/background'
+import { MarketingFooter } from '@/components/layout/marketing-footer'
+import { MarketingHeader } from '@/components/layout/marketing-header'
 
 interface LayoutProps {
   children: React.ReactNode

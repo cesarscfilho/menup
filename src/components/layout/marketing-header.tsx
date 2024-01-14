@@ -3,13 +3,14 @@
 import Link from 'next/link'
 
 import marketingConfig from '@/config/marketing'
-import useScroll from '@/hooks/use-scroll'
 import { cn } from '@/lib/utils'
+import useScroll from '@/hooks/use-scroll'
+
 import { Container } from '../container'
 import { Logo } from '../logo'
+import { buttonVariants } from '../ui/button'
 import MarketingMobileNav from './marketing-mobile-nav'
 import { MarketingNavLinks } from './marketing-nav-links'
-import { buttonVariants } from '../ui/button'
 
 export function MarketingHeader({ scroll = true }) {
   const scrolled = useScroll(50)
@@ -19,7 +20,7 @@ export function MarketingHeader({ scroll = true }) {
       className={`sticky top-0 z-40 bg-transparent transition-all duration-100 ${
         scroll
           ? scrolled
-            ? 'border-border/40 bg-background/95 supports-[backdrop-filter]:bg-background/70 border-b backdrop-blur'
+            ? 'border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/70'
             : 'bg-background/0'
           : null
       }`}

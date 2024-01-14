@@ -4,13 +4,14 @@ import { GitHubLogoIcon } from '@radix-ui/react-icons'
 import marketingConfig from '@/config/marketing'
 import siteConfig from '@/config/site'
 import { cn } from '@/lib/utils'
+
 import { Logo } from '../logo'
 import { ToggleTheme } from '../toggle-theme'
 import { buttonVariants } from '../ui/button'
 
 export function MarketingFooter() {
   return (
-    <footer className="bg-background w-full border-t">
+    <footer className="w-full border-t bg-background">
       <div className="container py-8">
         <section className="py-6 md:py-8">
           <Logo />
@@ -26,7 +27,7 @@ export function MarketingFooter() {
                       href={link.href}
                       target={link?.external ? '_blank' : undefined}
                       rel={link?.external ? 'noreferrer' : undefined}
-                      className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+                      className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                     >
                       {link.title}
                       <span className="sr-only">{link.title}</span>
@@ -38,13 +39,13 @@ export function MarketingFooter() {
           ))}
         </section>
         <section className="flex items-center border-t pt-8">
-          <div className="text-muted-foreground flex-1 text-left text-sm leading-loose">
+          <div className="flex-1 text-left text-sm leading-loose text-muted-foreground">
             Built by{' '}
             <Link
               href="/"
               target="_blank"
               rel="noreferrer"
-              className="hover:text-foreground font-semibold transition-colors"
+              className="font-semibold transition-colors hover:text-foreground"
             >
               Cesar Silva
             </Link>

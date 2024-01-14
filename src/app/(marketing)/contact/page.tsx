@@ -1,18 +1,18 @@
-import { Container } from '@/components/container'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import { Container } from '@/components/container'
 
 export default function ContactPage() {
   return (
     <Container className="mb-20 space-y-12">
-      <div className="mx-auto text-center sm:max-w-xl mt-10">
+      <div className="mx-auto mt-10 text-center sm:max-w-xl">
         <h1 className="text-5xl font-extrabold leading-[1.15] sm:leading-[1.15]">
           <span className="text-cyan-400">Doubt? </span>contact us
         </h1>
-        <p className="text-muted-foreground mt-5 sm:text-xl">
+        <p className="mt-5 text-muted-foreground sm:text-xl">
           Lorem ipsum dolor sit amet consectetur adipisicing elit.
         </p>
       </div>

@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -7,7 +9,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import Link from 'next/link'
 
 export default function RegisterPage() {
   return (
@@ -27,14 +28,14 @@ export default function RegisterPage() {
               <Button className="w-full">Continue with Google</Button>
             </CardContent>
             <CardFooter>
-              <p className="text-muted-foreground mx-auto text-sm">
+              <p className="mx-auto text-sm text-muted-foreground">
                 Already have an account? <Link href={'/login'}>Sign in.</Link>
               </p>
             </CardFooter>
           </Card>
         </div>
       </div>
-      <div className="border-border bg-background/10 hidden h-full flex-col justify-center space-y-12 overflow-hidden border-l shadow backdrop-blur md:flex"></div>
+      <div className="hidden h-full flex-col justify-center space-y-12 overflow-hidden border-l border-border bg-background/10 shadow backdrop-blur md:flex"></div>
     </div>
   )
 }

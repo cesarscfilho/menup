@@ -1,18 +1,17 @@
 import Image from 'next/image'
-
 import { PlayCircle } from 'lucide-react'
 
-import { Container } from '@/components/container'
-import { FeatureCard } from '@/components/feature-card'
-import { InfiniteMovingCards } from '@/components/infinite-moving-cards'
 import marketingConfig from '@/config/marketing'
-import { Button } from '@/components/ui/button'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
+import { Button } from '@/components/ui/button'
+import { Container } from '@/components/container'
+import { FeatureCard } from '@/components/feature-card'
+import { InfiniteMovingCards } from '@/components/infinite-moving-cards'
 
 export default function Index() {
   return (
@@ -28,7 +27,7 @@ export default function Index() {
               Menup
             </span>
           </h1>
-          <p className="text-muted-foreground mt-5 sm:text-2xl">
+          <p className="mt-5 text-muted-foreground sm:text-2xl">
             Effortless online food delivery at your fingertips.
           </p>
           <div className="mx-auto mt-5 flex max-w-fit space-x-4">
@@ -50,7 +49,7 @@ export default function Index() {
             </h2>
           </div>
           <div className="flow-root">
-            <div className="bg-muted-foreground/5 ring-border/10 -m-2 rounded-xl p-2 ring-1 ring-inset lg:-m-4 lg:rounded-2xl lg:p-4">
+            <div className="-m-2 rounded-xl bg-muted-foreground/5 p-2 ring-1 ring-inset ring-border/10 lg:-m-4 lg:rounded-2xl lg:p-4">
               <Image
                 src="/dashboard-dark.png"
                 alt="product preview"
@@ -94,7 +93,7 @@ export default function Index() {
         </Container>
       </section>
       <section id="numberOfUsers">
-        <div className="md:py-15 border-border border-y py-10  backdrop-blur-[90px]">
+        <div className="md:py-15 border-y border-border py-10  backdrop-blur-[90px]">
           <div className="mx-auto grid w-full max-w-screen-xl gap-y-4 px-2.5 md:grid-cols-3 md:gap-y-0 lg:px-20">
             {marketingConfig.numberOfUsers.map((item) => (
               <div
@@ -126,7 +125,7 @@ export default function Index() {
           />
         </div>
       </section>
-      <section id="faq" className="border-border border-t backdrop-blur-[50px]">
+      <section id="faq" className="border-t border-border backdrop-blur-[50px]">
         <Container className="max-w-screen-lg py-20">
           <div className="grid space-y-6">
             <div className="text-start">
