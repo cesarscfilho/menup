@@ -17,7 +17,7 @@ export function FeatureCard({
   description: string
 }) {
   return (
-    <Card className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-background shadow-sm transition-colors hover:bg-secondary/95">
+    <Card className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-background shadow-sm transition-colors">
       <CardHeader>
         <div className="grid h-11 w-11 place-items-center rounded-full border-2">
           <CheckIcon className="h-5 w-5" aria-hidden="true" />

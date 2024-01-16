@@ -25,7 +25,7 @@ export default function RegisterPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="grid gap-4 px-5 py-7 backdrop-blur">
-              <Button className="w-full">Continue with Google</Button>
+              <Button className="w-full">Continue with Github</Button>
             </CardContent>
             <CardFooter>
               <p className="mx-auto text-sm text-muted-foreground">

@@ -20,10 +20,9 @@ export default async function Index() {
   return (
     <>
       <section>
-        <div className="mx-auto mt-20 max-w-md px-2.5 text-center sm:max-w-xl sm:px-0 md:mt-24">
-          <h1 className="mt-5 text-4xl font-extrabold leading-[1.15] sm:text-6xl sm:leading-[1.15]">
-            Digital menu
-            <br />
+        <div className="mx-auto mt-20 max-w-md px-2.5 text-center sm:max-w-2xl sm:px-0 md:mt-24">
+          <h1 className="mt-5 text-4xl font-extrabold uppercase leading-[1.15] sm:text-6xl sm:leading-[1.15]">
+            Digital{' '}
             <span
               className={`${marketingConfig.gradient} bg-clip-text text-transparent`}
             >
@@ -44,7 +43,7 @@ export default async function Index() {
       </section>
 
       <section>
-        <div className="mx-auto max-w-6xl space-y-16 px-6 py-20 pb-10">
+        <div className="mx-auto max-w-7xl space-y-16 px-6 py-20 pb-10">
           <div className="text-center">
             <h2 className="text-3xl font-extrabold leading-[1.15] lg:text-4xl">
               Design modern and{' '}
