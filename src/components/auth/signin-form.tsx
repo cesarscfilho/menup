@@ -26,7 +26,15 @@ export default function SignInForm() {
           'Continue with Github'
         )}
       </Button>
-      <Button disabled variant="outline" className="w-full">
+      <Button
+        onClick={() => {
+          signIn('resend', {
+            email: 'cesar@gmail.com',
+          })
+        }}
+        variant="outline"
+        className="w-full"
+      >
         Continue with Email
       </Button>
     </div>
