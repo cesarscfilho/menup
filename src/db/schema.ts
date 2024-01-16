@@ -1,8 +1,12 @@
 import type { AdapterAccount } from '@auth/core/adapters'
+import { relations } from 'drizzle-orm'
 import {
+  boolean,
   int,
   mysqlTable,
   primaryKey,
+  serial,
+  text,
   timestamp,
   varchar,
 } from 'drizzle-orm/mysql-core'
@@ -17,6 +21,10 @@ export const users = mysqlTable('user', {
   }).defaultNow(),
   image: varchar('image', { length: 255 }),
 })
+
+export const usersRelations = relations(users, ({ many }) => ({
+  stores: many(stores),
+}))
 
 export const accounts = mysqlTable(
   'account',
@@ -63,3 +71,17 @@ export const verificationTokens = mysqlTable(
     compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
   }),
 )
+
+export const stores = mysqlTable('stores', {
+  id: serial('id').primaryKey(),
+  userId: varchar('userId', { length: 191 }).notNull(),
+  name: varchar('name', { length: 191 }).notNull(),
+  description: text('description'),
+  active: boolean('active').notNull().default(false),
+  createdAt: timestamp('createdAt').defaultNow(),
+  updatedAt: timestamp('updatedAt').onUpdateNow(),
+})
+
+export const storesRelations = relations(stores, ({ one }) => ({
+  user: one(users, { fields: [stores.userId], references: [users.id] }),
+}))

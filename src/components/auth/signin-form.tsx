@@ -15,7 +15,7 @@ export default function SignInForm() {
         onClick={() => {
           setClickedGoogle(true)
           signIn('github', {
-            callbackUrl: '/',
+            callbackUrl: '/dashboard',
           })
         }}
         className="w-full"
