@@ -23,7 +23,6 @@ export async function DashboardHeader() {
     .from(stores)
     .where(eq(stores.userId, session.user.id))
 
-  console.log(strs)
   return (
     <div className="sticky left-0 right-0 top-0 z-20 border-b border-border bg-background">
       <Container>

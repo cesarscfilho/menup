@@ -20,13 +20,27 @@ export function DashboardTabs() {
 
   let tabs
 
-  console.log(pathname)
   if (storeId) {
     tabs = [
       {
         title: 'Store',
         href: `/dashboard/${storeId}`,
         isActive: pathname === `/dashboard/${storeId}`,
+      },
+      {
+        title: 'Orders',
+        href: `/dashboard/${storeId}/orders`,
+        isActive: pathname === `/dashboard/${storeId}/orders`,
+      },
+      {
+        title: 'Products',
+        href: `/dashboard/${storeId}/products`,
+        isActive: pathname === `/dashboard/${storeId}/orders`,
+      },
+      {
+        title: 'Notifications',
+        href: `/dashboard/${storeId}/notifications`,
+        isActive: pathname === `/dashboard/${storeId}/notifications`,
       },
       {
         title: 'Settings',
