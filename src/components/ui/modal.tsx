@@ -54,16 +54,16 @@ export function Modal({
           }
         }}
       >
-        <Drawer.Overlay className="fixed inset-0 z-40 bg-gray-100 bg-opacity-10 backdrop-blur" />
+        <Drawer.Overlay className="fixed inset-0 z-40 bg-background bg-opacity-10 backdrop-blur" />
         <Drawer.Portal>
           <Drawer.Content
             className={cn(
-              'fixed bottom-0 left-0 right-0 z-50 mt-24 rounded-t-[10px] border-t border-gray-200 bg-white',
+              'fixed bottom-0 left-0 right-0 z-50 mt-24 rounded-t-[10px] border-t border-border bg-background',
               className,
             )}
           >
             <div className="sticky top-0 z-20 flex w-full items-center justify-center rounded-t-[10px] bg-inherit">
-              <div className="my-3 h-1 w-12 rounded-full bg-gray-300" />
+              <div className="my-3 h-1 w-12 rounded-full bg-muted-foreground" />
             </div>
             {children}
           </Drawer.Content>
@@ -85,13 +85,13 @@ export function Modal({
         <Dialog.Overlay
           // for detecting when there's an active opened modal
           id="modal-backdrop"
-          className="animate-fade-in fixed inset-0 z-40 bg-gray-100 bg-opacity-50 backdrop-blur-md"
+          className="animate-fade-in fixed inset-0 z-40 bg-opacity-50 backdrop-blur-md"
         />
         <Dialog.Content
           onOpenAutoFocus={(e) => e.preventDefault()}
           onCloseAutoFocus={(e) => e.preventDefault()}
           className={cn(
-            'animate-scale-in fixed inset-0 z-40 m-auto max-h-fit w-full max-w-md overflow-hidden border border-gray-200 bg-white p-0 shadow-xl md:rounded-2xl',
+            'animate-scale-in fixed inset-0 z-40 m-auto max-h-fit w-full max-w-md overflow-hidden border border-border bg-background p-0 shadow-xl md:rounded-2xl',
             className,
           )}
         >
