@@ -4,6 +4,8 @@ import { DrizzleAdapter } from '@auth/drizzle-adapter'
 import NextAuth, { type NextAuthConfig } from 'next-auth'
 import GitHubProvider from 'next-auth/providers/github'
 
+import { sendVerificationEmail } from './mail'
+
 export const authConfig: NextAuthConfig = {
   adapter: DrizzleAdapter(db),
   session: { strategy: 'jwt' },
@@ -18,7 +20,11 @@ export const authConfig: NextAuthConfig = {
       name: 'Email',
       options: {},
       sendVerificationRequest: async ({ url, identifier }) => {
-        console.log(url, identifier)
+        if (env.NODE_ENV === 'development') {
+          console.log(identifier, url)
+        } else {
+          await sendVerificationEmail(identifier, url)
+        }
       },
     },
     GitHubProvider({

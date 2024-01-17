@@ -8,9 +8,13 @@ export const env = createEnv({
    * Will throw if you access these variables on the client.
    */
   server: {
+    NODE_ENV: z
+      .enum(['development', 'test', 'production'])
+      .default('development'),
     DATABASE_URL: z.string().url(),
     AUTH_GITHUB_ID: z.string().min(1),
     AUTH_GITHUB_SECRET: z.string().min(1),
+    RESEND_API_KEY: z.string().min(1),
   },
   /*
    * Environment variables available on the client (and server).
@@ -25,8 +29,10 @@ export const env = createEnv({
    * 💡 You'll get type errors if not all variables from `server` & `client` are included here.
    */
   runtimeEnv: {
+    NODE_ENV: process.env.NODE_ENV,
     DATABASE_URL: process.env.DATABASE_URL,
     AUTH_GITHUB_ID: process.env.AUTH_GITHUB_ID,
     AUTH_GITHUB_SECRET: process.env.AUTH_GITHUB_SECRET,
+    RESEND_API_KEY: process.env.RESEND_API_KEY,
   },
 })

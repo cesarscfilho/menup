@@ -3,6 +3,7 @@
 import React, { useTransition } from 'react'
 import { checkEmailExist } from '@/actions/auth'
 import { signIn } from 'next-auth/react'
+import { toast } from 'sonner'
 
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
@@ -37,9 +38,11 @@ export default function SignInForm() {
                 await signIn('email', {
                   email,
                   redirect: false,
-                  callbackUrl: '/',
+                  callbackUrl: '/dashboard',
                 })
               }
+
+              toast.error('No account found with that email address.')
             } catch (err) {
               // TODO: fix error Failed to construct 'URL': Invalid base URL at signIn
               console.log(err)

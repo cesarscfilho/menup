@@ -6,6 +6,7 @@ import '@/styles/globals.css'
 
 import siteConfig from '@/config/site'
 import { cn } from '@/lib/utils'
+import { Toaster } from '@/components/ui/sonner'
 import { ThemeProvider } from '@/components/theme-provider'
 
 import Providers from './providers'
@@ -35,6 +36,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             {children}
+            <Toaster />
           </ThemeProvider>
         </Providers>
       </body>
