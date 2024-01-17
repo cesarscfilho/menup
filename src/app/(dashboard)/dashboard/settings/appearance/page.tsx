@@ -1,14 +1,14 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { AccountForm } from '@/components/forms/settings/account-form'
+import { AppearanceForm } from '@/components/forms/settings/appearance-form'
 
-export default function SettingsPage() {
+export default function AppearanceSettingsPage() {
   return (
     <Card>
       <CardHeader>
         <CardTitle>Appearence settings</CardTitle>
       </CardHeader>
       <CardContent>
-        <AccountForm />
+        <AppearanceForm />
       </CardContent>
     </Card>
   )
