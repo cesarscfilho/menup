@@ -1,11 +1,13 @@
 'use client'
 
 import * as React from 'react'
+import Link from 'next/link'
 import {
   CaretSortIcon,
   CheckIcon,
   PlusCircledIcon,
 } from '@radix-ui/react-icons'
+import { User } from 'next-auth'
 
 import { cn } from '@/lib/utils'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -43,42 +45,51 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 
-const groups = [
-  {
-    label: 'Personal Account',
-    teams: [
-      {
-        label: 'Alicia Koch',
-        value: 'personal',
-      },
-    ],
-  },
-  {
-    label: 'Teams',
-    teams: [
-      {
-        label: 'Acme Inc.',
-        value: 'acme-inc',
-      },
-      {
-        label: 'Monsters Inc.',
-        value: 'monsters',
-      },
-    ],
-  },
-]
-
-type Team = (typeof groups)[number]['teams'][number]
-
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<typeof PopoverTrigger>
 
-type TeamSwitcherProps = PopoverTriggerProps
+type TeamSwitcherProps = PopoverTriggerProps & {
+  user: Pick<User, 'id' | 'name' | 'image'>
+  stores: {
+    id: number
+    name: string
+  }[]
+}
 
-export default function TeamSwitcher({ className }: TeamSwitcherProps) {
+export default function StoreSwitcher({
+  className,
+  user,
+  stores,
+}: TeamSwitcherProps) {
   const [open, setOpen] = React.useState(false)
   const [showNewTeamDialog, setShowNewTeamDialog] = React.useState(false)
-  const [selectedTeam, setSelectedTeam] = React.useState<Team>(
-    groups[0].teams[0],
+
+  const items = [
+    {
+      label: 'Personal Account',
+      items: [
+        {
+          id: user.id,
+          name: user.name,
+          href: '/dashboard',
+        },
+      ],
+    },
+    {
+      label: 'Stores',
+      items: stores.map((store) => {
+        return {
+          id: store.id,
+          name: store.name,
+          href: `/dashboard/${store.id}`,
+        }
+      }),
+    },
+  ]
+
+  type Items = (typeof items)[number]['items'][number]
+
+  const [selectedTeam, setSelectedTeam] = React.useState<Items>(
+    items[0].items[0],
   )
 
   return (
@@ -94,13 +105,13 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
           >
             <Avatar className="mr-2 h-5 w-5">
               <AvatarImage
-                src={`https://avatar.vercel.sh/${selectedTeam.value}.png`}
-                alt={selectedTeam.label}
+                src={user.image ?? `https://avatar.vercel.sh/04.png`}
+                alt={selectedTeam.name ?? ''}
                 className="grayscale"
               />
               <AvatarFallback>SC</AvatarFallback>
             </Avatar>
-            {selectedTeam.label}
+            {selectedTeam.name}
             <CaretSortIcon className="ml-auto h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
@@ -109,35 +120,37 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
             <CommandList>
               <CommandInput placeholder="Search team..." />
               <CommandEmpty>No team found.</CommandEmpty>
-              {groups.map((group) => (
+              {items.map((group) => (
                 <CommandGroup key={group.label} heading={group.label}>
-                  {group.teams.map((team) => (
-                    <CommandItem
-                      key={team.value}
-                      onSelect={() => {
-                        setSelectedTeam(team)
-                        setOpen(false)
-                      }}
-                      className="text-sm"
-                    >
-                      <Avatar className="mr-2 h-5 w-5">
-                        <AvatarImage
-                          src={`https://avatar.vercel.sh/${team.value}.png`}
-                          alt={team.label}
-                          className="grayscale"
+                  {group.items.map((store) => (
+                    <Link href={store.href} key={store.id}>
+                      <CommandItem
+                        onSelect={() => {
+                          setSelectedTeam(store)
+                          console.log(store)
+                          setOpen(false)
+                        }}
+                        className="text-sm"
+                      >
+                        <Avatar className="mr-2 h-5 w-5">
+                          <AvatarImage
+                            src={`https://avatar.vercel.sh/01.png`}
+                            alt={store.name ?? ''}
+                            className="grayscale"
+                          />
+                          <AvatarFallback>SC</AvatarFallback>
+                        </Avatar>
+                        {store.name}
+                        <CheckIcon
+                          className={cn(
+                            'ml-auto h-4 w-4',
+                            selectedTeam.id === store.id
+                              ? 'opacity-100'
+                              : 'opacity-0',
+                          )}
                         />
-                        <AvatarFallback>SC</AvatarFallback>
-                      </Avatar>
-                      {team.label}
-                      <CheckIcon
-                        className={cn(
-                          'ml-auto h-4 w-4',
-                          selectedTeam.value === team.value
-                            ? 'opacity-100'
-                            : 'opacity-0',
-                        )}
-                      />
-                    </CommandItem>
+                      </CommandItem>
+                    </Link>
                   ))}
                 </CommandGroup>
               ))}
@@ -147,10 +160,12 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
               <CommandGroup>
                 <DialogTrigger asChild>
                   <CommandItem
+                    disabled={true}
                     onSelect={() => {
                       setOpen(false)
                       setShowNewTeamDialog(true)
                     }}
+                    className="text-muted-foreground"
                   >
                     <PlusCircledIcon className="mr-2 h-5 w-5" />
                     Create Team
@@ -163,7 +178,7 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
       </Popover>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create team</DialogTitle>
+          <DialogTitle>Create store</DialogTitle>
           <DialogDescription>
             Add a new team to manage products and customers.
           </DialogDescription>
