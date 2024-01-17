@@ -1,42 +1,79 @@
 'use client'
 
-import React from 'react'
-import { Loader2 } from 'lucide-react'
+import React, { useTransition } from 'react'
+import { checkEmailExist } from '@/actions/auth'
 import { signIn } from 'next-auth/react'
 
 import { Button } from '../ui/button'
+import { Input } from '../ui/input'
 
 export default function SignInForm() {
-  const [clickedGoogle, setClickedGoogle] = React.useState(false)
+  const [email, setEmail] = React.useState('')
+  const [isPending, startTransition] = useTransition()
+  const [showEmailOption, setShowEmailOption] = React.useState(false)
 
   return (
     <div className="space-y-3">
       <Button
         onClick={() => {
-          setClickedGoogle(true)
           signIn('github', {
             callbackUrl: '/dashboard',
           })
         }}
         className="w-full"
       >
-        {clickedGoogle ? (
-          <Loader2 className="h-4 w-4 animate-spin" />
-        ) : (
-          'Continue with Github'
-        )}
+        Continue with Github
       </Button>
-      <Button
-        onClick={() => {
-          signIn('resend', {
-            email: 'cesar@gmail.com',
+
+      <form
+        className="space-y-3"
+        onSubmit={(e) => {
+          e.preventDefault()
+          startTransition(async () => {
+            try {
+              const existingEmail = await checkEmailExist(email)
+
+              if (existingEmail) {
+                await signIn('email', {
+                  email,
+                  redirect: false,
+                  callbackUrl: '/',
+                })
+              }
+            } catch (err) {
+              // TODO: fix error Failed to construct 'URL': Invalid base URL at signIn
+              console.log(err)
+            }
           })
         }}
-        variant="outline"
-        className="w-full"
       >
-        Continue with Email
-      </Button>
+        {showEmailOption ? (
+          <Input
+            id="email"
+            type="email"
+            placeholder="example@gmail.com"
+            autoComplete="email"
+            autoFocus
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        ) : null}
+
+        <Button
+          {...(!showEmailOption && {
+            type: 'button',
+            onClick: (e) => {
+              e.preventDefault()
+              setShowEmailOption(true)
+            },
+          })}
+          variant="outline"
+          className="w-full"
+        >
+          {!isPending ? 'Continue with Email' : 'Loading'}
+        </Button>
+      </form>
     </div>
   )
 }
