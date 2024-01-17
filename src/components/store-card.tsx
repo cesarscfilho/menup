@@ -20,8 +20,8 @@ interface StoreCardProps {
 
 export function StoreCard({ title }: StoreCardProps) {
   return (
-    <Link href="/dashboard" className="group">
-      <Card className="group-hover:border-primary">
+    <Link href="/dashboard/123" className="group">
+      <Card className="shadow-sm group-hover:border-primary">
         <CardHeader className="p">
           <CardTitle className="flex items-center gap-2">
             <Avatar>
