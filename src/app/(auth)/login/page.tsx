@@ -23,8 +23,11 @@ export default function LoginPage() {
         <SignInForm />
       </CardContent>
       <CardFooter>
-        <p className="mx-auto text-sm text-muted-foreground">
-          Don&apos;t have an account? <Link href={'/register'}>Sign up.</Link>
+        <p className="mx-auto text-sm font-semibold">
+          Don&apos;t have an account?{' '}
+          <Link className="font-normal" href={'/register'}>
+            Sign up.
+          </Link>
         </p>
       </CardFooter>
     </Card>

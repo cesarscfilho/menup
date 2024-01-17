@@ -61,7 +61,7 @@ export async function UserNav() {
           <DropdownMenuItem asChild>
             <Link href={'/dashboard/settings'}>
               Settings
-              <DropdownMenuShortcut>⌘</DropdownMenuShortcut>
+              <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>

@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import { PlayCircle } from 'lucide-react'
 
 import marketingConfig from '@/config/marketing'
 import { auth } from '@/lib/auth'
@@ -12,6 +11,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/container'
 import { FeatureCard } from '@/components/feature-card'
+import { Icons } from '@/components/icons'
 import { InfiniteMovingCards } from '@/components/infinite-moving-cards'
 
 export default async function Index() {
@@ -34,7 +34,7 @@ export default async function Index() {
           </p>
           <div className="mx-auto mt-5 flex max-w-fit space-x-4">
             <Button variant="outline">
-              <PlayCircle className="mr-2 h-4 w-4" />
+              <Icons.playcircle className="mr-2 h-4 w-4" />
               Demo
             </Button>
             <Button>Start for free</Button>

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useTransition } from 'react'
+import React from 'react'
 import { checkEmailExist } from '@/actions/auth'
 import { signIn } from 'next-auth/react'
 import { toast } from 'sonner'
@@ -10,7 +10,7 @@ import { Input } from '../ui/input'
 
 export default function SignInForm() {
   const [email, setEmail] = React.useState('')
-  const [isPending, startTransition] = useTransition()
+  const [isPending, startTransition] = React.useTransition()
   const [showEmailOption, setShowEmailOption] = React.useState(false)
 
   return (
@@ -35,14 +35,17 @@ export default function SignInForm() {
               const existingEmail = await checkEmailExist(email)
 
               if (existingEmail) {
-                await signIn('email', {
+                signIn('email', {
                   email,
                   redirect: false,
                   callbackUrl: '/dashboard',
                 })
-              }
 
-              toast.error('No account found with that email address.')
+                setEmail('')
+                toast.success('Email sent - Check your checkbox')
+              } else {
+                toast.error('No account found with that email address.')
+              }
             } catch (err) {
               // TODO: fix error Failed to construct 'URL': Invalid base URL at signIn
               console.log(err)
@@ -73,8 +76,9 @@ export default function SignInForm() {
           })}
           variant="outline"
           className="w-full"
+          isLoading={isPending}
         >
-          {!isPending ? 'Continue with Email' : 'Loading'}
+          Continue with Email
         </Button>
       </form>
     </div>

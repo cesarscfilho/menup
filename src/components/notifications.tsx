@@ -1,6 +1,4 @@
 import Link from 'next/link'
-import { BellIcon } from '@radix-ui/react-icons'
-import { Settings } from 'lucide-react'
 
 import { Icons } from './icons'
 import { Button } from './ui/button'
@@ -16,7 +14,7 @@ export async function Notifications() {
           className="relative h-9 w-9 p-0 text-secondary-foreground"
           size="sm"
         >
-          <BellIcon className="h-4 w-4" />
+          <Icons.bell className="h-4 w-4" />
           <span className="absolute -right-0.5 -top-0.5 flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
             <span className="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
@@ -28,7 +26,7 @@ export async function Notifications() {
         <div className="flex items-center justify-between">
           <span className="text-sm font-medium">Notifications</span>
           <Link className="text-muted-foreground hover:text-primary" href="/">
-            <Settings className="h-4 w-4" />
+            <Icons.settings className="h-4 w-4" />
           </Link>
         </div>
 
