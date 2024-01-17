@@ -1,10 +1,10 @@
 import React from 'react'
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Container } from '@/components/container'
 import TeamSwitcher from '@/components/dashboard/team-switcher'
 import { Notifications } from '@/components/notifications'
 import { DashboardTabs } from '@/components/pagers/dashboard-tabs'
+import { UserNav } from '@/components/user-nav'
 
 interface DashboardLayoutProps {
   children: React.ReactNode
@@ -19,13 +19,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             <TeamSwitcher />
             <div className="ml-auto flex items-center gap-4">
               <Notifications />
-              <Avatar>
-                <AvatarImage
-                  src="https://github.com/shadcn.png"
-                  alt="@shadcn"
-                />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
+              <UserNav />
             </div>
           </div>
           <DashboardTabs />
