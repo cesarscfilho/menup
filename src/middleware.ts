@@ -9,9 +9,11 @@ import {
 
 import { authConfig } from './lib/auth'
 
+// import { conn } from './lib/planetscale'
+
 const { auth } = NextAuth(authConfig)
 
-export default auth((req) => {
+export default auth(async (req) => {
   const { nextUrl } = req
   const isLoggedIn = !!req.auth
 
@@ -33,6 +35,14 @@ export default auth((req) => {
   if (!isLoggedIn && !isPublicRoute) {
     return Response.redirect(new URL('/login', nextUrl))
   }
+
+  // const existingProject = await conn
+  //   ?.execute('SELECT id FROM stores WHERE userId = ?', [req.auth?.user.id])
+  //   .then((res) => res.rows[0])
+
+  // if (!existingProject) {
+  //   return Response.redirect(new URL('/onboarding', nextUrl))
+  // }
 
   return null
 })
