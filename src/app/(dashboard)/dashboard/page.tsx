@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/container'
+import { StoreCard } from '@/components/store-card'
 
 export default function DashboardIndex() {
   return (
@@ -13,7 +14,11 @@ export default function DashboardIndex() {
         </Container>
       </div>
       <Container>
-        <div className="my-10 grid flex-1 grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-3"></div>
+        <div className="my-10 grid flex-1 grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-3">
+          <StoreCard title="Loja 1" />
+          <StoreCard title="Loja 2" />
+          <StoreCard title="Loja 3" />
+        </div>
       </Container>
     </>
   )
