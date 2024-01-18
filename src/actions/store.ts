@@ -1,12 +1,31 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
 import { db } from '@/db'
 import { stores } from '@/db/schema'
 import { eq } from 'drizzle-orm'
 import { z } from 'zod'
 
 import { storeSchema } from '@/lib/validations/store'
+
+export async function deleteStoreAction(storeId: number) {
+  const store = await db.query.stores.findFirst({
+    where: eq(stores.id, storeId),
+  })
+
+  if (!store) {
+    throw new Error('Store not exists.')
+  }
+
+  await db.delete(stores).where(eq(stores.id, store.id))
+
+  // TODO: delete all products
+
+  const path = '/dashboard'
+  revalidatePath(path)
+  redirect(path)
+}
 
 export async function createStoreAction(
   inputs: z.infer<typeof storeSchema> & {

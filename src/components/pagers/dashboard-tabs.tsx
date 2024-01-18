@@ -3,9 +3,9 @@
 import Link from 'next/link'
 import {
   useParams,
-  usePathname,
   useRouter,
   useSelectedLayoutSegment,
+  useSelectedLayoutSegments,
 } from 'next/navigation'
 import { Tabs, TabsList, TabsTrigger } from '@radix-ui/react-tabs'
 
@@ -15,37 +15,37 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 export function DashboardTabs() {
   const router = useRouter()
   const segment = useSelectedLayoutSegment()
-  const pathname = usePathname()
+  const pathname = useSelectedLayoutSegments()
+
   const { storeId } = useParams() as { storeId?: string }
 
   let tabs
-
   if (storeId) {
     tabs = [
       {
         title: 'Store',
         href: `/dashboard/${storeId}`,
-        isActive: pathname === `/dashboard/${storeId}`,
+        isActive: pathname[1] === undefined,
       },
       {
         title: 'Orders',
         href: `/dashboard/${storeId}/orders`,
-        isActive: pathname === `/dashboard/${storeId}/orders`,
+        isActive: pathname[1] === `orders`,
       },
       {
         title: 'Products',
         href: `/dashboard/${storeId}/products`,
-        isActive: pathname === `/dashboard/${storeId}/orders`,
+        isActive: pathname[1] === `products`,
       },
       {
         title: 'Notifications',
         href: `/dashboard/${storeId}/notifications`,
-        isActive: pathname === `/dashboard/${storeId}/notifications`,
+        isActive: pathname[1] === `notifications`,
       },
       {
         title: 'Settings',
         href: `/dashboard/${storeId}/settings`,
-        isActive: pathname === `/dashboard/${storeId}/settings`,
+        isActive: pathname[1] === `settings`,
       },
     ]
   } else {
