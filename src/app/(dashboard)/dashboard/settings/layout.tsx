@@ -26,7 +26,7 @@ interface SettingsLayoutProps {
 export default function SettingsLayout({ children }: SettingsLayoutProps) {
   return (
     <div>
-      <div className="flex h-32 items-center border-b bg-muted">
+      <div className="flex h-32 items-center border-b bg-muted/20">
         <Container className="w-full">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-semibold">Settings</h1>
