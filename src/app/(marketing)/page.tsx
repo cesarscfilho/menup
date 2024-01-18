@@ -18,7 +18,7 @@ export default async function Index() {
     <>
       <section>
         <div className="mx-auto mt-20 max-w-md px-2.5 text-center sm:max-w-2xl sm:px-0 md:mt-24">
-          <h1 className="mt-5 text-4xl font-extrabold uppercase leading-[1.15] sm:text-6xl sm:leading-[1.15]">
+          <h1 className="mt-5 text-4xl font-extrabold leading-[1.15] sm:text-6xl sm:leading-[1.15]">
             Digital{' '}
             <span
               className={`${marketingConfig.gradient} bg-clip-text text-transparent`}

@@ -33,7 +33,7 @@ export default function SettingsLayout({
   ]
   return (
     <div>
-      <div className="flex h-32 items-center border-b bg-muted">
+      <div className="flex h-32 items-center border-b bg-muted/20">
         <Container className="w-full">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-semibold">Settings</h1>
@@ -45,7 +45,7 @@ export default function SettingsLayout({
           <aside className="-mx-4 lg:w-1/5">
             <SidebarNav items={sidebarNavItems} />
           </aside>
-          <div className="flex-1 lg:max-w-2xl">{children}</div>
+          <div className="flex-1">{children}</div>
         </div>
       </Container>
     </div>
