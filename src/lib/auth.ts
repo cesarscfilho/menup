@@ -6,29 +6,29 @@ import { eq } from 'drizzle-orm'
 import NextAuth, { type NextAuthConfig } from 'next-auth'
 import Github from 'next-auth/providers/github'
 
-// import { sendVerificationEmail } from './mail'
+import { sendVerificationEmail } from './mail'
 
 export const authConfig: NextAuthConfig = {
   adapter: DrizzleAdapter(db),
   session: { strategy: 'jwt' },
   providers: [
-    // // Email provider
-    // {
-    //   id: 'email',
-    //   type: 'email',
-    //   from: 'asdf@asdf.ca',
-    //   server: {},
-    //   maxAge: 24 * 60 * 60,
-    //   name: 'Email',
-    //   options: {},
-    //   sendVerificationRequest: async ({ url, identifier }) => {
-    //     if (env.NODE_ENV === 'development') {
-    //       console.log(identifier, url)
-    //     } else {
-    //       await sendVerificationEmail(identifier, url)
-    //     }
-    //   },
-    // },
+    // Email provider
+    {
+      id: 'email',
+      type: 'email',
+      from: 'asdf@asdf.ca',
+      server: {},
+      maxAge: 24 * 60 * 60,
+      name: 'Email',
+      options: {},
+      sendVerificationRequest: async ({ url, identifier }) => {
+        if (env.NODE_ENV === 'development') {
+          console.log(identifier, url)
+        } else {
+          await sendVerificationEmail(identifier, url)
+        }
+      },
+    },
     Github({
       clientId: env.AUTH_GITHUB_ID,
       clientSecret: env.AUTH_GITHUB_SECRET,
