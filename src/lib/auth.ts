@@ -4,7 +4,7 @@ import { env } from '@/env.mjs'
 import { DrizzleAdapter } from '@auth/drizzle-adapter'
 import { eq } from 'drizzle-orm'
 import NextAuth, { type NextAuthConfig } from 'next-auth'
-import GitHubProvider from 'next-auth/providers/github'
+import Github from 'next-auth/providers/github'
 
 // import { sendVerificationEmail } from './mail'
 
@@ -29,7 +29,7 @@ export const authConfig: NextAuthConfig = {
     //     }
     //   },
     // },
-    GitHubProvider({
+    Github({
       clientId: env.AUTH_GITHUB_ID,
       clientSecret: env.AUTH_GITHUB_SECRET,
     }),

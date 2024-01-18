@@ -1,4 +1,6 @@
 import Image from 'next/image'
+import { db } from '@/db'
+import { users } from '@/db/schema'
 
 import marketingConfig from '@/config/marketing'
 import { auth } from '@/lib/auth'
@@ -15,8 +17,7 @@ import { Icons } from '@/components/icons'
 import { InfiniteMovingCards } from '@/components/infinite-moving-cards'
 
 export default async function Index() {
-  const session = await auth()
-  console.log(session)
+  const us = await db.select().from(users)
   return (
     <>
       <section>
