@@ -7,7 +7,7 @@ import { CreateStoreForm } from './forms/create-store-form'
 import { Button } from './ui/button'
 import { Modal } from './ui/modal'
 
-export default function CreateStoreButton({ userId }: { userId: string }) {
+export function CreateStoreButton({ userId }: { userId: string }) {
   const [isOpen, setIsOpen] = React.useState(false)
 
   return (

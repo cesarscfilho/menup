@@ -1,9 +1,11 @@
 import { redirect } from 'next/navigation'
 import { getStoresAction } from '@/actions/store'
+import { Store } from 'lucide-react'
 
 import { auth } from '@/lib/auth'
 import { Container } from '@/components/container'
-import CreateStoreButton from '@/components/create-store-button'
+import { CreateStoreButton } from '@/components/create-store-button'
+import { InfoCard } from '@/components/info-card'
 import { StoreCard } from '@/components/store-card'
 
 export default async function DashboardIndex() {
@@ -28,9 +30,17 @@ export default async function DashboardIndex() {
       <Container>
         <div className="my-10 grid flex-1 grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-3">
           {stores.map((store) => (
-            <StoreCard key={store.id} title={store.name} />
+            <StoreCard key={store.id} store={store} />
           ))}
         </div>
+
+        {stores && (
+          <InfoCard
+            icon={<Store size={36} />}
+            subheading="Create your first store to get started"
+            heading=" You don't have any stores yet"
+          />
+        )}
       </Container>
     </>
   )

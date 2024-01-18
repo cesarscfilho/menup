@@ -3,6 +3,7 @@
 import * as React from 'react'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
+import { Store } from '@/db/schema'
 import {
   CaretSortIcon,
   CheckIcon,
@@ -50,10 +51,7 @@ type PopoverTriggerProps = React.ComponentPropsWithoutRef<typeof PopoverTrigger>
 
 type TeamSwitcherProps = PopoverTriggerProps & {
   user: Pick<User, 'id' | 'name' | 'image'>
-  stores: {
-    id: number
-    name: string
-  }[]
+  stores: Pick<Store, 'id' | 'name'>[]
 }
 
 export default function StoreSwitcher({

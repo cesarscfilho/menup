@@ -2,6 +2,7 @@
 
 import React from 'react'
 import Link from 'next/link'
+import { Store } from '@/db/schema'
 import { ShoppingBasket } from 'lucide-react'
 
 import { Icons } from './icons'
@@ -15,12 +16,12 @@ import {
 } from './ui/card'
 
 interface StoreCardProps {
-  title: string
+  store: Store
 }
 
-export function StoreCard({ title }: StoreCardProps) {
+export function StoreCard({ store }: StoreCardProps) {
   return (
-    <Link href="/dashboard/123" className="group">
+    <Link href={`/dashboard/${store.id}`} className="group">
       <Card className="shadow-sm group-hover:border-primary">
         <CardHeader className="p">
           <CardTitle className="flex items-center gap-2">
@@ -29,8 +30,10 @@ export function StoreCard({ title }: StoreCardProps) {
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
             <div className="ml-2 flex flex-col gap-2">
-              {title}
-              <CardDescription>Purchases & subscriptions.</CardDescription>
+              {store.name}
+              <CardDescription className="max-h-10 w-full overflow-hidden text-ellipsis">
+                {store.description}
+              </CardDescription>
             </div>
           </CardTitle>
         </CardHeader>
