@@ -34,7 +34,7 @@ export default async function DashboardIndex() {
           ))}
         </div>
 
-        {stores && (
+        {stores.length < 1 && (
           <InfoCard
             icon={<Store size={36} />}
             subheading="Create your first store to get started"
