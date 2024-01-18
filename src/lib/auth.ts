@@ -1,6 +1,8 @@
 import { db } from '@/db'
+import { users } from '@/db/schema'
 import { env } from '@/env.mjs'
 import { DrizzleAdapter } from '@auth/drizzle-adapter'
+import { eq } from 'drizzle-orm'
 import NextAuth, { type NextAuthConfig } from 'next-auth'
 import GitHubProvider from 'next-auth/providers/github'
 
@@ -34,6 +36,17 @@ export const authConfig: NextAuthConfig = {
   ],
   callbacks: {
     jwt: async ({ token }) => {
+      if (!token.sub) return token
+
+      const existingUser = await db.query.users.findFirst({
+        where: eq(users.id, token.sub),
+      })
+
+      if (!existingUser) return token
+
+      token.name = existingUser.name
+      token.email = existingUser.email
+
       return token
     },
     session: async ({ session, token }) => {
