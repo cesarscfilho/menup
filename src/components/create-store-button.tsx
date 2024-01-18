@@ -3,10 +3,11 @@
 import React from 'react'
 import { X } from 'lucide-react'
 
+import { CreateStoreForm } from './forms/create-store-form'
 import { Button } from './ui/button'
 import { Modal } from './ui/modal'
 
-export default function CreateStoreButton() {
+export default function CreateStoreButton({ userId }: { userId: string }) {
   const [isOpen, setIsOpen] = React.useState(false)
 
   return (
@@ -25,7 +26,11 @@ export default function CreateStoreButton() {
         >
           <X className="h-4 w-4" />
         </Button>
-        <div className="scrollbar-hide grid min-h-[90vh] w-full overflow-auto md:overflow-hidden"></div>
+        <div className="scrollbar-hide grid min-h-[90vh] w-full overflow-auto md:overflow-hidden">
+          <div className="p-5 pt-8">
+            <CreateStoreForm userId={userId} setIsOpen={setIsOpen} />
+          </div>
+        </div>
       </Modal>
     </>
   )

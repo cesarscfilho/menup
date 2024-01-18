@@ -21,7 +21,7 @@ export default async function DashboardIndex() {
         <Container className="w-full">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-semibold">My stores</h1>
-            <CreateStoreButton />
+            <CreateStoreButton userId={session.user.id} />
           </div>
         </Container>
       </div>

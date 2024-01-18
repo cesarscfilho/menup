@@ -22,6 +22,9 @@ export const users = mysqlTable('user', {
   image: varchar('image', { length: 255 }),
 })
 
+export type NewUser = typeof users.$inferInsert
+export type User = typeof users.$inferSelect
+
 export const usersRelations = relations(users, ({ many }) => ({
   stores: many(stores),
 }))
@@ -81,6 +84,9 @@ export const stores = mysqlTable('stores', {
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').onUpdateNow(),
 })
+
+export type NewStore = typeof stores.$inferInsert
+export type Store = typeof stores.$inferSelect
 
 export const storesRelations = relations(stores, ({ one }) => ({
   user: one(users, { fields: [stores.userId], references: [users.id] }),
