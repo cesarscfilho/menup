@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import Link from 'next/link'
+import { useParams } from 'next/navigation'
 import {
   CaretSortIcon,
   CheckIcon,
@@ -62,6 +63,7 @@ export default function StoreSwitcher({
 }: TeamSwitcherProps) {
   const [open, setOpen] = React.useState(false)
   const [showNewTeamDialog, setShowNewTeamDialog] = React.useState(false)
+  const { storeId } = useParams() as { storeId?: string }
 
   const items = [
     {
@@ -69,7 +71,7 @@ export default function StoreSwitcher({
       items: [
         {
           id: user.id,
-          name: user.name,
+          name: user.name ?? '',
           href: '/dashboard',
         },
       ],
@@ -86,11 +88,13 @@ export default function StoreSwitcher({
     },
   ]
 
-  type Items = (typeof items)[number]['items'][number]
+  type Items = (typeof items)[number]['items'][number] | undefined
 
-  const [selectedTeam, setSelectedTeam] = React.useState<Items>(
-    items[0].items[0],
-  )
+  const selected = storeId
+    ? items[1].items.find((store) => store.id === Number(storeId))
+    : items[0].items[0]
+
+  const [selectedTeam, setSelectedTeam] = React.useState<Items>(selected)
 
   return (
     <Dialog open={showNewTeamDialog} onOpenChange={setShowNewTeamDialog}>
@@ -106,12 +110,12 @@ export default function StoreSwitcher({
             <Avatar className="mr-2 h-5 w-5">
               <AvatarImage
                 src={user.image ?? `https://avatar.vercel.sh/04.png`}
-                alt={selectedTeam.name ?? ''}
+                alt={selectedTeam?.name ?? ''}
                 className="grayscale"
               />
               <AvatarFallback>SC</AvatarFallback>
             </Avatar>
-            {selectedTeam.name}
+            {selectedTeam?.name}
             <CaretSortIcon className="ml-auto h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
@@ -127,7 +131,6 @@ export default function StoreSwitcher({
                       <CommandItem
                         onSelect={() => {
                           setSelectedTeam(store)
-                          console.log(store)
                           setOpen(false)
                         }}
                         className="text-sm"
@@ -144,7 +147,7 @@ export default function StoreSwitcher({
                         <CheckIcon
                           className={cn(
                             'ml-auto h-4 w-4',
-                            selectedTeam.id === store.id
+                            selectedTeam?.id === store.id
                               ? 'opacity-100'
                               : 'opacity-0',
                           )}
