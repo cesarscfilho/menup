@@ -80,6 +80,7 @@ export const stores = mysqlTable('stores', {
   userId: varchar('userId', { length: 191 }).notNull(),
   name: varchar('name', { length: 191 }).notNull(),
   description: text('description'),
+  slug: text('slug'),
   active: boolean('active').notNull().default(false),
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').onUpdateNow(),

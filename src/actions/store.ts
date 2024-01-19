@@ -7,6 +7,7 @@ import { stores } from '@/db/schema'
 import { eq } from 'drizzle-orm'
 import { z } from 'zod'
 
+import { slugify } from '@/lib/utils'
 import { storeSchema } from '@/lib/validations/store'
 
 export async function deleteStoreAction(storeId: number) {
@@ -44,6 +45,7 @@ export async function createStoreAction(
     userId: inputs.userId,
     name: inputs.name,
     description: inputs.description,
+    slug: slugify(inputs.name),
   })
 
   revalidatePath('/dashboard')

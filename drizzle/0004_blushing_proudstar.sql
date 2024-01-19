@@ -1,0 +1,1 @@
+ALTER TABLE `stores` DROP INDEX `stores_slug_unique`;

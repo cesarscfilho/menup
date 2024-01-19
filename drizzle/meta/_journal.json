@@ -15,6 +15,27 @@
       "when": 1705418697052,
       "tag": "0001_supreme_lifeguard",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1705666951626,
+      "tag": "0002_faulty_zaladane",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1705667195816,
+      "tag": "0003_hard_karen_page",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1705668821608,
+      "tag": "0004_blushing_proudstar",
+      "breakpoints": true
     }
   ]
 }
