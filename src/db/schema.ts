@@ -2,6 +2,7 @@ import type { AdapterAccount } from '@auth/core/adapters'
 import { relations } from 'drizzle-orm'
 import {
   boolean,
+  decimal,
   int,
   mysqlTable,
   primaryKey,
@@ -81,7 +82,7 @@ export const stores = mysqlTable('stores', {
   name: varchar('name', { length: 191 }).notNull(),
   description: text('description'),
   slug: text('slug'),
-  active: boolean('active').notNull().default(false),
+  active: boolean('active').notNull().default(true),
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').onUpdateNow(),
 })
@@ -91,4 +92,39 @@ export type Store = typeof stores.$inferSelect
 
 export const storesRelations = relations(stores, ({ one }) => ({
   user: one(users, { fields: [stores.userId], references: [users.id] }),
+}))
+
+export const products = mysqlTable('products', {
+  id: serial('id').primaryKey(),
+  name: varchar('name', { length: 191 }).notNull(),
+  description: text('description'),
+  price: decimal('price', { precision: 10, scale: 2 }).default('0'),
+  active: boolean('active').notNull().default(true),
+  storeId: int('storeId').notNull(),
+  createdAt: timestamp('createdAt').defaultNow(),
+  updatedAt: timestamp('updatedAt').onUpdateNow(),
+})
+
+export const productsRelations = relations(products, ({ one, many }) => ({
+  store: one(stores, {
+    fields: [products.storeId],
+    references: [stores.id],
+  }),
+  variants: many(variants),
+}))
+
+export const variants = mysqlTable('variants', {
+  id: serial('id').primaryKey(),
+  name: varchar('name', { length: 191 }).notNull(),
+  price: decimal('price', { precision: 10, scale: 2 }).notNull().default('0'),
+  productId: int('productId').notNull(),
+  createdAt: timestamp('createdAt').defaultNow(),
+  updatedAt: timestamp('updatedAt').onUpdateNow(),
+})
+
+export const variantsRelations = relations(variants, ({ one }) => ({
+  product: one(products, {
+    fields: [variants.productId],
+    references: [products.id],
+  }),
 }))

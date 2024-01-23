@@ -36,6 +36,13 @@
       "when": 1705668821608,
       "tag": "0004_blushing_proudstar",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1706018822940,
+      "tag": "0005_last_shadow_king",
+      "breakpoints": true
     }
   ]
 }

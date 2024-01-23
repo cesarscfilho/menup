@@ -34,12 +34,7 @@ export default async function Index() {
               <Icons.playcircle className="mr-2 h-4 w-4" />
               Demo
             </Button>
-            <button className="group relative inline-flex h-9 items-center justify-center overflow-hidden rounded-md bg-neutral-950 px-6 font-medium text-neutral-200 transition hover:scale-110">
-              <span>Start for free</span>
-              <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-12deg)_translateX(-100%)] group-hover:duration-1000 group-hover:[transform:skew(-12deg)_translateX(100%)]">
-                <div className="relative h-full w-8 bg-white/20"></div>
-              </div>
-            </button>
+            <Button>Start for free</Button>
           </div>
         </div>
       </section>
@@ -74,6 +69,7 @@ export default async function Index() {
           </div>
         </div>
       </section>
+
       <section id="features">
         <Container className="space-y-10 py-24">
           <div className="text-center">
@@ -96,6 +92,7 @@ export default async function Index() {
           </div>
         </Container>
       </section>
+
       <section id="numberOfUsers">
         <div className="md:py-15 border-y border-border py-10  backdrop-blur-[90px]">
           <div className="mx-auto grid w-full max-w-screen-xl gap-y-4 px-2.5 md:grid-cols-3 md:gap-y-0 lg:px-20">
@@ -113,6 +110,7 @@ export default async function Index() {
           </div>
         </div>
       </section>
+
       <section id="testimonials">
         <div className="space-y-10 py-32">
           <div className="text-center">
@@ -129,6 +127,7 @@ export default async function Index() {
           />
         </div>
       </section>
+
       <section id="faq" className="border-t border-border backdrop-blur-[50px]">
         <Container className="max-w-screen-lg py-20">
           <div className="grid space-y-6">
