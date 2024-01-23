@@ -1,5 +1,13 @@
+import { PersonIcon } from '@radix-ui/react-icons'
 import { IconProps } from '@radix-ui/react-icons/dist/types'
-import { BellIcon, PlayCircle, Settings } from 'lucide-react'
+import {
+  BadgePercent,
+  BellIcon,
+  Home,
+  PlayCircle,
+  Settings,
+  ShoppingBasket,
+} from 'lucide-react'
 
 export const Icons = {
   logo: (props: IconProps) => (
@@ -63,4 +71,8 @@ export const Icons = {
   settings: Settings,
   bell: BellIcon,
   playcircle: PlayCircle,
+  badgepercent: BadgePercent,
+  profile: PersonIcon,
+  home: Home,
+  shopbasket: ShoppingBasket,
 }
