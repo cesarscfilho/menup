@@ -33,13 +33,14 @@ import {
   ResizablePanelGroup,
 } from '@/components/ui/resizable'
 import { Separator } from '@/components/ui/separator'
+import { Container } from '@/components/container'
 
 import { mails } from './data'
 import { MailList } from './mail'
 
 export default function StoreOrdersClientPage() {
   return (
-    <div className="md:mx-8">
+    <Container className="md:max-w-7xl">
       <ResizablePanelGroup
         className="h-[calc(100vh-120px)]"
         direction="horizontal"
@@ -189,6 +190,6 @@ export default function StoreOrdersClientPage() {
           </div>
         </ResizablePanel>
       </ResizablePanelGroup>
-    </div>
+    </Container>
   )
 }

@@ -100,6 +100,7 @@ export const products = mysqlTable('products', {
   description: text('description'),
   price: decimal('price', { precision: 10, scale: 2 }).default('0'),
   active: boolean('active').notNull().default(true),
+  categoryId: int('categoryId').notNull(),
   storeId: int('storeId').notNull(),
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').onUpdateNow(),
@@ -111,6 +112,22 @@ export const productsRelations = relations(products, ({ one, many }) => ({
     references: [stores.id],
   }),
   variants: many(variants),
+  category: one(categories, {
+    fields: [products.categoryId],
+    references: [categories.id],
+  }),
+}))
+
+export const categories = mysqlTable('categories', {
+  id: serial('id').primaryKey(),
+  storeId: int('storeId').notNull(),
+  name: varchar('name', { length: 191 }).notNull(),
+  createdAt: timestamp('createdAt').defaultNow(),
+  updatedAt: timestamp('updatedAt').onUpdateNow(),
+})
+
+export const categoriesRelations = relations(categories, ({ one }) => ({
+  store: one(stores, { fields: [categories.storeId], references: [stores.id] }),
 }))
 
 export const variants = mysqlTable('variants', {
