@@ -106,6 +106,9 @@ export const products = mysqlTable('products', {
   updatedAt: timestamp('updatedAt').onUpdateNow(),
 })
 
+export type NewProduct = typeof products.$inferInsert
+export type Product = typeof products.$inferSelect
+
 export const productsRelations = relations(products, ({ one, many }) => ({
   store: one(stores, {
     fields: [products.storeId],
@@ -125,6 +128,9 @@ export const categories = mysqlTable('categories', {
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').onUpdateNow(),
 })
+
+export type NewCategory = typeof categories.$inferInsert
+export type Category = typeof categories.$inferSelect
 
 export const categoriesRelations = relations(categories, ({ one }) => ({
   store: one(stores, { fields: [categories.storeId], references: [stores.id] }),
