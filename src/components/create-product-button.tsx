@@ -11,20 +11,20 @@ import { Modal } from './ui/modal'
 export function CreateProductButton({
   storeId,
   categories,
+  label,
 }: {
   storeId: number
+  label: string
   categories: Pick<Category, 'id' | 'name'>[]
 }) {
   const [isOpen, setIsOpen] = React.useState(false)
 
   return (
     <>
-      <Button onClick={() => setIsOpen(true)}>Create product</Button>
-      <Modal
-        preventDefaultClose={true}
-        showModal={isOpen}
-        setShowModal={setIsOpen}
-      >
+      <Button size={'sm'} onClick={() => setIsOpen(true)}>
+        {label}
+      </Button>
+      <Modal showModal={isOpen} setShowModal={setIsOpen}>
         <Button
           size="icon"
           variant="ghost"

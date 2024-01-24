@@ -1,14 +1,14 @@
 import { notFound } from 'next/navigation'
 import { db } from '@/db'
 import { categories, Product, products } from '@/db/schema'
-import { and, eq, like } from 'drizzle-orm'
+import { and, asc, desc, eq, like, sql } from 'drizzle-orm'
 import { Store } from 'lucide-react'
 
 import { productsSearchParamsSchema } from '@/types/params'
 import { Container } from '@/components/container'
 import { CreateCategoryButton } from '@/components/create-category-button'
-import { CreateProductButton } from '@/components/create-product-button'
 import { InfoCard } from '@/components/info-card'
+import { ProductsTableShell } from '@/components/shells/products-table-shell'
 
 interface StoreProductsPageProps {
   params: {
@@ -62,42 +62,63 @@ export default async function StoreProductsPage({
   ]) ?? ['createdAt', 'desc']
   // const categoriesFilter = (category?.split('.') as string[]) ?? []
 
-  const data = await db
-    .select({
-      id: products.id,
-      name: products.id,
-      price: products.price,
-      active: products.active,
-      category: categories.name,
-    })
-    .from(products)
-    .limit(limit)
-    .offset(offset)
-    .where(
-      and(
-        eq(products.storeId, storeId),
-        name ? like(products.name, `%${name}`) : undefined,
-      ),
-    )
-    .innerJoin(categories, eq(categories.id, products.categoryId))
+  const productsPromise = db.transaction(async (tx) => {
+    try {
+      const data = await tx
+        .select({
+          id: products.id,
+          name: products.id,
+          price: products.price,
+          active: products.active,
+          createdAt: products.createdAt,
+          category: categories.name,
+        })
+        .from(products)
+        .limit(limit)
+        .offset(offset)
+        .where(
+          and(
+            eq(products.storeId, storeId),
+            name ? like(products.name, `%${name}`) : undefined,
+          ),
+        )
+        .innerJoin(categories, eq(categories.id, products.categoryId))
+        .orderBy(
+          column && column in products
+            ? order === 'asc'
+              ? asc(products[column])
+              : desc(products[column])
+            : desc(products.createdAt),
+        )
 
-  if (data.length < 1) {
-    return (
-      <Container className="mt-8">
-        <InfoCard
-          heading="No categories registered yet"
-          subheading="
-        Create your first category to get started"
-          icon={<Store size={36} />}
-          button={
-            <CreateProductButton categories={existCategory} storeId={storeId} />
-          }
-        />
-      </Container>
-    )
-  }
+      const count = await tx
+        .select({
+          count: sql<number>`count(${products.id})`,
+        })
+        .from(products)
+        .where(
+          and(
+            eq(products.storeId, storeId),
+            name ? like(products.name, `%${name}`) : undefined,
+          ),
+        )
+        .then((res) => res[0].count ?? 0)
 
-  console.log(data)
+      const pageCount = Math.ceil(count / limit)
 
-  return <div></div>
+      return { data, pageCount }
+    } catch (error) {
+      return { data: [], pageCount: 0 }
+    }
+  })
+
+  return (
+    <Container className="mt-8">
+      <ProductsTableShell
+        categories={existCategory}
+        promise={productsPromise}
+        storeId={storeId}
+      />
+    </Container>
+  )
 }
