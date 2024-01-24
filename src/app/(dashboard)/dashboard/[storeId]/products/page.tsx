@@ -5,6 +5,7 @@ import { eq } from 'drizzle-orm'
 import { Store } from 'lucide-react'
 
 import { Container } from '@/components/container'
+import { CreateCategoryButton } from '@/components/create-category-button'
 import { InfoCard } from '@/components/info-card'
 
 interface StoreProductsPageProps {
@@ -26,6 +27,8 @@ export default async function StoreProductsPage({
     where: eq(categories.storeId, storeId),
   })
 
+  console.log(ctgs)
+
   if (ctgs.length < 1) {
     return (
       <Container className="mt-8">
@@ -34,6 +37,7 @@ export default async function StoreProductsPage({
           subheading="
         Create your first category to get started"
           icon={<Store size={36} />}
+          button={<CreateCategoryButton storeId={storeId} />}
         />
       </Container>
     )
