@@ -69,7 +69,7 @@ export default async function StoreProductsPage({
       const data = await tx
         .select({
           id: products.id,
-          name: products.id,
+          name: products.name,
           price: products.price,
           active: products.active,
           createdAt: products.createdAt,

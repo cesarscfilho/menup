@@ -2,9 +2,11 @@
 
 import React from 'react'
 import Link from 'next/link'
+import { deleteProductAction } from '@/actions/product'
 import { Category } from '@/db/schema'
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { ColumnDef } from '@tanstack/react-table'
+import { toast } from 'sonner'
 
 import { formatDate, formatPrice } from '@/lib/utils'
 
@@ -25,7 +27,7 @@ import {
 
 type AwaitedProduct = {
   id: number
-  name: number
+  name: string
   price: string | null
   active: boolean
   category: string
@@ -153,8 +155,23 @@ export function ProductsTableShell({
                   startTransition(() => {
                     row.toggleSelected(false)
                   })
+
+                  toast.promise(
+                    deleteProductAction({
+                      id: row.original.id,
+                      storeId,
+                    }),
+                    {
+                      loading: 'Deleting...',
+                      success: () => 'Product deleted successfully.',
+                      error: (err: unknown) => {
+                        console.log(err)
+                        return null
+                      },
+                    },
+                  )
                 }}
-                // disabled={isPending}
+                disabled={isPending}
               >
                 Delete
                 <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
@@ -164,8 +181,33 @@ export function ProductsTableShell({
         ),
       },
     ],
-    [data, storeId],
+    [data, storeId, isPending],
   )
+
+  function deleteSelectedRows() {
+    toast.promise(
+      Promise.all(
+        selectedRowIds.map((id) =>
+          deleteProductAction({
+            id,
+            storeId,
+          }),
+        ),
+      ),
+      {
+        loading: 'Deleting...',
+        success: () => {
+          setSelectedRowIds([])
+          return 'Products deleted successfully.'
+        },
+        error: (err: unknown) => {
+          setSelectedRowIds([])
+          console.log(err)
+          return null
+        },
+      },
+    )
+  }
 
   return (
     <DataTable
@@ -185,6 +227,7 @@ export function ProductsTableShell({
           storeId={storeId}
         />
       }
+      deleteRowsAction={() => void deleteSelectedRows()}
     />
   )
 }
