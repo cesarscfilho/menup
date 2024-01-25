@@ -122,7 +122,7 @@ export function CreateProductForm({
             </FormItem>
           )}
         />
-        <Button isLoading={isPending} type="submit">
+        <Button className="w-full" isLoading={isPending} type="submit">
           Create
         </Button>
       </form>

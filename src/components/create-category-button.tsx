@@ -1,16 +1,21 @@
 'use client'
 
 import React from 'react'
-import { X } from 'lucide-react'
+import { Category } from '@/db/schema'
+import { Pencil1Icon } from '@radix-ui/react-icons'
+import { Trash, X } from 'lucide-react'
 
 import { CreateCategoryForm } from './forms/create-category-form'
 import { Button } from './ui/button'
 import { Modal } from './ui/modal'
+import { Separator } from './ui/separator'
 
 export function CreateCategoryButton({
   storeId,
   label,
+  categories,
 }: {
+  categories: Category[]
   storeId: number
   label: string
 }) {
@@ -31,8 +36,30 @@ export function CreateCategoryButton({
           <X className="h-4 w-4" />
         </Button>
         <div className="scrollbar-hide grid w-full overflow-auto md:overflow-hidden">
-          <div className="p-8 px-4 md:px-8">
-            <CreateCategoryForm storeId={storeId} setIsOpen={setIsOpen} />
+          <div className="space-y-4 p-8 px-4 md:px-8">
+            <CreateCategoryForm storeId={storeId} />
+            <Separator className="my-4" />
+            <div className="space-y-2">
+              <h3 className="text-lg font-bold">All categories</h3>
+              <div className="space-y-2">
+                {categories.map((category) => (
+                  <div
+                    key={category.id}
+                    className="flex flex-row items-center justify-between rounded-md border border-border p-2"
+                  >
+                    <p className="text-base">{category.name}</p>
+                    <div className="flex gap-2">
+                      <Button size="icon" variant="outline">
+                        <Pencil1Icon className="size-4" />
+                      </Button>
+                      <Button size="icon" variant="destructive">
+                        <Trash className="size-4" />
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </Modal>

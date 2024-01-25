@@ -26,7 +26,7 @@ export function CreateCategoryForm({
   setIsOpen,
 }: {
   storeId: number
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>
 }) {
   const [isPending, startTransition] = React.useTransition()
 
@@ -41,7 +41,11 @@ export function CreateCategoryForm({
     startTransition(async () => {
       try {
         await createCategoryAction({ ...inputs, storeId })
-        setIsOpen(false)
+
+        if (setIsOpen) {
+          setIsOpen(false)
+        }
+
         toast.success('Category created successfully')
       } catch (error) {}
     })
@@ -67,7 +71,7 @@ export function CreateCategoryForm({
           )}
         />
 
-        <Button isLoading={isPending} type="submit">
+        <Button className="w-full" isLoading={isPending} type="submit">
           Create
         </Button>
       </form>

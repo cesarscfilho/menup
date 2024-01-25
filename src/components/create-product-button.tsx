@@ -33,8 +33,8 @@ export function CreateProductButton({
         >
           <X className="h-4 w-4" />
         </Button>
-        <div className="scrollbar-hide grid min-h-[90vh] w-full overflow-auto md:overflow-hidden">
-          <div className="p-5 pt-8">
+        <div className="scrollbar-hide grid max-h-[90vh] w-full overflow-auto md:overflow-hidden">
+          <div className="p-8 px-5">
             <CreateProductForm
               categories={categories}
               storeId={storeId}

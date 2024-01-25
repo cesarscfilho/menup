@@ -47,7 +47,11 @@ export default async function StoreProductsPage({
         Create your first category to get started"
           icon={<Store size={36} />}
           button={
-            <CreateCategoryButton label="Create category" storeId={storeId} />
+            <CreateCategoryButton
+              categories={existCategory}
+              label="Create category"
+              storeId={storeId}
+            />
           }
         />
       </Container>
@@ -121,7 +125,11 @@ export default async function StoreProductsPage({
       <div className="flex items-center justify-between space-y-2">
         <h2 className="text-3xl font-bold tracking-tight">Orders</h2>
         <div className="flex items-center space-x-2">
-          <CreateCategoryButton label="Categories" storeId={storeId} />
+          <CreateCategoryButton
+            label="All categories"
+            categories={existCategory}
+            storeId={storeId}
+          />
         </div>
       </div>
 
