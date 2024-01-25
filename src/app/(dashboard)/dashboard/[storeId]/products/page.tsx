@@ -1,3 +1,4 @@
+import React from 'react'
 import { notFound } from 'next/navigation'
 import { db } from '@/db'
 import { categories, Product, products } from '@/db/schema'
@@ -7,6 +8,7 @@ import { Store } from 'lucide-react'
 import { productsSearchParamsSchema } from '@/types/params'
 import { Container } from '@/components/container'
 import { CreateCategoryButton } from '@/components/create-category-button'
+import { DataTableSkeleton } from '@/components/data-table/data-table-skeleton'
 import { InfoCard } from '@/components/info-card'
 import { ProductsTableShell } from '@/components/shells/products-table-shell'
 
@@ -114,11 +116,21 @@ export default async function StoreProductsPage({
 
   return (
     <Container className="mt-8">
-      <ProductsTableShell
-        categories={existCategory}
-        promise={productsPromise}
-        storeId={storeId}
-      />
+      <React.Suspense
+        fallback={
+          <DataTableSkeleton
+            columnCount={6}
+            isNewRowCreatable={true}
+            isRowsDeletable={true}
+          />
+        }
+      >
+        <ProductsTableShell
+          categories={existCategory}
+          promise={productsPromise}
+          storeId={storeId}
+        />
+      </React.Suspense>
     </Container>
   )
 }
