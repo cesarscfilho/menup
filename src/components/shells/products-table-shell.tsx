@@ -223,7 +223,7 @@ export function ProductsTableShell({
       newRowButton={
         <CreateProductButton
           categories={categories}
-          label="New"
+          label="New product"
           storeId={storeId}
         />
       }

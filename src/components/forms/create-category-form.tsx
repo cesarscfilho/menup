@@ -55,9 +55,9 @@ export function CreateCategoryForm({
           name={'name'}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>Category name:</FormLabel>
               <FormControl>
-                <Input placeholder="Acme Inc." {...field} />
+                <Input placeholder="Pizzas" {...field} />
               </FormControl>
               <FormDescription>
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit.
