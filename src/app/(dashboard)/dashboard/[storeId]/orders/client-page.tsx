@@ -38,14 +38,14 @@ import { Container } from '@/components/container'
 import { mails } from './data'
 import { MailList } from './mail'
 
-export default function StoreOrdersClientPage() {
+export default function StoreOrdersClientPage({ defaultLayout = [620, 400] }) {
   return (
-    <Container className="md:max-w-7xl">
+    <Container className="px-0 md:max-w-7xl">
       <ResizablePanelGroup
-        className="h-[calc(100vh-120px)]"
+        className="h-[calc(100vh-120px)] items-stretch"
         direction="horizontal"
       >
-        <ResizablePanel>
+        <ResizablePanel defaultSize={defaultLayout[0]} minSize={30}>
           <div className="bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <form>
               <div className="relative">
@@ -58,7 +58,11 @@ export default function StoreOrdersClientPage() {
           <MailList items={mails.filter((item) => !item.read)} />
         </ResizablePanel>
         <ResizableHandle withHandle className="hidden md:flex" />
-        <ResizablePanel className="hidden md:block">
+        <ResizablePanel
+          className="hidden md:block"
+          defaultSize={defaultLayout[1]}
+          minSize={30}
+        >
           <div className="flex h-full flex-col">
             <div className="flex items-center p-2">
               <div className="flex items-center gap-2">
