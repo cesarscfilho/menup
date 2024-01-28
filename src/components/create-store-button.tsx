@@ -24,7 +24,7 @@ export function CreateStoreButton({ userId }: { userId: string }) {
           onClick={() => setIsOpen(false)}
           className="absolute right-0 top-0 z-20 m-3 hidden items-center md:flex"
         >
-          <X className="h-4 w-4" />
+          <X className="size-4" />
         </Button>
         <div className="scrollbar-hide grid min-h-[90vh] w-full overflow-auto md:overflow-hidden">
           <div className="p-5 pt-8">

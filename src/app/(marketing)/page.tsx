@@ -31,7 +31,7 @@ export default async function Index() {
           </p>
           <div className="mx-auto mt-5 flex max-w-fit space-x-4">
             <Button variant="outline">
-              <Icons.playcircle className="mr-2 h-4 w-4" />
+              <Icons.playcircle className="mr-2 size-4" />
               Demo
             </Button>
             <Button>Start for free</Button>

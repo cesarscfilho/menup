@@ -49,7 +49,7 @@ export default function StoreOrdersClientPage({ defaultLayout = [620, 400] }) {
           <div className="bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <form>
               <div className="relative">
-                <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                <Search className="absolute left-2 top-2.5 size-4 text-muted-foreground" />
                 <Input placeholder="Search" className="pl-8" />
               </div>
             </form>
@@ -67,17 +67,17 @@ export default function StoreOrdersClientPage({ defaultLayout = [620, 400] }) {
             <div className="flex items-center p-2">
               <div className="flex items-center gap-2">
                 <Button variant="ghost" size="icon">
-                  <ArchiveIcon className="h-4 w-4" />
+                  <ArchiveIcon className="size-4" />
                   <span className="sr-only">Archive</span>
                 </Button>
 
                 <Button variant="ghost" size="icon">
-                  <ArchiveX className="h-4 w-4" />
+                  <ArchiveX className="size-4" />
                   <span className="sr-only">Move to junk</span>
                 </Button>
 
                 <Button variant="ghost" size="icon">
-                  <Trash2 className="h-4 w-4" />
+                  <Trash2 className="size-4" />
                   <span className="sr-only">Move to trash</span>
                 </Button>
 
@@ -86,7 +86,7 @@ export default function StoreOrdersClientPage({ defaultLayout = [620, 400] }) {
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button variant="ghost" size="icon">
-                      <Clock className="h-4 w-4" />
+                      <Clock className="size-4" />
                       <span className="sr-only">Snooze</span>
                     </Button>
                   </PopoverTrigger>
@@ -134,17 +134,17 @@ export default function StoreOrdersClientPage({ defaultLayout = [620, 400] }) {
               </div>
               <div className="ml-auto flex items-center gap-2">
                 <Button variant="ghost" size="icon">
-                  <Reply className="h-4 w-4" />
+                  <Reply className="size-4" />
                   <span className="sr-only">Reply</span>
                 </Button>
 
                 <Button variant="ghost" size="icon">
-                  <ReplyAll className="h-4 w-4" />
+                  <ReplyAll className="size-4" />
                   <span className="sr-only">Reply all</span>
                 </Button>
 
                 <Button variant="ghost" size="icon">
-                  <Forward className="h-4 w-4" />
+                  <Forward className="size-4" />
                   <span className="sr-only">Forward</span>
                 </Button>
               </div>
@@ -152,7 +152,7 @@ export default function StoreOrdersClientPage({ defaultLayout = [620, 400] }) {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="icon">
-                    <MoreVertical className="h-4 w-4" />
+                    <MoreVertical className="size-4" />
                     <span className="sr-only">More</span>
                   </Button>
                 </DropdownMenuTrigger>

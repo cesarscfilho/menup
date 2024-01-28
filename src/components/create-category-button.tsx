@@ -33,7 +33,7 @@ export function CreateCategoryButton({
           onClick={() => setIsOpen(false)}
           className="absolute right-0 top-0 z-20 m-3 hidden items-center md:flex"
         >
-          <X className="h-4 w-4" />
+          <X className="size-4" />
         </Button>
         <div className="scrollbar-hide grid w-full overflow-auto md:overflow-hidden">
           <div className="space-y-4 p-8 px-4 md:px-8">
