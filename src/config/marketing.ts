@@ -6,6 +6,7 @@ const marketingConfig = {
     { title: 'Features', href: '/#features' },
     { title: 'Pricing', href: '/pricing' },
     { title: 'Contact', href: '/contact' },
+    { title: 'Blog', href: '/blog' },
     { title: 'FAQ', href: '/#faq' },
   ],
   footerNav: [
