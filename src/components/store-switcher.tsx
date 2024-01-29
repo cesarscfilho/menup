@@ -11,6 +11,7 @@ import {
 } from '@radix-ui/react-icons'
 import { User } from 'next-auth'
 
+import { auth } from '@/lib/auth'
 import { cn } from '@/lib/utils'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
@@ -70,6 +71,7 @@ export default function StoreSwitcher({
         {
           id: user.id,
           name: user.name ?? '',
+          image: user.image ?? '',
           href: '/dashboard',
         },
       ],
@@ -80,6 +82,8 @@ export default function StoreSwitcher({
         return {
           id: store.id,
           name: store.name,
+          // TODO: add store image
+          image: 'https://avatar.vercel.sh/01.png',
           href: `/dashboard/${store.id}`,
         }
       }),
@@ -107,9 +111,8 @@ export default function StoreSwitcher({
           >
             <Avatar className="mr-2 h-5 w-5">
               <AvatarImage
-                src={user.image ?? `https://avatar.vercel.sh/04.png`}
+                src={selected?.image ?? ``}
                 alt={selectedTeam?.name ?? ''}
-                className="grayscale"
               />
               <AvatarFallback>SC</AvatarFallback>
             </Avatar>
@@ -135,9 +138,10 @@ export default function StoreSwitcher({
                       >
                         <Avatar className="mr-2 h-5 w-5">
                           <AvatarImage
-                            src={`https://avatar.vercel.sh/01.png`}
+                            src={
+                              store.image ?? `https://avatar.vercel.sh/01.png`
+                            }
                             alt={store.name ?? ''}
-                            className="grayscale"
                           />
                           <AvatarFallback>SC</AvatarFallback>
                         </Avatar>
