@@ -31,3 +31,17 @@ export async function createCategoryAction(
 
   revalidatePath('/products')
 }
+
+export async function deleteCategoryAction(categoryId: number) {
+  const categoryExist = await db.query.categories.findFirst({
+    where: eq(categories.id, categoryId),
+  })
+
+  if (!categoryExist) {
+    throw new Error('Category not found.')
+  }
+
+  await db.delete(categories).where(eq(categories.id, categoryId))
+
+  revalidatePath('/products')
+}

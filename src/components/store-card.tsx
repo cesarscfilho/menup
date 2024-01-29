@@ -31,7 +31,7 @@ export function StoreCard({ store }: StoreCardProps) {
             </Avatar>
             <div className="ml-2 flex flex-col gap-2">
               {store.name}
-              <CardDescription className="max-h-10 w-full overflow-hidden text-ellipsis">
+              <CardDescription className="max-h-10  overflow-hidden text-ellipsis font-normal">
                 {store.description}
               </CardDescription>
             </div>

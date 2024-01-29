@@ -43,8 +43,7 @@ export default async function StoreProductsPage({
       <Container className="mt-8">
         <InfoCard
           heading="No categories registered yet"
-          subheading="
-        Create your first category to get started"
+          subheading="Create your first category to get started"
           icon={<Store size={36} />}
           button={
             <CreateCategoryButton
