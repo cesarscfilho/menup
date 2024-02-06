@@ -1,8 +1,9 @@
 'use client'
 
-import { ArchiveIcon } from '@radix-ui/react-icons'
+import { ArchiveIcon, PlusCircledIcon } from '@radix-ui/react-icons'
 import {
   ArchiveX,
+  CheckIcon,
   Clock,
   Forward,
   MoreVertical,
@@ -12,9 +13,20 @@ import {
   Trash2,
 } from 'lucide-react'
 
+import { cn } from '@/lib/utils'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+} from '@/components/ui/command'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -40,21 +52,47 @@ import { MailList } from './mail'
 
 export default function StoreOrdersClientPage({ defaultLayout = [620, 400] }) {
   return (
-    <Container className="px-0 md:max-w-7xl">
+    <Container className="px-0 md:max-w-7xl ">
       <ResizablePanelGroup
-        className="h-[calc(100vh-120px)] items-stretch"
+        // Fix this please :)
+        className="max-h-[calc(100vh-120px)] min-h-[calc(100vh-120px)] items-stretch"
         direction="horizontal"
       >
         <ResizablePanel defaultSize={defaultLayout[0]} minSize={30}>
+          <div className="flex items-center justify-between p-2">
+            <h1 className="text-xl font-bold">Orders</h1>
+
+            <div className="flex items-center gap-2">
+              <Button
+                aria-label="Filter rows"
+                variant="outline"
+                size="sm"
+                className="h-9 border-dashed"
+              >
+                <PlusCircledIcon className="mr-2 size-4" aria-hidden="true" />
+                Status
+              </Button>
+
+              <Button
+                aria-label="Filter rows"
+                variant="outline"
+                size="sm"
+                className="h-9 border-dashed"
+              >
+                <PlusCircledIcon className="mr-2 size-4" aria-hidden="true" />
+                Priority
+              </Button>
+            </div>
+          </div>
+          <Separator />
           <div className="bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <form>
               <div className="relative">
-                <Search className="absolute left-2 top-2.5 size-4 text-muted-foreground" />
+                <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                 <Input placeholder="Search" className="pl-8" />
               </div>
             </form>
           </div>
-
           <MailList items={mails.filter((item) => !item.read)} />
         </ResizablePanel>
         <ResizableHandle withHandle className="hidden md:flex" />
