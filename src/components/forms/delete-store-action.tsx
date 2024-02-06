@@ -26,7 +26,7 @@ export function DeleteStoreForm({ storeId }: CreateStoreFormProps) {
   function onSubmit() {
     startDeletingStore(async () => {
       try {
-        await deleteStoreAction(Number(storeId))
+        await deleteStoreAction(storeId)
         toast.success('Store delete successfully.')
       } catch (error) {
         toast.error('Error')

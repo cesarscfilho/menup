@@ -10,7 +10,7 @@ import { z } from 'zod'
 import { slugify } from '@/lib/utils'
 import { storeSchema } from '@/lib/validations/store'
 
-export async function deleteStoreAction(storeId: number) {
+export async function deleteStoreAction(storeId: string) {
   const store = await db.query.stores.findFirst({
     where: eq(stores.id, storeId),
   })

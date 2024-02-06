@@ -36,7 +36,7 @@ export function CreateProductForm({
   categories,
 }: {
   categories: Pick<Category, 'id' | 'name'>[]
-  storeId: number
+  storeId: string
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }) {
   const [isPending, startTransition] = React.useTransition()
