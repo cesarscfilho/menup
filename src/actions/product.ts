@@ -10,7 +10,7 @@ import { productSchema } from '@/lib/validations/product'
 
 export async function createProductAction(
   inputs: z.infer<typeof productSchema> & {
-    storeId: number
+    storeId: string
   },
 ) {
   const productWithSameName = await db.query.products.findFirst({
@@ -22,7 +22,7 @@ export async function createProductAction(
   }
 
   await db.insert(products).values({
-    categoryId: Number(inputs.categoryId),
+    categoryId: inputs.categoryId,
     name: inputs.name,
     storeId: inputs.storeId,
     description: inputs.description,
@@ -33,8 +33,8 @@ export async function createProductAction(
 }
 
 export async function deleteProductAction(inputs: {
-  id: number
-  storeId: number
+  id: string
+  storeId: string
 }) {
   const product = await db.query.products.findFirst({
     columns: {

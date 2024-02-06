@@ -1,0 +1,1 @@
+ALTER TABLE `products` ADD `categoryId` varchar(128) NOT NULL;

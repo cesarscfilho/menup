@@ -10,7 +10,7 @@ import { categorySchema } from '@/lib/validations/category'
 
 export async function createCategoryAction(
   inputs: z.infer<typeof categorySchema> & {
-    storeId: number
+    storeId: string
   },
 ) {
   const categoryWithSameName = await db.query.categories.findFirst({
@@ -32,7 +32,7 @@ export async function createCategoryAction(
   revalidatePath('/products')
 }
 
-export async function deleteCategoryAction(categoryId: number) {
+export async function deleteCategoryAction(categoryId: string) {
   const categoryExist = await db.query.categories.findFirst({
     where: eq(categories.id, categoryId),
   })

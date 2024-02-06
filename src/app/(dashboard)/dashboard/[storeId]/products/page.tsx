@@ -25,7 +25,7 @@ export default async function StoreProductsPage({
   params,
   searchParams,
 }: StoreProductsPageProps) {
-  const storeId = Number(params.storeId)
+  const storeId = params.storeId
 
   const { page, active, name, sort, per_page, category } =
     productsSearchParamsSchema.parse(searchParams)

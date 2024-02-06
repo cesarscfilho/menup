@@ -18,7 +18,7 @@ export function CreateCategoryButton({
   categories,
 }: {
   categories: Category[]
-  storeId: number
+  storeId: string
   label: string
 }) {
   const [isPending, startTransition] = React.useTransition()

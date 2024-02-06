@@ -1,12 +1,11 @@
 import type { AdapterAccount } from '@auth/core/adapters'
-import { relations } from 'drizzle-orm'
+import { relations, sql } from 'drizzle-orm'
 import {
   boolean,
   decimal,
   int,
   mysqlTable,
   primaryKey,
-  serial,
   text,
   timestamp,
   varchar,
@@ -77,7 +76,9 @@ export const verificationTokens = mysqlTable(
 )
 
 export const stores = mysqlTable('stores', {
-  id: serial('id').primaryKey(),
+  id: varchar('id', { length: 128 })
+    .primaryKey()
+    .default(sql`(uuid())`),
   userId: varchar('userId', { length: 191 }).notNull(),
   name: varchar('name', { length: 191 }).notNull(),
   description: text('description'),
@@ -95,13 +96,15 @@ export const storesRelations = relations(stores, ({ one }) => ({
 }))
 
 export const products = mysqlTable('products', {
-  id: serial('id').primaryKey(),
+  id: varchar('id', { length: 128 })
+    .primaryKey()
+    .default(sql`(uuid())`),
   name: varchar('name', { length: 191 }).notNull(),
   description: text('description'),
   price: decimal('price', { precision: 10, scale: 2 }).default('0'),
   active: boolean('active').notNull().default(true),
-  categoryId: int('categoryId').notNull(),
-  storeId: int('storeId').notNull(),
+  categoryId: varchar('categoryId', { length: 128 }).notNull(),
+  storeId: varchar('storeId', { length: 128 }).notNull(),
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').onUpdateNow(),
 })
@@ -122,8 +125,10 @@ export const productsRelations = relations(products, ({ one, many }) => ({
 }))
 
 export const categories = mysqlTable('categories', {
-  id: serial('id').primaryKey(),
-  storeId: int('storeId').notNull(),
+  id: varchar('id', { length: 128 })
+    .primaryKey()
+    .default(sql`(uuid())`),
+  storeId: varchar('storeId', { length: 128 }).notNull(),
   name: varchar('name', { length: 191 }).notNull(),
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').onUpdateNow(),
@@ -137,10 +142,12 @@ export const categoriesRelations = relations(categories, ({ one }) => ({
 }))
 
 export const variants = mysqlTable('variants', {
-  id: serial('id').primaryKey(),
+  id: varchar('id', { length: 128 })
+    .primaryKey()
+    .default(sql`(uuid())`),
   name: varchar('name', { length: 191 }).notNull(),
   price: decimal('price', { precision: 10, scale: 2 }).notNull().default('0'),
-  productId: int('productId').notNull(),
+  productId: varchar('productId', { length: 128 }).notNull(),
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').onUpdateNow(),
 })

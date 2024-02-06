@@ -25,7 +25,7 @@ export function CreateCategoryForm({
   storeId,
   setIsOpen,
 }: {
-  storeId: number
+  storeId: string
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>
 }) {
   const [isPending, startTransition] = React.useTransition()

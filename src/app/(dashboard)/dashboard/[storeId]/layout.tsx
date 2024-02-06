@@ -18,7 +18,7 @@ export default async function DashboardStoreLayout({
   params,
 }: DashboardStoreLayoutProps) {
   const session = await auth()
-  const storeId = Number(params.storeId)
+  const storeId = params.storeId
 
   const store = await db.query.stores.findFirst({
     where: eq(stores.id, storeId),
