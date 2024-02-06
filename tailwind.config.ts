@@ -59,6 +59,15 @@ const config = {
         sm: 'calc(var(--radius) - 4px)',
       },
       keyframes: {
+        // Modal
+        'scale-in': {
+          '0%': { transform: 'scale(0.95)' },
+          '100%': { transform: 'scale(1)' },
+        },
+        'fade-in': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
         scroll: {
           to: {
             transform: 'translate(calc(-50% - 0.5rem))',
@@ -74,6 +83,9 @@ const config = {
         },
       },
       animation: {
+        // Modal
+        'scale-in': 'scale-in 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+        'fade-in': 'fade-in 0.2s ease-out forwards',
         scroll:
           'scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite',
         'accordion-down': 'accordion-down 0.2s ease-out',
