@@ -85,13 +85,13 @@ export function Modal({
         <Dialog.Overlay
           // for detecting when there's an active opened modal
           id="modal-backdrop"
-          className="animate-fade-in fixed inset-0 z-40 bg-opacity-50 backdrop-blur-md"
+          className="fixed inset-0 z-40 animate-fade-in bg-opacity-50 backdrop-blur-md"
         />
         <Dialog.Content
           onOpenAutoFocus={(e) => e.preventDefault()}
           onCloseAutoFocus={(e) => e.preventDefault()}
           className={cn(
-            'animate-scale-in fixed inset-0 z-40 m-auto max-h-fit w-full max-w-md overflow-hidden border border-border bg-background p-0 shadow-xl md:rounded-2xl',
+            'fixed inset-0 z-40 m-auto max-h-fit w-full max-w-md animate-scale-in overflow-hidden border border-border bg-background p-0 shadow-xl md:rounded-2xl',
             className,
           )}
         >
