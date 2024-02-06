@@ -13,7 +13,7 @@ export function CreateProductButton({
   categories,
   label,
 }: {
-  storeId: number
+  storeId: string
   label: string
   categories: Pick<Category, 'id' | 'name'>[]
 }) {

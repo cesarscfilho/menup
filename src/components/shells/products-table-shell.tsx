@@ -26,7 +26,7 @@ import {
 } from '../ui/dropdown-menu'
 
 type AwaitedProduct = {
-  id: number
+  id: string
   name: string
   price: string | null
   active: boolean
@@ -38,7 +38,7 @@ interface ProductsTableShellProps {
     data: AwaitedProduct[]
     pageCount: number
   }>
-  storeId: number
+  storeId: string
   categories: Pick<Category, 'id' | 'name'>[]
 }
 
@@ -51,7 +51,7 @@ export function ProductsTableShell({
 
   const [isPending, startTransition] = React.useTransition()
 
-  const [selectedRowIds, setSelectedRowIds] = React.useState<number[]>([])
+  const [selectedRowIds, setSelectedRowIds] = React.useState<string[]>([])
 
   // Memoize the columns so they don't re-render on every render
   const columns = React.useMemo<ColumnDef<AwaitedProduct, unknown>[]>(
