@@ -92,7 +92,7 @@ export default function StoreSwitcher({
   type Items = (typeof items)[number]['items'][number] | undefined
 
   const selected = storeId
-    ? items[1].items.find((store) => store.id === Number(storeId))
+    ? items[1].items.find((store) => store.id === storeId)
     : items[0].items[0]
 
   const [selectedTeam, setSelectedTeam] = React.useState<Items>(selected)
