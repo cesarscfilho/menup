@@ -54,3 +54,24 @@ export async function deleteProductAction(inputs: {
 
   revalidatePath(`/dashboard/${inputs.storeId}/products`)
 }
+
+export async function updateProductStatusAction({
+  productId,
+}: {
+  productId: string
+}) {
+  const productExist = await db.query.products.findFirst({
+    where: eq(products.id, productId),
+  })
+
+  if (!productExist) {
+    throw new Error('Product not found.')
+  }
+
+  await db
+    .update(products)
+    .set({ active: !productExist.active })
+    .where(eq(products.id, productId))
+
+  revalidatePath(`/dashboard/${productExist.storeId}/products`)
+}

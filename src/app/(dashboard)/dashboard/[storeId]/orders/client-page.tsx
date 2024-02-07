@@ -3,7 +3,6 @@
 import { ArchiveIcon, PlusCircledIcon } from '@radix-ui/react-icons'
 import {
   ArchiveX,
-  CheckIcon,
   Clock,
   Forward,
   MoreVertical,
@@ -13,20 +12,9 @@ import {
   Trash2,
 } from 'lucide-react'
 
-import { cn } from '@/lib/utils'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-} from '@/components/ui/command'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -215,10 +203,7 @@ export default function StoreOrdersClientPage({ defaultLayout = [620, 400] }) {
                   <div className="grid gap-1">
                     <div className="font-semibold">Cesar</div>
                     <div className="line-clamp-1 text-xs">cesar</div>
-                    <div className="line-clamp-1 text-xs">
-                      <span className="font-medium">Reply-To:</span>
-                      cesar@cesar.com
-                    </div>
+                    <div className="line-clamp-1 text-xs">cesar@cesar.com</div>
                   </div>
                 </div>
 

@@ -2,7 +2,10 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { deleteProductAction } from '@/actions/product'
+import {
+  deleteProductAction,
+  updateProductStatusAction,
+} from '@/actions/product'
 import { Category } from '@/db/schema'
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { ColumnDef } from '@tanstack/react-table'
@@ -24,6 +27,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
+import { Switch } from '../ui/switch'
 
 type AwaitedProduct = {
   id: string
@@ -50,7 +54,6 @@ export function ProductsTableShell({
   const { data, pageCount } = React.use(promise)
 
   const [isPending, startTransition] = React.useTransition()
-
   const [selectedRowIds, setSelectedRowIds] = React.useState<string[]>([])
 
   // Memoize the columns so they don't re-render on every render
@@ -123,6 +126,28 @@ export function ProductsTableShell({
           <DataTableColumnHeader column={column} title="Created At" />
         ),
         cell: ({ cell }) => formatDate(cell.getValue() as Date),
+        enableColumnFilter: false,
+      },
+      {
+        accessorKey: 'active',
+        header: ({ column }) => (
+          <DataTableColumnHeader column={column} title="Active" />
+        ),
+        cell: ({ cell, row }) => {
+          return (
+            <Switch
+              disabled={isPending}
+              checked={cell.getValue() as boolean}
+              onCheckedChange={() => {
+                startTransition(async () => {
+                  await updateProductStatusAction({
+                    productId: row.original.id,
+                  })
+                })
+              }}
+            />
+          )
+        },
         enableColumnFilter: false,
       },
       {
