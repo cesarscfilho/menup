@@ -53,7 +53,7 @@ export function CreateCategoryForm({
 
   return (
     <Form {...form}>
-      <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+      <form className="h-full space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
           name={'name'}
@@ -61,7 +61,7 @@ export function CreateCategoryForm({
             <FormItem>
               <FormLabel>Category name:</FormLabel>
               <FormControl>
-                <Input placeholder="Pizzas" {...field} />
+                <Input placeholder="Pizzas, Drinks..." {...field} />
               </FormControl>
               <FormDescription>
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit.

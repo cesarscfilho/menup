@@ -5,8 +5,8 @@ export const InfoCard = ({
   button,
 }: {
   heading: string
-  subheading: string
-  icon: React.ReactNode
+  subheading?: string
+  icon?: React.ReactNode
   button?: React.ReactNode
 }) => {
   return (
