@@ -1,7 +1,13 @@
 import React from 'react'
 import { notFound } from 'next/navigation'
 import { db } from '@/db'
-import { stores } from '@/db/schema'
+import {
+  categories,
+  products,
+  productsVariants,
+  stores,
+  variants,
+} from '@/db/schema'
 import { eq } from 'drizzle-orm'
 
 import { auth } from '@/lib/auth'
@@ -28,6 +34,15 @@ export default async function DashboardStoreLayout({
   if (!store || store.userId !== session?.user.id) {
     notFound()
   }
+
+  // const a = await db
+  //   .select()
+  //   .from(products)
+  //   .where(eq(products.storeId, store.id))
+  //   .leftJoin(productsVariants, eq(products.id, productsVariants.productId))
+  //   .leftJoin(variants, eq(productsVariants.variantId, variants.id))
+
+  // console.log(a)
 
   return <>{children}</>
 }
