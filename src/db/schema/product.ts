@@ -38,7 +38,7 @@ export const productsRelations = relations(products, ({ one, many }) => ({
     fields: [products.categoryId],
     references: [categories.id],
   }),
-  variants: many(variants),
+  productsVariants: many(productsVariants),
 }))
 
 // Categories
@@ -56,11 +56,12 @@ export const categories = mysqlTable('categories', {
 export type NewCategory = typeof categories.$inferInsert
 export type Category = typeof categories.$inferSelect
 
-export const categoriesRelations = relations(categories, ({ one }) => ({
+export const categoriesRelations = relations(categories, ({ one, many }) => ({
   store: one(stores, { fields: [categories.storeId], references: [stores.id] }),
+  products: many(products),
 }))
 
-// Variant
+// Variants
 
 export const variants = mysqlTable('variants', {
   id: varchar('id', { length: 128 })
@@ -76,10 +77,8 @@ export type NewVariant = typeof variants.$inferInsert
 export type Variant = typeof variants.$inferSelect
 
 export const variantsRelations = relations(variants, ({ many }) => ({
-  products: many(products),
+  productsVariants: many(productsVariants),
 }))
-
-// ProductVariants
 
 export const productsVariants = mysqlTable('product_variants', {
   id: varchar('id', { length: 128 })
