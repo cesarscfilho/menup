@@ -27,10 +27,8 @@ export async function createProductAction(
   }
 
   await db.insert(products).values({
-    categoryId: inputs.categoryId,
-    name: inputs.name,
+    ...inputs,
     storeId: inputs.storeId,
-    description: inputs.description,
   })
 
   const path = `/dashboard/${inputs.storeId}/products`

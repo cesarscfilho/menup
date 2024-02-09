@@ -47,6 +47,7 @@ export function CreateProductForm({
       name: '',
       description: '',
       categoryId: String(categories[0].id),
+      price: '',
     },
   })
 
@@ -106,7 +107,7 @@ export function CreateProductForm({
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select a verified email to display" />
+                    <SelectValue placeholder="Select a category" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
@@ -122,6 +123,25 @@ export function CreateProductForm({
             </FormItem>
           )}
         />
+
+        <FormField
+          control={form.control}
+          name="price"
+          render={({ field }) => (
+            <FormItem className="w-full">
+              <FormLabel>Price</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="Type product price here."
+                  value={field.value}
+                  onChange={field.onChange}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <Button className="w-full" isLoading={isPending} type="submit">
           Create
         </Button>
