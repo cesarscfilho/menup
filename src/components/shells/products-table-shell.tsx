@@ -121,14 +121,6 @@ export function ProductsTableShell({
         cell: ({ cell }) => formatPrice(cell.getValue() as number),
       },
       {
-        accessorKey: 'createdAt',
-        header: ({ column }) => (
-          <DataTableColumnHeader column={column} title="Created At" />
-        ),
-        cell: ({ cell }) => formatDate(cell.getValue() as Date),
-        enableColumnFilter: false,
-      },
-      {
         accessorKey: 'active',
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Active" />
@@ -148,6 +140,14 @@ export function ProductsTableShell({
             />
           )
         },
+        enableColumnFilter: false,
+      },
+      {
+        accessorKey: 'createdAt',
+        header: ({ column }) => (
+          <DataTableColumnHeader column={column} title="Created At" />
+        ),
+        cell: ({ cell }) => formatDate(cell.getValue() as Date),
         enableColumnFilter: false,
       },
       {

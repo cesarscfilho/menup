@@ -2,7 +2,7 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { Store } from '@/db/schema'
+import { Store as StoreType } from '@/db/schema'
 import { ShoppingBasket } from 'lucide-react'
 
 import { Icons } from './icons'
@@ -16,13 +16,13 @@ import {
 } from './ui/card'
 
 interface StoreCardProps {
-  store: Store
+  store: StoreType
 }
 
 export function StoreCard({ store }: StoreCardProps) {
   return (
     <Link href={`/dashboard/${store.id}`} className="group">
-      <Card className="shadow-sm group-hover:border-primary">
+      <Card className="relative shadow-sm group-hover:border-primary">
         <CardHeader className="p">
           <CardTitle className="flex items-center gap-2">
             <Avatar>

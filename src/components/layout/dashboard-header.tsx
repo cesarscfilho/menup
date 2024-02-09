@@ -6,6 +6,7 @@ import { eq } from 'drizzle-orm'
 import { auth } from '@/lib/auth'
 
 import { Container } from '../container'
+import { LinkToStoreFront } from '../link-to-storefront'
 import { Notifications } from '../notifications'
 import { DashboardTabs } from '../pagers/dashboard-tabs'
 import StoreSwitcher from '../store-switcher'
@@ -29,6 +30,7 @@ export async function DashboardHeader() {
         <div className="flex h-16 items-center">
           <StoreSwitcher user={session.user} stores={strs} />
           <div className="ml-auto flex items-center gap-4">
+            <LinkToStoreFront />
             <Notifications />
             <UserNav />
           </div>

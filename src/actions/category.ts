@@ -21,7 +21,7 @@ export async function createCategoryAction(
   })
 
   if (categoryWithSameName) {
-    throw new Error('Categoru name already taken.')
+    throw new Error('Category name already taken.')
   }
 
   await db.insert(categories).values({

@@ -14,8 +14,13 @@ export async function createProductAction(
   },
 ) {
   const productWithSameName = await db.query.products.findFirst({
-    where: eq(products.name, inputs.name),
+    where: and(
+      eq(products.name, inputs.name),
+      eq(products.storeId, inputs.storeId),
+    ),
   })
+
+  console.log(productWithSameName)
 
   if (productWithSameName) {
     throw new Error('Product name already taken.')
