@@ -166,13 +166,15 @@ export function ProductsTableShell({
             <DropdownMenuContent align="end" className="w-[160px]">
               <DropdownMenuItem asChild>
                 <Link
-                  href={`/dashboard/stores/${storeId}}/products/${row.original.id}`}
+                  href={`/dashboard/${storeId}/products/${row.original.id}`}
                 >
                   Edit
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href={`/product/${row.original.id}`}>View</Link>
+                <Link href={`/product/${row.original.id}`}>
+                  View on storefront
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem
