@@ -1,11 +1,19 @@
 import { notFound } from 'next/navigation'
 import { db } from '@/db'
-import { products, variants } from '@/db/schema'
+import {
+  categories,
+  Product,
+  products,
+  productsVariants,
+  Variant,
+  variants,
+} from '@/db/schema'
 import { eq } from 'drizzle-orm'
-import { X } from 'lucide-react'
 
-import { Button } from '@/components/ui/button'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Container } from '@/components/container'
+import { UpdateProductForm } from '@/components/forms/update-product-form'
+import { InfoCard } from '@/components/info-card'
 
 interface ProductPageProps {
   params: {
@@ -16,35 +24,81 @@ interface ProductPageProps {
 export default async function ProductPage({ params }: ProductPageProps) {
   const { productId } = params
 
-  const product = await db.query.products.findFirst({
-    where: eq(products.id, productId),
-  })
+  const { product, productVariants } = await db
+    .select({
+      product: products,
+      productVariant: {
+        id: variants.id,
+        name: variants.name,
+        price: variants.price,
+      },
+    })
+    .from(products)
+    .where(eq(products.id, productId))
+    .leftJoin(productsVariants, eq(products.id, productsVariants.productId))
+    .leftJoin(variants, eq(productsVariants.variantId, variants.id))
+    .then((items) => {
+      const products = items.reduce<
+        Record<
+          string,
+          {
+            product: Product
+            productVariants: Pick<Variant, 'name' | 'price'>[]
+          }
+        >
+      >((acc, row) => {
+        const product = row.product
+        const productVariant = row.productVariant
+
+        if (!acc[product.id]) {
+          acc[product.id] = {
+            product,
+            productVariants: [],
+          }
+        }
+        if (productVariant) {
+          acc[product.id].productVariants.push(productVariant)
+        }
+
+        return acc
+      }, {})
+
+      return Object.values(products)[0]
+    })
 
   if (!product) {
     notFound()
   }
 
-  return (
-    <Container className="my-8 space-y-4">
-      <div className="flex items-center justify-between space-y-2">
-        <h2 className="text-3xl font-bold tracking-tight">Update product</h2>
-        <div className="flex items-center space-x-2">
-          <Button>Preview</Button>
-        </div>
-      </div>
+  const allCategories = await db.query.categories.findMany({
+    where: eq(categories.storeId, product.storeId),
+  })
 
-      <div className="grid grid-cols-1">
-        <div className="relative m-auto hidden h-[600px] max-h-fit w-full max-w-4xl rounded-2xl border border-border bg-background p-0 shadow">
-          <Button
-            size="icon"
-            variant="ghost"
-            className="absolute right-0 top-0 z-20 m-3 hidden items-center md:flex"
-          >
-            <X className="size-4" />
-          </Button>
-          <h1>{product.name}</h1>
-        </div>
-      </div>
+  return (
+    <Container className="my-8">
+      <Tabs defaultValue="product" className="space-y-4">
+        <TabsList>
+          <TabsTrigger value="product">Product</TabsTrigger>
+          <TabsTrigger value="variants">Variants</TabsTrigger>
+        </TabsList>
+        <TabsContent value="product">
+          <div className="mb-5 flex items-center space-y-2">
+            <h2 className="text-3xl font-bold tracking-tight">
+              Update product
+            </h2>
+          </div>
+
+          <UpdateProductForm product={product} categories={allCategories} />
+        </TabsContent>
+        <TabsContent value="variants">
+          <div className="mb-5 flex items-center gap-2 space-y-2">
+            <h2 className="text-3xl font-bold tracking-tight">Variants</h2>
+          </div>
+          {productVariants.length < 1 ? (
+            <InfoCard heading="This product dons't have variants yet" />
+          ) : null}
+        </TabsContent>
+      </Tabs>
     </Container>
   )
 }

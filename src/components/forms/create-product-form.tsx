@@ -40,7 +40,7 @@ export function CreateProductForm({
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }) {
   const [isPending, startTransition] = React.useTransition()
-  console.log(categories, 'fornm')
+
   const form = useForm<Inputs>({
     resolver: zodResolver(productSchema),
     defaultValues: {

@@ -20,8 +20,6 @@ export async function createProductAction(
     ),
   })
 
-  console.log(productWithSameName)
-
   if (productWithSameName) {
     throw new Error('Product name already taken.')
   }
@@ -77,4 +75,34 @@ export async function updateProductStatusAction({
     .where(eq(products.id, productId))
 
   revalidatePath(`/dashboard/${productExist.storeId}/products`)
+}
+
+export async function updateProductAction(
+  inputs: z.infer<typeof productSchema> & {
+    productId: string
+    storeId: string
+  },
+) {
+  const product = await db.query.products.findFirst({
+    where: and(
+      eq(products.id, inputs.productId),
+      eq(products.storeId, inputs.storeId),
+    ),
+  })
+
+  if (!product) {
+    throw new Error('Product not found.')
+  }
+
+  await db
+    .update(products)
+    .set({
+      name: inputs.name,
+      price: inputs.price,
+      categoryId: inputs.categoryId,
+      description: inputs.description,
+    })
+    .where(eq(products.id, inputs.productId))
+
+  revalidatePath(`/dashboard/${inputs.storeId}/products/${inputs.productId}`)
 }

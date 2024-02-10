@@ -19,8 +19,6 @@ export default function SettingsLayout({
   children,
   params,
 }: SettingsLayoutProps) {
-  console.log(params.storeId)
-
   const sidebarNavItems = [
     {
       title: 'Profile',
