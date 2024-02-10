@@ -92,6 +92,13 @@
       "when": 1707515134924,
       "tag": "0012_fresh_shooting_star",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "5",
+      "when": 1707517675914,
+      "tag": "0013_giant_caretaker",
+      "breakpoints": true
     }
   ]
 }

@@ -69,6 +69,7 @@ export const variants = mysqlTable('variants', {
     .default(sql`(uuid())`),
   name: varchar('name', { length: 191 }).notNull(),
   price: decimal('price', { precision: 10, scale: 2 }),
+  storeId: varchar('storeId', { length: 128 }).notNull(),
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').onUpdateNow(),
 })
@@ -76,8 +77,12 @@ export const variants = mysqlTable('variants', {
 export type NewVariant = typeof variants.$inferInsert
 export type Variant = typeof variants.$inferSelect
 
-export const variantsRelations = relations(variants, ({ many }) => ({
+export const variantsRelations = relations(variants, ({ many, one }) => ({
   productsVariants: many(productsVariants),
+  store: one(stores, {
+    fields: [variants.storeId],
+    references: [stores.id],
+  }),
 }))
 
 export const productsVariants = mysqlTable('product_variants', {

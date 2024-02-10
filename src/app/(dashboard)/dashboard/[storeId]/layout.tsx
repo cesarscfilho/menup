@@ -1,7 +1,13 @@
 import React from 'react'
 import { notFound } from 'next/navigation'
 import { db } from '@/db'
-import { products, productsVariants, stores, variants } from '@/db/schema'
+import {
+  products,
+  productsVariants,
+  ProductVariant,
+  stores,
+  variants,
+} from '@/db/schema'
 import { eq } from 'drizzle-orm'
 
 import { auth } from '@/lib/auth'
@@ -29,13 +35,42 @@ export default async function DashboardStoreLayout({
     notFound()
   }
 
-  const a = await db
-    .select()
-    .from(products)
-    .where(eq(products.storeId, store.id))
-    .leftJoin(productsVariants, eq(products.id, productsVariants.productId))
+  // const items = await db
+  //   .select({
+  //     product: products,
+  //     productVariant: productsVariants,
+  //   })
+  //   .from(products)
+  //   .where(eq(products.storeId, store.id))
+  //   .leftJoin(productsVariants, eq(products.id, productsVariants.productId))
+  //   .leftJoin(variants, eq(productsVariants.variantId, variants.id))
+  //   .then((items) => {
+  //     const products = items.reduce<
+  //       Record<
+  //         string,
+  //         {
+  //           productVariants: ProductVariant[]
+  //         }
+  //       >
+  //     >((acc, row) => {
+  //       const product = row.product
+  //       const productVariant = row.productVariant
 
-  console.log(a)
+  //       if (!acc[product.id]) {
+  //         acc[product.id] = {
+  //           ...product,
+  //           productVariants: [],
+  //         }
+  //       }
+  //       if (productVariant) {
+  //         acc[product.id].productVariants.push(productVariant)
+  //       }
+
+  //       return acc
+  //     }, {})
+
+  //     return Object.values(products)
+  //   })
 
   return <>{children}</>
 }

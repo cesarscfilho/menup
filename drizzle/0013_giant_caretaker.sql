@@ -1,0 +1,1 @@
+ALTER TABLE `variants` ADD `storeId` varchar(128) NOT NULL;
