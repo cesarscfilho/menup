@@ -30,7 +30,7 @@ export function CreateCategoryButton({
         {label}
       </Button>
       <Modal
-        className="min-h-[260px] p-5"
+        className="min-h-[260px]"
         showModal={isOpen}
         setShowModal={setIsOpen}
       >
@@ -47,49 +47,50 @@ export function CreateCategoryButton({
           className="flex flex-col justify-center"
           defaultValue={categories.length > 0 ? 'all' : 'new'}
         >
-          <TabsList className="mx-auto">
+          <TabsList className="mx-auto mt-5">
             <TabsTrigger value="new">New</TabsTrigger>
             <TabsTrigger value="all">All categories</TabsTrigger>
           </TabsList>
-          <TabsContent className="mt-6" value="new">
+          <TabsContent className="p-5" value="new">
             <CreateCategoryForm storeId={storeId} />
           </TabsContent>
           <TabsContent value="all">
             {categories.length < 1 ? (
               <p className="mt-5 text-muted-foreground">No results...</p>
             ) : (
-              <h3 className="my-3 text-base font-bold">All categories</h3>
+              <h3 className="m-5 text-base font-bold">All categories</h3>
             )}
-
-            {categories.map((category) => (
-              <div
-                key={category.id}
-                className="flex h-full flex-row items-center justify-between rounded-md border border-border p-2"
-              >
-                <p className="text-base">{category.name}</p>
-                <div className="flex gap-2">
-                  <Button size="icon" variant="outline">
-                    <Pencil1Icon className="size-4" />
-                  </Button>
-                  <Button
-                    isLoading={isPending}
-                    onClick={() => {
-                      startTransition(async () => {
-                        try {
-                          await deleteCategoryAction(category.id)
-                        } catch (err) {
-                          toast.success('Category deleted succefully.')
-                        }
-                      })
-                    }}
-                    size="icon"
-                    variant="destructive"
-                  >
-                    <Trash className="size-4" />
-                  </Button>
+            <div className="divide-y">
+              {categories.map((category) => (
+                <div
+                  key={category.id}
+                  className="flex h-full flex-row items-center justify-between p-4 hover:bg-muted"
+                >
+                  <p className="text-base">{category.name}</p>
+                  <div className="flex gap-2">
+                    <Button size="icon" variant="outline">
+                      <Pencil1Icon className="size-4" />
+                    </Button>
+                    <Button
+                      isLoading={isPending}
+                      onClick={() => {
+                        startTransition(async () => {
+                          try {
+                            await deleteCategoryAction(category.id)
+                          } catch (err) {
+                            toast.success('Category deleted succefully.')
+                          }
+                        })
+                      }}
+                      size="icon"
+                      variant="destructive"
+                    >
+                      <Trash className="size-4" />
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </TabsContent>
         </Tabs>
       </Modal>
