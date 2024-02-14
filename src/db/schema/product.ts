@@ -70,6 +70,7 @@ export const addons = mysqlTable('addons', {
     .default(sql`(uuid())`),
   name: varchar('name', { length: 191 }).notNull(),
   price: decimal('price', { precision: 10, scale: 2 }).default('0'),
+  active: boolean('active').notNull().default(true),
   storeId: varchar('storeId', { length: 128 }).notNull(),
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').onUpdateNow(),
@@ -121,6 +122,7 @@ export const productsCategoryAddons = mysqlTable('products_category_addons', {
   productId: varchar('productId', { length: 128 }).notNull(),
   addonsId: varchar('addonsId', { length: 128 }).notNull(),
   addonsCategoryId: varchar('addonsCategoryId', { length: 128 }).notNull(),
+  active: boolean('active').notNull().default(true),
 })
 
 export type NewProductsCategoryAddons =
