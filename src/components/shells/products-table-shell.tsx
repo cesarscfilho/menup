@@ -241,6 +241,30 @@ export function ProductsTableShell({
       data={data}
       pageCount={pageCount}
       columns={columns}
+      filterableColumns={[
+        {
+          id: 'category',
+          title: 'Category',
+          options: categories.map((category) => ({
+            value: category.id.toLocaleLowerCase(),
+            label: category.name,
+          })),
+        },
+        {
+          id: 'active',
+          title: 'Active',
+          options: [
+            {
+              value: 'true',
+              label: 'Active',
+            },
+            {
+              value: 'false',
+              label: 'Inactive',
+            },
+          ],
+        },
+      ]}
       searchableColumns={[
         {
           id: 'name',

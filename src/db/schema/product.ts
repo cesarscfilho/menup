@@ -76,8 +76,8 @@ export const addons = mysqlTable('addons', {
   updatedAt: timestamp('updatedAt').onUpdateNow(),
 })
 
-export type NewVariant = typeof addons.$inferInsert
-export type Variant = typeof addons.$inferSelect
+export type NewAddon = typeof addons.$inferInsert
+export type Addon = typeof addons.$inferSelect
 
 export const variantsRelations = relations(addons, ({ many, one }) => ({
   store: one(stores, {

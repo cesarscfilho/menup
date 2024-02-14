@@ -15,6 +15,6 @@ export const productsSearchParamsSchema = searchParamsSchema
   })
   .extend({
     category: z.string().optional(),
-    active: z.string().optional().default('true'),
+    active: z.string().optional(),
     name: z.string().optional(),
   })

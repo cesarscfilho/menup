@@ -2,7 +2,7 @@ import React from 'react'
 import { notFound } from 'next/navigation'
 import { db } from '@/db'
 import { categories, Product, products } from '@/db/schema'
-import { and, asc, desc, eq, like, sql } from 'drizzle-orm'
+import { and, asc, desc, eq, inArray, like, sql } from 'drizzle-orm'
 import { Store } from 'lucide-react'
 
 import { productsSearchParamsSchema } from '@/types/params'
@@ -67,7 +67,7 @@ export default async function StoreProductsPage({
     keyof Product | undefined,
     'asc' | 'desc' | undefined,
   ]) ?? ['createdAt', 'desc']
-  // const categoriesFilter = (category?.split('.') as string[]) ?? []
+  const categoriesFilter = (category?.split('.') as string[]) ?? []
 
   const productsPromise = db.transaction(async (tx) => {
     try {
@@ -87,6 +87,14 @@ export default async function StoreProductsPage({
           and(
             eq(products.storeId, storeId),
             name ? like(products.name, `%${name}`) : undefined,
+            categoriesFilter.length > 0
+              ? inArray(products.categoryId, categoriesFilter)
+              : undefined,
+            active
+              ? active === 'false'
+                ? eq(products.active, false)
+                : eq(products.active, true)
+              : undefined,
           ),
         )
         .innerJoin(categories, eq(categories.id, products.categoryId))
