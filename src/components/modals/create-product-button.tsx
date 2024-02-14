@@ -4,9 +4,9 @@ import React from 'react'
 import { Category } from '@/db/schema'
 import { X } from 'lucide-react'
 
-import { CreateProductForm } from './forms/create-product-form'
-import { Button } from './ui/button'
-import { Modal } from './ui/modal'
+import { CreateProductForm } from '../forms/create-product-form'
+import { Button } from '../ui/button'
+import { Modal } from '../ui/modal'
 
 export function CreateProductButton({
   storeId,

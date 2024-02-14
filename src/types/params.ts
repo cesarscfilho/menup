@@ -18,3 +18,13 @@ export const productsSearchParamsSchema = searchParamsSchema
     active: z.string().optional(),
     name: z.string().optional(),
   })
+
+export const addonsSearchParamsSchema = searchParamsSchema
+  .omit({
+    from: true,
+    to: true,
+  })
+  .extend({
+    active: z.string().optional(),
+    name: z.string().optional(),
+  })

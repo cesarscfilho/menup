@@ -4,8 +4,8 @@ import { Store } from 'lucide-react'
 
 import { auth } from '@/lib/auth'
 import { Container } from '@/components/container'
-import { CreateStoreButton } from '@/components/create-store-button'
 import { InfoCard } from '@/components/info-card'
+import { CreateStoreButton } from '@/components/modals/create-store-button'
 import { StoreCard } from '@/components/store-card'
 
 export default async function DashboardIndex() {

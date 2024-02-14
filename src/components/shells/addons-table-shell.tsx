@@ -2,20 +2,16 @@
 
 import React from 'react'
 import Link from 'next/link'
-import {
-  deleteProductAction,
-  updateProductStatusAction,
-} from '@/actions/product'
-import { Category } from '@/db/schema'
+import { deleteAddonAction, updateAddonStatusAction } from '@/actions/addon'
+import { deleteProductAction } from '@/actions/product'
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { ColumnDef } from '@tanstack/react-table'
 import { toast } from 'sonner'
 
-import { formatDate, formatPrice } from '@/lib/utils'
+import { formatPrice } from '@/lib/utils'
 
 import { DataTable } from '../data-table/data-table'
 import { DataTableColumnHeader } from '../data-table/data-table-column-header'
-import { Badge } from '../ui/badge'
 import { Button } from '../ui/button'
 import { Checkbox } from '../ui/checkbox'
 import {
@@ -111,13 +107,13 @@ export function AddonsTableShell({
             <Switch
               disabled={isPending}
               checked={cell.getValue() as boolean}
-              //   onCheckedChange={() => {
-              //     startTransition(async () => {
-              //       await updateProductStatusAction({
-              //         productId: row.original.id,
-              //       })
-              //     })
-              //   }}
+              onCheckedChange={() => {
+                startTransition(async () => {
+                  await updateAddonStatusAction({
+                    addonId: row.original.id,
+                  })
+                })
+              }}
             />
           )
         },
@@ -188,7 +184,7 @@ export function AddonsTableShell({
     toast.promise(
       Promise.all(
         selectedRowIds.map((id) =>
-          deleteProductAction({
+          deleteAddonAction({
             id,
             storeId,
           }),
@@ -198,7 +194,7 @@ export function AddonsTableShell({
         loading: 'Deleting...',
         success: () => {
           setSelectedRowIds([])
-          return 'Products deleted successfully.'
+          return 'Addonds deleted successfully.'
         },
         error: (err: unknown) => {
           setSelectedRowIds([])
@@ -214,6 +210,22 @@ export function AddonsTableShell({
       data={data}
       pageCount={pageCount}
       columns={columns}
+      filterableColumns={[
+        {
+          id: 'active',
+          title: 'Active',
+          options: [
+            {
+              value: 'true',
+              label: 'Active',
+            },
+            {
+              value: 'false',
+              label: 'Inactive',
+            },
+          ],
+        },
+      ]}
       searchableColumns={[
         {
           id: 'name',

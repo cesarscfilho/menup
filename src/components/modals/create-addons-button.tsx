@@ -3,9 +3,9 @@
 import React from 'react'
 import { X } from 'lucide-react'
 
-import { CreateAddonsForm } from './forms/create-addons-form'
-import { Button } from './ui/button'
-import { Modal } from './ui/modal'
+import { CreateAddonsForm } from '../forms/create-addons-form'
+import { Button } from '../ui/button'
+import { Modal } from '../ui/modal'
 
 export function CreateAddonsButton({
   storeId,

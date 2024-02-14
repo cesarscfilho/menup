@@ -13,9 +13,9 @@ import { toast } from 'sonner'
 
 import { formatDate, formatPrice } from '@/lib/utils'
 
-import { CreateProductButton } from '../create-product-button'
 import { DataTable } from '../data-table/data-table'
 import { DataTableColumnHeader } from '../data-table/data-table-column-header'
+import { CreateProductButton } from '../modals/create-product-button'
 import { Badge } from '../ui/badge'
 import { Button } from '../ui/button'
 import { Checkbox } from '../ui/checkbox'

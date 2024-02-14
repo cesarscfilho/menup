@@ -7,9 +7,9 @@ import { Store } from 'lucide-react'
 
 import { productsSearchParamsSchema } from '@/types/params'
 import { Container } from '@/components/container'
-import { CreateCategoryButton } from '@/components/create-category-button'
 import { DataTableSkeleton } from '@/components/data-table/data-table-skeleton'
 import { InfoCard } from '@/components/info-card'
+import { CreateCategoryButton } from '@/components/modals/create-category-button'
 import { ProductsTableShell } from '@/components/shells/products-table-shell'
 
 interface StoreProductsPageProps {
