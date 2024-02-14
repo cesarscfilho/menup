@@ -1,0 +1,1 @@
+ALTER TABLE `addons_category` ADD `productId` varchar(191) NOT NULL;

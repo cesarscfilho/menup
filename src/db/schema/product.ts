@@ -38,7 +38,8 @@ export const productsRelations = relations(products, ({ one, many }) => ({
     fields: [products.categoryId],
     references: [categories.id],
   }),
-  productsVariants: many(productsVariants),
+  addonsCategory: many(addonsCategory),
+  productsCategoryAddons: many(productsCategoryAddons),
 }))
 
 // Categories
@@ -61,51 +62,85 @@ export const categoriesRelations = relations(categories, ({ one, many }) => ({
   products: many(products),
 }))
 
-// Variants
+// Addons
 
-export const variants = mysqlTable('variants', {
+export const addons = mysqlTable('addons', {
   id: varchar('id', { length: 128 })
     .primaryKey()
     .default(sql`(uuid())`),
   name: varchar('name', { length: 191 }).notNull(),
-  price: decimal('price', { precision: 10, scale: 2 }),
+  price: decimal('price', { precision: 10, scale: 2 }).default('0'),
   storeId: varchar('storeId', { length: 128 }).notNull(),
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').onUpdateNow(),
 })
 
-export type NewVariant = typeof variants.$inferInsert
-export type Variant = typeof variants.$inferSelect
+export type NewVariant = typeof addons.$inferInsert
+export type Variant = typeof addons.$inferSelect
 
-export const variantsRelations = relations(variants, ({ many, one }) => ({
-  productsVariants: many(productsVariants),
+export const variantsRelations = relations(addons, ({ many, one }) => ({
   store: one(stores, {
-    fields: [variants.storeId],
+    fields: [addons.storeId],
     references: [stores.id],
   }),
+  productsCategoryAddons: many(productsCategoryAddons),
 }))
 
-export const productsVariants = mysqlTable('product_variants', {
+// Addons category
+
+export const addonsCategory = mysqlTable('addons_category', {
+  id: varchar('id', { length: 128 })
+    .primaryKey()
+    .default(sql`(uuid())`),
+  name: varchar('name', { length: 191 }).notNull(),
+  productId: varchar('productId', { length: 191 }).notNull(),
+  createdAt: timestamp('createdAt').defaultNow(),
+  updatedAt: timestamp('updatedAt').onUpdateNow(),
+})
+
+export type NewAddonsCategory = typeof addonsCategory.$inferInsert
+export type AddonsCategory = typeof addonsCategory.$inferSelect
+
+export const addonsCategoryRelations = relations(
+  addonsCategory,
+  ({ many, one }) => ({
+    productsCategoryAddons: many(productsCategoryAddons),
+    product: one(products, {
+      fields: [addonsCategory.productId],
+      references: [products.id],
+    }),
+  }),
+)
+
+// Product category addons
+
+export const productsCategoryAddons = mysqlTable('products_category_addons', {
   id: varchar('id', { length: 128 })
     .primaryKey()
     .default(sql`(uuid())`),
   productId: varchar('productId', { length: 128 }).notNull(),
-  variantId: varchar('variantId', { length: 128 }).notNull(),
+  addonsId: varchar('addonsId', { length: 128 }).notNull(),
+  addonsCategoryId: varchar('addonsCategoryId', { length: 128 }).notNull(),
 })
 
-export type NewProductVariant = typeof productsVariants.$inferInsert
-export type ProductVariant = typeof productsVariants.$inferSelect
+export type NewProductsCategoryAddons =
+  typeof productsCategoryAddons.$inferInsert
+export type ProductsCategoryAddons = typeof productsCategoryAddons.$inferSelect
 
-export const productsVariantsRelations = relations(
-  productsVariants,
+export const productsCategoryAddonsRelations = relations(
+  productsCategoryAddons,
   ({ one }) => ({
-    products: one(products, {
-      fields: [productsVariants.productId],
+    product: one(products, {
+      fields: [productsCategoryAddons.productId],
       references: [products.id],
     }),
-    variants: one(variants, {
-      fields: [productsVariants.variantId],
-      references: [variants.id],
+    addon: one(addons, {
+      fields: [productsCategoryAddons.addonsId],
+      references: [addons.id],
+    }),
+    addonCategory: one(addonsCategory, {
+      fields: [productsCategoryAddons.addonsCategoryId],
+      references: [addonsCategory.id],
     }),
   }),
 )

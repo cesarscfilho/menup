@@ -38,6 +38,11 @@ export function DashboardTabs() {
         isActive: pathname[1] === `products`,
       },
       {
+        title: 'Addons',
+        href: `/dashboard/${storeId}/addons`,
+        isActive: pathname[1] === `addons`,
+      },
+      {
         title: 'Notifications',
         href: `/dashboard/${storeId}/notifications`,
         isActive: pathname[1] === `notifications`,

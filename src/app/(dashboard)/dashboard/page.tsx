@@ -38,7 +38,7 @@ export default async function DashboardIndex() {
           <InfoCard
             icon={<Store size={36} />}
             subheading="Create your first store to get started"
-            heading=" You don't have any stores yet"
+            heading="You don't have any stores yet"
           />
         )}
       </Container>

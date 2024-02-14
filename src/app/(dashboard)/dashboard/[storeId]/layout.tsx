@@ -1,13 +1,7 @@
 import React from 'react'
 import { notFound } from 'next/navigation'
 import { db } from '@/db'
-import {
-  products,
-  productsVariants,
-  ProductVariant,
-  stores,
-  variants,
-} from '@/db/schema'
+import { stores } from '@/db/schema'
 import { eq } from 'drizzle-orm'
 
 import { auth } from '@/lib/auth'

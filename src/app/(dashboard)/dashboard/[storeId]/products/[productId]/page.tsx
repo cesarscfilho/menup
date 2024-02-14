@@ -1,18 +1,14 @@
-import { notFound } from 'next/navigation'
 import { db } from '@/db'
 import {
-  categories,
-  Product,
-  products,
-  productsVariants,
-  Variant,
-  variants,
+  addons,
+  AddonsCategory,
+  addonsCategory,
+  productsCategoryAddons,
 } from '@/db/schema'
-import { eq } from 'drizzle-orm'
+import { and, eq } from 'drizzle-orm'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Container } from '@/components/container'
-import { UpdateProductForm } from '@/components/forms/update-product-form'
 import { InfoCard } from '@/components/info-card'
 
 interface ProductPageProps {
@@ -24,55 +20,57 @@ interface ProductPageProps {
 export default async function ProductPage({ params }: ProductPageProps) {
   const { productId } = params
 
-  const { product, productVariants } = await db
+  const productAddons = await db
     .select({
-      product: products,
-      productVariant: {
-        id: variants.id,
-        name: variants.name,
-        price: variants.price,
+      category: {
+        id: addonsCategory.id,
+        name: addonsCategory.name,
+      },
+      items: {
+        id: addons.id,
+        name: addons.name,
       },
     })
-    .from(products)
-    .where(eq(products.id, productId))
-    .leftJoin(productsVariants, eq(products.id, productsVariants.productId))
-    .leftJoin(variants, eq(productsVariants.variantId, variants.id))
-    .then((items) => {
-      const products = items.reduce<
+    .from(addonsCategory)
+    .where(eq(addonsCategory.productId, productId))
+    .leftJoin(
+      productsCategoryAddons,
+      and(
+        eq(productsCategoryAddons.productId, productId),
+        eq(productsCategoryAddons.addonsCategoryId, addonsCategory.id),
+      ),
+    )
+    .leftJoin(addons, eq(addons.id, productsCategoryAddons.addonsId))
+    .then((res) => {
+      const items = res.reduce<
         Record<
           string,
           {
-            product: Product
-            productVariants: Pick<Variant, 'name' | 'price'>[]
+            name: string
+            id: string
+            items: Pick<AddonsCategory, 'id' | 'name'>[]
           }
         >
       >((acc, row) => {
-        const product = row.product
-        const productVariant = row.productVariant
+        const category = row.category
+        const item = row.items
 
-        if (!acc[product.id]) {
-          acc[product.id] = {
-            product,
-            productVariants: [],
+        if (!acc[category.name]) {
+          acc[category.name] = {
+            ...category,
+            items: [],
           }
         }
-        if (productVariant) {
-          acc[product.id].productVariants.push(productVariant)
+
+        if (item) {
+          acc[category.name].items.push(item)
         }
 
         return acc
       }, {})
 
-      return Object.values(products)[0]
+      return Object.values(items)
     })
-
-  if (!product) {
-    notFound()
-  }
-
-  const allCategories = await db.query.categories.findMany({
-    where: eq(categories.storeId, product.storeId),
-  })
 
   return (
     <Container className="my-8">
@@ -88,15 +86,24 @@ export default async function ProductPage({ params }: ProductPageProps) {
             </h2>
           </div>
 
-          <UpdateProductForm product={product} categories={allCategories} />
+          {/* <UpdateProductForm product={product} categories={allCategories} /> */}
         </TabsContent>
         <TabsContent value="variants">
           <div className="mb-5 flex items-center gap-2 space-y-2">
             <h2 className="text-3xl font-bold tracking-tight">Variants</h2>
           </div>
-          {productVariants.length < 1 ? (
+          {productAddons.length < 1 ? (
             <InfoCard heading="This product dons't have variants yet" />
           ) : null}
+
+          {productAddons.map((item) => (
+            <div key={item.id}>
+              {item.name} =
+              {item.items.map((item) => (
+                <div key={item.id}>{item.name}</div>
+              ))}
+            </div>
+          ))}
         </TabsContent>
       </Tabs>
     </Container>
