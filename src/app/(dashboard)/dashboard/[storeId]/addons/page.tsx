@@ -104,7 +104,6 @@ export default async function AddonsPage({
     }
   })
 
-  console.log((await promise).data)
   return (
     <Container className="mt-8 space-y-4">
       <div className="flex items-center justify-between space-y-2">

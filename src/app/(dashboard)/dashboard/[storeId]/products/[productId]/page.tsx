@@ -3,6 +3,7 @@ import { db } from '@/db'
 import { categories, products } from '@/db/schema'
 import { eq } from 'drizzle-orm'
 
+import { BackToProduct } from '@/components/back-to-product'
 import { Container } from '@/components/container'
 import { UpdateProductForm } from '@/components/forms/update-product-form'
 import { LinkTabs } from '@/components/pagers/link-tabs'
@@ -31,7 +32,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   return (
     <Container className="my-8 space-y-4">
-      <LinkTabs productId={product.id} />
+      <div className="flex flex-row items-center gap-4">
+        <BackToProduct storeId={product.storeId} />
+        <LinkTabs productId={product.id} />
+      </div>
       <div className="mb-5 flex items-center space-y-2">
         <h2 className="text-3xl font-bold tracking-tight">Update product</h2>
       </div>

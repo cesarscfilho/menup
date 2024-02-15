@@ -7,6 +7,7 @@ import {
 } from '@/db/schema'
 import { and, eq } from 'drizzle-orm'
 
+import { BackToProduct } from '@/components/back-to-product'
 import { Container } from '@/components/container'
 import { InfoCard } from '@/components/info-card'
 import { LinkTabs } from '@/components/pagers/link-tabs'
@@ -14,13 +15,14 @@ import { LinkTabs } from '@/components/pagers/link-tabs'
 interface ProductAddonsPageProps {
   params: {
     productId: string
+    storeId: string
   }
 }
 
 export default async function ProductAddonsPage({
   params,
 }: ProductAddonsPageProps) {
-  const { productId } = params
+  const { productId, storeId } = params
 
   const productAddons = await db
     .select({
@@ -76,7 +78,10 @@ export default async function ProductAddonsPage({
 
   return (
     <Container className="my-8 space-y-4">
-      <LinkTabs productId={productId} />
+      <div className="flex flex-row items-center gap-4">
+        <BackToProduct storeId={storeId} />
+        <LinkTabs productId={productId} />
+      </div>
 
       <div className="mb-5 flex items-center space-y-2">
         <h2 className="text-3xl font-bold tracking-tight">Product addons</h2>
