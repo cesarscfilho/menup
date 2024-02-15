@@ -1,6 +1,6 @@
 import React from 'react'
 import { AddonsCategory } from '@/db/schema'
-import { MinusCircle } from 'lucide-react'
+import { MinusCircle, Plus } from 'lucide-react'
 
 import { Button } from './ui/button'
 import { Card, CardContent, CardFooter, CardHeader } from './ui/card'
@@ -32,12 +32,12 @@ export default function ProductAddonsList({ addons }: ProductAddonsListProps) {
                 />
                 <Switch id="necessary" defaultChecked />
               </div>
-              <div className="space-y-2">
+              <div className="space-y-3">
                 <div className="flex w-[200px] flex-row items-center gap-3">
                   <span className="text-sm">Min</span>
-                  <Input className="bg-background" />
+                  <Input className="h-7 bg-background " />
                   <span className="text-sm">Max</span>
-                  <Input className="bg-background" />
+                  <Input className="h-7 bg-background " />
                 </div>
                 <div className="flex items-center space-x-2">
                   <Checkbox className="bg-background" id="terms" />
@@ -46,24 +46,28 @@ export default function ProductAddonsList({ addons }: ProductAddonsListProps) {
               </div>
             </CardHeader>
             <Separator />
-            <CardContent className="grid gap-4 p-4">
+            <CardContent className="grid gap-4 divide-y p-4">
               {category.items.map((item) => (
                 <div
                   key={item.id}
                   className="flex items-center justify-between space-x-2"
                 >
                   <div className="flex items-center space-x-4">
-                    <div className="h-12 w-12 rounded-sm bg-green-400/80" />
-                    <span className="text-base">{item.name}</span>
+                    <div className="h-9 w-9 rounded-sm bg-green-400/80" />
+                    <span className="text-sm">{item.name}</span>
                   </div>
 
                   <div className="flex items-center gap-2">
                     <Input
-                      className="w-[100px] bg-background"
+                      className="h-7 w-[100px] bg-background"
                       placeholder="$0"
                     />
-                    <Button variant={'destructive'} size={'icon'}>
-                      <MinusCircle size={16} />
+                    <Button
+                      variant={'destructive'}
+                      size={'icon'}
+                      className="size-7"
+                    >
+                      <MinusCircle className="size-3" />
                     </Button>
                   </div>
                 </div>
@@ -71,19 +75,22 @@ export default function ProductAddonsList({ addons }: ProductAddonsListProps) {
             </CardContent>
 
             <CardFooter className="p-4">
-              <Button variant="outline" className="w-full">
-                Add addon
+              <Button size={'sm'} variant="outline" className="w-full">
+                <Plus className="mr-2 size-3" /> Add addon
               </Button>
             </CardFooter>
           </Card>
         ))}
       </div>
-      <Card className="fixed inset-x-0 bottom-0 h-fit flex-col items-center justify-around rounded-b-none p-2 md:sticky md:top-32 md:flex md:space-y-2 md:rounded-xl md:p-4">
-        <Button variant={'outline'} className="hidden w-full md:flex">
-          Add category
-        </Button>
-        <Button className="w-full">Save</Button>
-      </Card>
+
+      {addons.length > 0 ? (
+        <Card className="fixed inset-x-0 bottom-0 h-fit flex-col items-center justify-around rounded-b-none p-2 md:sticky md:top-32 md:flex md:space-y-2 md:rounded-xl md:p-4">
+          <Button variant={'outline'} className="hidden w-full md:flex">
+            Add category
+          </Button>
+          <Button className="w-full">Save</Button>
+        </Card>
+      ) : null}
     </div>
   )
 }

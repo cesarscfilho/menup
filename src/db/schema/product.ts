@@ -2,6 +2,7 @@ import { relations, sql } from 'drizzle-orm'
 import {
   boolean,
   decimal,
+  int,
   mysqlTable,
   text,
   timestamp,
@@ -95,6 +96,9 @@ export const addonsCategory = mysqlTable('addons_category', {
     .default(sql`(uuid())`),
   name: varchar('name', { length: 191 }).notNull(),
   productId: varchar('productId', { length: 191 }).notNull(),
+  quantityMin: int('quantityMin').notNull().default(0),
+  quantityMax: int('quantityMax').notNull().default(1),
+  mandatory: boolean('active').notNull().default(false),
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').onUpdateNow(),
 })
