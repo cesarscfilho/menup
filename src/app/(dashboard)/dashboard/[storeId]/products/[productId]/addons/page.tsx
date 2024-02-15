@@ -11,6 +11,7 @@ import { BackToProduct } from '@/components/back-to-product'
 import { Container } from '@/components/container'
 import { InfoCard } from '@/components/info-card'
 import { LinkTabs } from '@/components/pagers/link-tabs'
+import ProductAddonsList from '@/components/product-addons-list'
 
 interface ProductAddonsPageProps {
   params: {
@@ -91,14 +92,7 @@ export default async function ProductAddonsPage({
         <InfoCard heading="This product dons't have addons yet" />
       ) : null}
 
-      {productAddons.map((item) => (
-        <div key={item.id}>
-          {item.name} =
-          {item.items.map((item) => (
-            <div key={item.id}>{item.name}</div>
-          ))}
-        </div>
-      ))}
+      <ProductAddonsList addons={productAddons} />
     </Container>
   )
 }
