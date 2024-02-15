@@ -1,11 +1,11 @@
 import { db } from '@/db'
 import {
+  Addon,
   addons,
-  AddonsCategory,
   addonsCategory,
   productsCategoryAddons,
 } from '@/db/schema'
-import { and, eq } from 'drizzle-orm'
+import { and, desc, eq } from 'drizzle-orm'
 
 import { BackToProduct } from '@/components/back-to-product'
 import { Container } from '@/components/container'
@@ -30,10 +30,15 @@ export default async function ProductAddonsPage({
       category: {
         id: addonsCategory.id,
         name: addonsCategory.name,
+        quantityMin: addonsCategory.quantityMin,
+        quantityMax: addonsCategory.quantityMax,
+        mandatory: addonsCategory.mandatory,
+        active: addonsCategory.active,
       },
       items: {
         id: addons.id,
         name: addons.name,
+        price: addons.price,
       },
     })
     .from(addonsCategory)
@@ -46,14 +51,19 @@ export default async function ProductAddonsPage({
       ),
     )
     .leftJoin(addons, eq(addons.id, productsCategoryAddons.addonsId))
+    .orderBy(desc(addonsCategory.active))
     .then((res) => {
       const items = res.reduce<
         Record<
           string,
           {
-            name: string
             id: string
-            items: Pick<AddonsCategory, 'id' | 'name'>[]
+            name: string
+            quantityMin: number
+            quantityMax: number
+            mandatory: boolean
+            active: boolean
+            items: Pick<Addon, 'id' | 'name' | 'price'>[]
           }
         >
       >((acc, row) => {
@@ -92,7 +102,7 @@ export default async function ProductAddonsPage({
         <InfoCard heading="This product dons't have addons yet" />
       ) : null}
 
-      <ProductAddonsList addons={productAddons} />
+      <ProductAddonsList storeId={storeId} addons={productAddons} />
     </Container>
   )
 }

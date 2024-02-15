@@ -98,7 +98,8 @@ export const addonsCategory = mysqlTable('addons_category', {
   productId: varchar('productId', { length: 191 }).notNull(),
   quantityMin: int('quantityMin').notNull().default(0),
   quantityMax: int('quantityMax').notNull().default(1),
-  mandatory: boolean('active').notNull().default(false),
+  mandatory: boolean('mandatory').notNull().default(false),
+  active: boolean('active').notNull().default(true),
   createdAt: timestamp('createdAt').defaultNow(),
   updatedAt: timestamp('updatedAt').onUpdateNow(),
 })

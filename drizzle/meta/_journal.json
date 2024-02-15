@@ -127,6 +127,20 @@
       "when": 1708005293837,
       "tag": "0017_worried_thunderbird",
       "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "5",
+      "when": 1708006448284,
+      "tag": "0018_lucky_stick",
+      "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "5",
+      "when": 1708006621683,
+      "tag": "0019_dry_blacklash",
+      "breakpoints": true
     }
   ]
 }

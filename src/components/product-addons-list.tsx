@@ -1,5 +1,8 @@
+'use client'
+
 import React from 'react'
-import { AddonsCategory } from '@/db/schema'
+import { updateAddonCategoryStatusAction } from '@/actions/addon-category'
+import { Addon } from '@/db/schema'
 import { MinusCircle, Plus } from 'lucide-react'
 
 import { Button } from './ui/button'
@@ -14,11 +17,21 @@ interface ProductAddonsListProps {
   addons: {
     name: string
     id: string
-    items: Pick<AddonsCategory, 'id' | 'name'>[]
+    quantityMin: number
+    quantityMax: number
+    mandatory: boolean
+    active: boolean
+    items: Pick<Addon, 'id' | 'name' | 'price'>[]
   }[]
+  storeId: string
 }
 
-export default function ProductAddonsList({ addons }: ProductAddonsListProps) {
+export default function ProductAddonsList({
+  addons,
+  storeId,
+}: ProductAddonsListProps) {
+  const [isPending, startTransition] = React.useTransition()
+
   return (
     <div className="grid grid-cols-1 gap-6 pb-12 md:grid-cols-3">
       <div className="col-span-2 space-y-6">
@@ -30,17 +43,38 @@ export default function ProductAddonsList({ addons }: ProductAddonsListProps) {
                   className="w-[60%] bg-background  font-semibold leading-none tracking-tight"
                   value={category.name}
                 />
-                <Switch id="necessary" defaultChecked />
+                <Switch
+                  disabled={isPending}
+                  checked={category.active}
+                  onCheckedChange={() => {
+                    startTransition(async () => {
+                      await updateAddonCategoryStatusAction({
+                        addonCategoryId: category.id,
+                        storeId,
+                      })
+                    })
+                  }}
+                />
               </div>
               <div className="space-y-3">
                 <div className="flex w-[200px] flex-row items-center gap-3">
                   <span className="text-sm">Min</span>
-                  <Input className="h-7 bg-background " />
+                  <Input
+                    value={category.quantityMin}
+                    className="h-7 bg-background "
+                  />
                   <span className="text-sm">Max</span>
-                  <Input className="h-7 bg-background " />
+                  <Input
+                    value={category.quantityMax}
+                    className="h-7 bg-background "
+                  />
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Checkbox className="bg-background" id="terms" />
+                  <Checkbox
+                    checked={category.mandatory}
+                    className="bg-background"
+                    id="terms"
+                  />
                   <Label htmlFor="terms">Mandatory filling</Label>
                 </div>
               </div>
@@ -61,6 +95,7 @@ export default function ProductAddonsList({ addons }: ProductAddonsListProps) {
                     <Input
                       className="h-7 w-[100px] bg-background"
                       placeholder="$0"
+                      value={item.price ?? 0}
                     />
                     <Button
                       variant={'destructive'}
