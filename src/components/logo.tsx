@@ -8,10 +8,7 @@ export function Logo({ className }: { className?: string }) {
       viewBox="0 0 191 191"
       fill="#000"
       xmlns="http://www.w3.org/2000/svg"
-      className={cn(
-        'h-10 w-10 rounded-lg bg-secondary-foreground text-secondary',
-        className,
-      )}
+      className={cn('h-10 w-10 rounded-lg bg-black text-secondary', className)}
     >
       <g transform="translate(25, 58) scale(1.7)">
         <g fill="#fff" fillRule="nonzero">
