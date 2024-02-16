@@ -14,7 +14,10 @@ export function MarketingFooter() {
     <footer className="w-full border-t bg-background">
       <div className="container py-8">
         <section className="py-6 md:py-8">
-          <Logo />
+          <Link href="/" className="flex items-center text-primary">
+            <Logo className="size-8" />
+            <p className="ml-2 text-base font-extrabold">{siteConfig.name}</p>
+          </Link>
         </section>
         <section className="grid flex-1 grid-cols-1 gap-10 py-8 sm:grid-cols-3">
           {marketingConfig.footerNav.map((item) => (

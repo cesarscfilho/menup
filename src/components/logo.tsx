@@ -1,14 +1,28 @@
-import Link from 'next/link'
+import { cn } from '@/lib/utils'
 
-import siteConfig from '@/config/site'
-
-import { Icons } from './icons'
-
-export function Logo() {
+export function Logo({ className }: { className?: string }) {
   return (
-    <Link href="/" className="flex items-center text-primary">
-      <Icons.logo className="h-8 w-auto" />
-      <p className="ml-2 text-base font-extrabold">{siteConfig.name}</p>
-    </Link>
+    <svg
+      width="191"
+      height="191"
+      viewBox="0 0 191 191"
+      fill="#000"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn(
+        'h-10 w-10 rounded-lg bg-secondary-foreground text-secondary',
+        className,
+      )}
+    >
+      <g transform="translate(25, 58) scale(1.7)">
+        <g fill="#fff" fillRule="nonzero">
+          <g>
+            <path
+              shapeRendering="geometricPrecision"
+              d="M72.453 19.468a10.11 10.11 0 00-3.63.68l-.51.21c-.56.25-1 .49-1.42.27a1.31 1.31 0 01-.18-.12 1.24 1.24 0 01-.23-1 3.48 3.48 0 01.95-1.5l.57-.56.51-.5a10 10 0 00-14.06-14.2l-13.73 13.53c-.2.18-.38.34-.55.47a2.46 2.46 0 01-.44.31h-.05a1.52 1.52 0 01-1.42.13 1.39 1.39 0 01-.18-.12 1.24 1.24 0 01-.23-1 5.87 5.87 0 01.6-1.49l.05-.09.1-.18a10 10 0 00-15.91-11.56l-20.24 19.93a10 10 0 0014 14.2l15.16-14.9c.47-.42 1.36-1.09 2-.67.07.041.137.088.2.14a1.3 1.3 0 01.26.4 1 1 0 010 .46 3.09 3.09 0 01-.62 1.18l-.13.16a8.93 8.93 0 00-2.19 5.25 11.21 11.21 0 003.05 7.82c3.866 3.904 10.158 3.958 14.09.12l12.8-12.59c.5-.44 1.33-1 2-.63l.12.08a1 1 0 01.17.19v.07c.153.282.189.612.1.92a3.82 3.82 0 01-.16.43 10.14 10.14 0 109.15-5.84z"
+            ></path>
+          </g>
+        </g>
+      </g>
+    </svg>
   )
 }

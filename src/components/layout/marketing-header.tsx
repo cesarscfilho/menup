@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { User } from '@auth/core/types'
 
 import marketingConfig from '@/config/marketing'
+import siteConfig from '@/config/site'
 import { cn } from '@/lib/utils'
 import useScroll from '@/hooks/use-scroll'
 
@@ -35,7 +36,10 @@ export function MarketingHeader({ scroll = true, user }: MarketingHeaderProps) {
         <MarketingMobileNav navItems={marketingConfig.navItems} />
 
         <div className="relative z-10 hidden items-center gap-16 md:flex">
-          <Logo />
+          <Link href="/" className="flex items-center text-primary">
+            <Logo className="size-8" />
+            <p className="ml-2 text-base font-extrabold">{siteConfig.name}</p>
+          </Link>
 
           <MarketingNavLinks navItems={marketingConfig.navItems} />
         </div>
