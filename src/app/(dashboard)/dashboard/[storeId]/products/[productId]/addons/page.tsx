@@ -5,11 +5,10 @@ import {
   addonsCategory,
   productsCategoryAddons,
 } from '@/db/schema'
-import { and, desc, eq } from 'drizzle-orm'
+import { and, asc, desc, eq } from 'drizzle-orm'
 
 import { BackToProduct } from '@/components/back-to-product'
 import { Container } from '@/components/container'
-import { InfoCard } from '@/components/info-card'
 import { LinkTabs } from '@/components/pagers/link-tabs'
 import ProductAddonsList from '@/components/product-addons-list'
 
@@ -25,10 +24,10 @@ export default async function ProductAddonsPage({
 }: ProductAddonsPageProps) {
   const { productId, storeId } = params
 
-  const productAddons = await db
+  const productCategoriesWithAddons = await db
     .select({
       category: {
-        id: addonsCategory.id,
+        categoryId: addonsCategory.id,
         name: addonsCategory.name,
         quantityMin: addonsCategory.quantityMin,
         quantityMax: addonsCategory.quantityMax,
@@ -51,13 +50,13 @@ export default async function ProductAddonsPage({
       ),
     )
     .leftJoin(addons, eq(addons.id, productsCategoryAddons.addonsId))
-    .orderBy(desc(addonsCategory.active))
+    .orderBy(desc(addonsCategory.active), asc(addonsCategory.updatedAt))
     .then((res) => {
-      const items = res.reduce<
+      const addonsListItems = res.reduce<
         Record<
           string,
           {
-            id: string
+            categoryId: string
             name: string
             quantityMin: number
             quantityMax: number
@@ -84,8 +83,10 @@ export default async function ProductAddonsPage({
         return acc
       }, {})
 
-      return Object.values(items)
+      return Object.values(addonsListItems)
     })
+
+  // console.log(productCategoriesWithAddons)
 
   return (
     <Container className="my-8 space-y-4">
@@ -98,11 +99,11 @@ export default async function ProductAddonsPage({
         <h2 className="text-3xl font-bold tracking-tight">Product addons</h2>
       </div>
 
-      {productAddons.length < 1 ? (
-        <InfoCard heading="This product dons't have addons yet" />
-      ) : null}
-
-      <ProductAddonsList storeId={storeId} addons={productAddons} />
+      <ProductAddonsList
+        productId={productId}
+        storeId={storeId}
+        productCategoriesWithAddons={productCategoriesWithAddons}
+      />
     </Container>
   )
 }
