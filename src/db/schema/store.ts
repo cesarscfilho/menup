@@ -1,4 +1,4 @@
-import { relations, sql } from 'drizzle-orm'
+import { relations } from 'drizzle-orm'
 import {
   boolean,
   mysqlTable,
@@ -7,12 +7,14 @@ import {
   varchar,
 } from 'drizzle-orm/mysql-core'
 
+import { createId } from '@/lib/utils'
+
 import { users } from './user'
 
 export const stores = mysqlTable('stores', {
   id: varchar('id', { length: 128 })
-    .primaryKey()
-    .default(sql`(uuid())`),
+    .$defaultFn(() => createId())
+    .primaryKey(),
   userId: varchar('userId', { length: 191 }).notNull(),
   name: varchar('name', { length: 191 }).notNull(),
   description: text('description'),

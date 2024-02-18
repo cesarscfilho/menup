@@ -1,4 +1,4 @@
-import { relations, sql } from 'drizzle-orm'
+import { relations } from 'drizzle-orm'
 import {
   boolean,
   decimal,
@@ -9,14 +9,16 @@ import {
   varchar,
 } from 'drizzle-orm/mysql-core'
 
+import { createId } from '@/lib/utils'
+
 import { stores } from '../schema'
 
 // Products
 
 export const products = mysqlTable('products', {
   id: varchar('id', { length: 128 })
-    .primaryKey()
-    .default(sql`(uuid())`),
+    .$defaultFn(() => createId())
+    .primaryKey(),
   name: varchar('name', { length: 191 }).notNull(),
   description: text('description'),
   price: decimal('price', { precision: 10, scale: 2 }).default('0'),
@@ -47,8 +49,8 @@ export const productsRelations = relations(products, ({ one, many }) => ({
 
 export const categories = mysqlTable('categories', {
   id: varchar('id', { length: 128 })
-    .primaryKey()
-    .default(sql`(uuid())`),
+    .$defaultFn(() => createId())
+    .primaryKey(),
   storeId: varchar('storeId', { length: 128 }).notNull(),
   name: varchar('name', { length: 191 }).notNull(),
   createdAt: timestamp('createdAt').defaultNow(),
@@ -67,8 +69,8 @@ export const categoriesRelations = relations(categories, ({ one, many }) => ({
 
 export const addons = mysqlTable('addons', {
   id: varchar('id', { length: 128 })
-    .primaryKey()
-    .default(sql`(uuid())`),
+    .$defaultFn(() => createId())
+    .primaryKey(),
   name: varchar('name', { length: 191 }).notNull(),
   price: decimal('price', { precision: 10, scale: 2 }).default('0'),
   active: boolean('active').notNull().default(true),
@@ -92,8 +94,8 @@ export const variantsRelations = relations(addons, ({ many, one }) => ({
 
 export const addonsCategory = mysqlTable('addons_category', {
   id: varchar('id', { length: 128 })
-    .primaryKey()
-    .default(sql`(uuid())`),
+    .$defaultFn(() => createId())
+    .primaryKey(),
   name: varchar('name', { length: 191 }).notNull(),
   productId: varchar('productId', { length: 191 }).notNull(),
   quantityMin: int('quantityMin').notNull().default(0),
@@ -122,8 +124,8 @@ export const addonsCategoryRelations = relations(
 
 export const productsCategoryAddons = mysqlTable('products_category_addons', {
   id: varchar('id', { length: 128 })
-    .primaryKey()
-    .default(sql`(uuid())`),
+    .$defaultFn(() => createId())
+    .primaryKey(),
   productId: varchar('productId', { length: 128 }).notNull(),
   addonsId: varchar('addonsId', { length: 128 }).notNull(),
   addonsCategoryId: varchar('addonsCategoryId', { length: 128 }).notNull(),

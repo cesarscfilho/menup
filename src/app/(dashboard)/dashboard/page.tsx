@@ -11,7 +11,7 @@ import { StoreCard } from '@/components/store-card'
 export default async function DashboardIndex() {
   const session = await auth()
 
-  if (!session) {
+  if (!session || !session.user) {
     redirect('login')
   }
 

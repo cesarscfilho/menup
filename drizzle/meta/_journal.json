@@ -141,6 +141,20 @@
       "when": 1708006621683,
       "tag": "0019_dry_blacklash",
       "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "5",
+      "when": 1708218081243,
+      "tag": "0020_white_stardust",
+      "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "5",
+      "when": 1708218398180,
+      "tag": "0021_eager_red_wolf",
+      "breakpoints": true
     }
   ]
 }
