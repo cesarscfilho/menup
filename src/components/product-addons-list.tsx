@@ -83,7 +83,7 @@ export default function ProductAddonsList({
           inputs: { items: { ...data.items }, productId, storeId },
         })
 
-        toast('funfou')
+        toast.success('Addons updated succefully.')
       } catch (err) {
         console.log(err)
       }

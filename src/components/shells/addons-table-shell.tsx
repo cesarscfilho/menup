@@ -3,7 +3,6 @@
 import React from 'react'
 import Link from 'next/link'
 import { deleteAddonAction, updateAddonStatusAction } from '@/actions/addon'
-import { deleteProductAction } from '@/actions/product'
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { ColumnDef } from '@tanstack/react-table'
 import { toast } from 'sonner'
@@ -153,13 +152,13 @@ export function AddonsTableShell({
                   })
 
                   toast.promise(
-                    deleteProductAction({
+                    deleteAddonAction({
                       id: row.original.id,
                       storeId,
                     }),
                     {
                       loading: 'Deleting...',
-                      success: () => 'Product deleted successfully.',
+                      success: () => 'Addon deleted successfully.',
                       error: (err: unknown) => {
                         console.log(err)
                         return null
