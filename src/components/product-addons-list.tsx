@@ -42,7 +42,7 @@ interface ProductAddonsListProps {
 
 export type FormValues = z.infer<typeof updateAddonSchema>
 
-export default function ProductAddonsList({
+export function ProductAddonsList({
   productCategoriesWithAddons,
   storeId,
   productId,

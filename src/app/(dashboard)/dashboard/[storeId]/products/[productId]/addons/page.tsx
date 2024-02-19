@@ -1,16 +1,16 @@
 import { db } from '@/db'
 import {
   Addon,
+  addonCategories,
   addons,
-  addonsCategory,
-  productsCategoryAddons,
+  productAddonCategoryRelation,
 } from '@/db/schema'
 import { and, asc, desc, eq } from 'drizzle-orm'
 
 import { BackToProduct } from '@/components/back-to-product'
 import { Container } from '@/components/container'
 import { LinkTabs } from '@/components/pagers/link-tabs'
-import ProductAddonsList from '@/components/product-addons-list'
+import { ProductAddonsList } from '@/components/product-addons-list'
 
 interface ProductAddonsPageProps {
   params: {
@@ -27,12 +27,12 @@ export default async function ProductAddonsPage({
   const productCategoriesWithAddons = await db
     .select({
       category: {
-        categoryId: addonsCategory.id,
-        name: addonsCategory.name,
-        quantityMin: addonsCategory.quantityMin,
-        quantityMax: addonsCategory.quantityMax,
-        mandatory: addonsCategory.mandatory,
-        active: addonsCategory.active,
+        categoryId: addonCategories.id,
+        name: addonCategories.name,
+        quantityMin: addonCategories.quantityMin,
+        quantityMax: addonCategories.quantityMax,
+        mandatory: addonCategories.mandatory,
+        active: addonCategories.active,
       },
       items: {
         id: addons.id,
@@ -40,17 +40,17 @@ export default async function ProductAddonsPage({
         price: addons.price,
       },
     })
-    .from(addonsCategory)
-    .where(eq(addonsCategory.productId, productId))
+    .from(addonCategories)
+    .where(eq(addonCategories.productId, productId))
     .leftJoin(
-      productsCategoryAddons,
+      productAddonCategoryRelation,
       and(
-        eq(productsCategoryAddons.productId, productId),
-        eq(productsCategoryAddons.addonsCategoryId, addonsCategory.id),
+        eq(productAddonCategoryRelation.productId, productId),
+        eq(productAddonCategoryRelation.addonCategoriesId, addonCategories.id),
       ),
     )
-    .leftJoin(addons, eq(addons.id, productsCategoryAddons.addonsId))
-    .orderBy(desc(addonsCategory.active), asc(addonsCategory.updatedAt))
+    .leftJoin(addons, eq(addons.id, productAddonCategoryRelation.addonsId))
+    .orderBy(desc(addonCategories.active), asc(addonCategories.updatedAt))
     .then((res) => {
       const addonsListItems = res.reduce<
         Record<
@@ -86,7 +86,7 @@ export default async function ProductAddonsPage({
       return Object.values(addonsListItems)
     })
 
-  // console.log(productCategoriesWithAddons)
+  console.log(productCategoriesWithAddons)
 
   return (
     <Container className="my-8 space-y-4">

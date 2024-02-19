@@ -41,8 +41,8 @@ export const productsRelations = relations(products, ({ one, many }) => ({
     fields: [products.categoryId],
     references: [categories.id],
   }),
-  addonsCategory: many(addonsCategory),
-  productsCategoryAddons: many(productsCategoryAddons),
+  addonsCategory: many(addonCategories),
+  productAddonCategoryRelation: many(productAddonCategoryRelation),
 }))
 
 // Categories
@@ -87,12 +87,12 @@ export const variantsRelations = relations(addons, ({ many, one }) => ({
     fields: [addons.storeId],
     references: [stores.id],
   }),
-  productsCategoryAddons: many(productsCategoryAddons),
+  productAddonCategoryRelation: many(productAddonCategoryRelation),
 }))
 
 // Addons category
 
-export const addonsCategory = mysqlTable('addons_category', {
+export const addonCategories = mysqlTable('addon_categories', {
   id: varchar('id', { length: 128 })
     .$defaultFn(() => createId())
     .primaryKey(),
@@ -106,15 +106,15 @@ export const addonsCategory = mysqlTable('addons_category', {
   updatedAt: timestamp('updatedAt').onUpdateNow(),
 })
 
-export type NewAddonsCategory = typeof addonsCategory.$inferInsert
-export type AddonsCategory = typeof addonsCategory.$inferSelect
+export type NewAddonsCategory = typeof addonCategories.$inferInsert
+export type AddonCategories = typeof addonCategories.$inferSelect
 
-export const addonsCategoryRelations = relations(
-  addonsCategory,
+export const addonCategoriesRelations = relations(
+  addonCategories,
   ({ many, one }) => ({
-    productsCategoryAddons: many(productsCategoryAddons),
+    productAddonCategoryRelation: many(productAddonCategoryRelation),
     product: one(products, {
-      fields: [addonsCategory.productId],
+      fields: [addonCategories.productId],
       references: [products.id],
     }),
   }),
@@ -122,34 +122,38 @@ export const addonsCategoryRelations = relations(
 
 // Product category addons
 
-export const productsCategoryAddons = mysqlTable('products_category_addons', {
-  id: varchar('id', { length: 128 })
-    .$defaultFn(() => createId())
-    .primaryKey(),
-  productId: varchar('productId', { length: 128 }).notNull(),
-  addonsId: varchar('addonsId', { length: 128 }).notNull(),
-  addonsCategoryId: varchar('addonsCategoryId', { length: 128 }).notNull(),
-  active: boolean('active').notNull().default(true),
-})
+export const productAddonCategoryRelation = mysqlTable(
+  'product_addon_category_relation',
+  {
+    id: varchar('id', { length: 128 })
+      .$defaultFn(() => createId())
+      .primaryKey(),
+    productId: varchar('productId', { length: 128 }).notNull(),
+    addonsId: varchar('addonsId', { length: 128 }).notNull(),
+    addonCategoriesId: varchar('addonCategoriesId', { length: 128 }).notNull(),
+    active: boolean('active').notNull().default(true),
+  },
+)
 
-export type NewProductsCategoryAddons =
-  typeof productsCategoryAddons.$inferInsert
-export type ProductsCategoryAddons = typeof productsCategoryAddons.$inferSelect
+export type NewProductAddonCategoryRelation =
+  typeof productAddonCategoryRelation.$inferInsert
+export type ProductAddonCategoryRelation =
+  typeof productAddonCategoryRelation.$inferSelect
 
-export const productsCategoryAddonsRelations = relations(
-  productsCategoryAddons,
+export const productAddonCategoryRelationRelations = relations(
+  productAddonCategoryRelation,
   ({ one }) => ({
     product: one(products, {
-      fields: [productsCategoryAddons.productId],
+      fields: [productAddonCategoryRelation.productId],
       references: [products.id],
     }),
     addon: one(addons, {
-      fields: [productsCategoryAddons.addonsId],
+      fields: [productAddonCategoryRelation.addonsId],
       references: [addons.id],
     }),
-    addonCategory: one(addonsCategory, {
-      fields: [productsCategoryAddons.addonsCategoryId],
-      references: [addonsCategory.id],
+    addonCategory: one(addonCategories, {
+      fields: [productAddonCategoryRelation.addonCategoriesId],
+      references: [addonCategories.id],
     }),
   }),
 )

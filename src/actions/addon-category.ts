@@ -2,7 +2,11 @@
 
 import { revalidatePath } from 'next/cache'
 import { db } from '@/db'
-import { addons, addonsCategory, productsCategoryAddons } from '@/db/schema'
+import {
+  addonCategories,
+  addons,
+  productAddonCategoryRelation,
+} from '@/db/schema'
 import { and, eq } from 'drizzle-orm'
 import { z } from 'zod'
 
@@ -12,8 +16,8 @@ export async function updateAddonCategoryStatusAction(inputs: {
   addonCategoryId: string
   storeId: string
 }) {
-  const addonCategoryExist = await db.query.addonsCategory.findFirst({
-    where: eq(addonsCategory.id, inputs.addonCategoryId),
+  const addonCategoryExist = await db.query.addonCategories.findFirst({
+    where: eq(addonCategories.id, inputs.addonCategoryId),
   })
 
   if (!addonCategoryExist) {
@@ -21,9 +25,9 @@ export async function updateAddonCategoryStatusAction(inputs: {
   }
 
   await db
-    .update(addonsCategory)
+    .update(addonCategories)
     .set({ active: !addonCategoryExist.active })
-    .where(eq(addonsCategory.id, inputs.addonCategoryId))
+    .where(eq(addonCategories.id, inputs.addonCategoryId))
 
   revalidatePath(
     `/dashboard/${inputs.storeId}/products/${addonCategoryExist.productId}/addons`,
@@ -34,8 +38,8 @@ export async function deleteAddonCategoryAction(inputs: {
   addonCategoryId: string
   storeId: string
 }) {
-  const addonCategoryExist = await db.query.addonsCategory.findFirst({
-    where: eq(addonsCategory.id, inputs.addonCategoryId),
+  const addonCategoryExist = await db.query.addonCategories.findFirst({
+    where: eq(addonCategories.id, inputs.addonCategoryId),
   })
 
   if (!addonCategoryExist) {
@@ -43,13 +47,18 @@ export async function deleteAddonCategoryAction(inputs: {
   }
 
   await db
-    .delete(addonsCategory)
-    .where(eq(addonsCategory.id, inputs.addonCategoryId))
+    .delete(addonCategories)
+    .where(eq(addonCategories.id, inputs.addonCategoryId))
 
   // delete all relationships with a deleted category
   await db
-    .delete(productsCategoryAddons)
-    .where(eq(productsCategoryAddons.addonsCategoryId, inputs.addonCategoryId))
+    .delete(productAddonCategoryRelation)
+    .where(
+      eq(
+        productAddonCategoryRelation.addonCategoriesId,
+        inputs.addonCategoryId,
+      ),
+    )
 
   revalidatePath(
     `/dashboard/${inputs.storeId}/products/${addonCategoryExist.productId}/addons`,
@@ -67,12 +76,12 @@ export async function updateAddonCategoryAction({
   const { items, storeId, productId } = inputs
 
   Object.values(items).map(async (category) => {
-    const categoryExist = await db.query.addonsCategory.findFirst({
-      where: eq(addonsCategory.id, category.categoryId),
+    const categoryExist = await db.query.addonCategories.findFirst({
+      where: eq(addonCategories.id, category.categoryId),
     })
 
     if (!categoryExist) {
-      await db.insert(addonsCategory).values({
+      await db.insert(addonCategories).values({
         id: category.categoryId,
         name: category.name,
         productId,
@@ -95,16 +104,19 @@ export async function updateAddonCategoryAction({
       await db.update(addons).set(addon).where(eq(addons.id, addon.id))
 
       const relationProductsCategoryAddonsExist =
-        await db.query.productsCategoryAddons.findFirst({
+        await db.query.productAddonCategoryRelation.findFirst({
           where: and(
-            eq(productsCategoryAddons.addonsCategoryId, category.categoryId),
-            eq(productsCategoryAddons.addonsId, addon.id),
+            eq(
+              productAddonCategoryRelation.addonCategoriesId,
+              category.categoryId,
+            ),
+            eq(productAddonCategoryRelation.addonsId, addon.id),
           ),
         })
 
       if (!relationProductsCategoryAddonsExist) {
-        await db.insert(productsCategoryAddons).values({
-          addonsCategoryId: category.categoryId,
+        await db.insert(productAddonCategoryRelation).values({
+          addonCategoriesId: category.categoryId,
           addonsId: addon.id,
           productId,
         })
