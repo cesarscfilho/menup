@@ -2,10 +2,16 @@
 
 import { revalidatePath } from 'next/cache'
 import { db } from '@/db'
-import { products } from '@/db/schema'
-import { and, eq } from 'drizzle-orm'
+import {
+  addonCategories,
+  addons,
+  productAddonCategoryRelation,
+  products,
+} from '@/db/schema'
+import { and, asc, desc, eq } from 'drizzle-orm'
 import { z } from 'zod'
 
+import { ProductCategoriesWithAddons } from '@/types/product'
 import { productSchema } from '@/lib/validations/product'
 
 export async function createProductAction(
@@ -105,4 +111,65 @@ export async function updateProductAction(
     .where(eq(products.id, inputs.productId))
 
   revalidatePath(`/dashboard/${inputs.storeId}/products/${inputs.productId}`)
+}
+
+export async function getProductCategoriesWithAddons({
+  productId,
+}: {
+  productId: string
+}) {
+  const productCategoriesWithAddons = await db
+    .select({
+      category: {
+        categoryId: addonCategories.id,
+        name: addonCategories.name,
+        quantityMin: addonCategories.quantityMin,
+        quantityMax: addonCategories.quantityMax,
+        mandatory: addonCategories.mandatory,
+        active: addonCategories.active,
+      },
+      items: {
+        id: addons.id,
+        name: addons.name,
+        price: addons.price,
+      },
+    })
+    .from(addonCategories)
+    .where(eq(addonCategories.productId, productId))
+    .leftJoin(
+      productAddonCategoryRelation,
+      and(
+        eq(productAddonCategoryRelation.productId, productId),
+        eq(productAddonCategoryRelation.addonCategoriesId, addonCategories.id),
+      ),
+    )
+    .leftJoin(addons, eq(addons.id, productAddonCategoryRelation.addonsId))
+    .orderBy(desc(addonCategories.active), asc(addonCategories.updatedAt))
+    .then((res) => {
+      const addonsListItems = res.reduce<
+        Record<string, ProductCategoriesWithAddons>
+      >((acc, row) => {
+        const category = row.category
+        const item = row.items
+
+        if (!acc[category.name]) {
+          acc[category.name] = {
+            ...category,
+            items: [],
+          }
+        }
+
+        if (item) {
+          acc[category.name].items.push(item)
+        }
+
+        return acc
+      }, {})
+
+      return Object.values(addonsListItems)
+    })
+
+  return {
+    productCategoriesWithAddons,
+  }
 }

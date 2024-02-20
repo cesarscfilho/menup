@@ -8,3 +8,19 @@ export const productSchema = z.object({
     message: 'Must be a valid price',
   }),
 })
+
+export const productCategoriesWithAddonsSchema = z.object({
+  categoryId: z.string(),
+  name: z.string(),
+  quantityMin: z.number(),
+  quantityMax: z.number(),
+  mandatory: z.boolean(),
+  active: z.boolean(),
+  items: z.array(
+    z.object({
+      id: z.string(),
+      name: z.string(),
+      price: z.string().nullable(),
+    }),
+  ),
+})
