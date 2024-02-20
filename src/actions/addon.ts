@@ -2,10 +2,15 @@
 
 import { revalidatePath } from 'next/cache'
 import { db } from '@/db'
-import { addons } from '@/db/schema'
-import { and, eq } from 'drizzle-orm'
+import {
+  addonCategories,
+  addons,
+  productAddonCategoryRelation,
+} from '@/db/schema'
+import { and, eq, sql } from 'drizzle-orm'
 import { z } from 'zod'
 
+import { productCategoriesWithAddonsSchema } from '@/lib/validations/product'
 import { addonsSchema } from '@/lib/validations/variant'
 
 export async function createAddonsAction(
@@ -61,4 +66,84 @@ export async function updateAddonStatusAction({
     .where(eq(addons.id, addonId))
 
   revalidatePath(`/dashboard/${addonExist.storeId}/addons`)
+}
+
+const schemaWithoutItems = productCategoriesWithAddonsSchema.omit({
+  items: true,
+})
+
+export async function updateProductCategoryAddonsAction(
+  inputs: z.infer<typeof schemaWithoutItems> & {
+    productId: string
+    storeId: string
+  },
+) {
+  const categoryExist = await db.query.addonCategories.findFirst({
+    where: eq(addonCategories.id, inputs.categoryId),
+  })
+
+  if (!categoryExist) {
+    throw new Error('Not found')
+  }
+
+  await db
+    .update(addonCategories)
+    .set({
+      name: inputs.name,
+      quantityMax: inputs.quantityMax,
+      quantityMin: inputs.quantityMin,
+      productId: inputs.productId,
+      active: inputs.active,
+      mandatory: inputs.mandatory,
+    })
+    .where(eq(addonCategories.id, inputs.categoryId))
+
+  revalidatePath(
+    `/dashboard/${inputs.storeId}/products/${inputs.productId}/addons`,
+  )
+}
+
+export async function addProductCategoryAddonsAction(
+  productId: string,
+  storeId: string,
+) {
+  const count = await db
+    .select({ count: sql<number>`count(${addonCategories.id})` })
+    .from(addonCategories)
+    .where(eq(addonCategories.productId, productId))
+    .then((res) => res[0].count ?? 0)
+
+  await db.insert(addonCategories).values({
+    name: `Category ${+count + 1}`,
+    productId,
+    active: true,
+    mandatory: false,
+    quantityMax: 1,
+    quantityMin: 0,
+  })
+
+  revalidatePath(`/dashboard/${storeId}/products/${productId}/addons`)
+}
+
+export async function deleteProductCategoryAddonsAction(inputs: {
+  productId: string
+  storeId: string
+  categoryId: string
+}) {
+  await db
+    .delete(addonCategories)
+    .where(eq(addonCategories.id, inputs.categoryId))
+
+  await db
+    .delete(productAddonCategoryRelation)
+    .where(
+      and(
+        eq(productAddonCategoryRelation.addonCategoriesId, inputs.categoryId),
+        eq(productAddonCategoryRelation.productId, inputs.productId),
+      ),
+    )
+
+  revalidatePath(
+    `/dashboard/${inputs.storeId}/products/${inputs.productId}/addons`,
+  )
 }
