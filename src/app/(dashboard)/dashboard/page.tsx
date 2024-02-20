@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation'
-import { getStoresAction } from '@/actions/store'
+import { getStores } from '@/actions/store'
 import { Store } from 'lucide-react'
 
 import { auth } from '@/lib/auth'
@@ -15,7 +15,7 @@ export default async function DashboardIndex() {
     redirect('login')
   }
 
-  const stores = await getStoresAction(session.user.id)
+  const stores = await getStores(session.user.id)
 
   return (
     <>

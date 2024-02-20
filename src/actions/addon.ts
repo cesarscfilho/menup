@@ -11,12 +11,14 @@ import { and, eq, sql } from 'drizzle-orm'
 import { z } from 'zod'
 
 import { productCategoriesWithAddonsSchema } from '@/lib/validations/product'
-import { addonsSchema } from '@/lib/validations/variant'
+import { addonsSchema, getAddonSchema } from '@/lib/validations/variant'
 
-export async function createAddonsAction(
-  inputs: z.infer<typeof addonsSchema> & {
-    storeId: string
-  },
+const addonsSchemaWithStoreId = addonsSchema.extend({
+  storeId: z.string(),
+})
+
+export async function createAddons(
+  inputs: z.infer<typeof addonsSchemaWithStoreId>,
 ) {
   await db.insert(addons).values({
     name: inputs.name,
@@ -27,18 +29,15 @@ export async function createAddonsAction(
   revalidatePath(`/dashboard/${inputs.storeId}/addons`)
 }
 
-export async function deleteAddonAction(inputs: {
-  id: string
-  storeId: string
-}) {
-  const product = await db.query.addons.findFirst({
+export async function deleteAddon(inputs: z.infer<typeof getAddonSchema>) {
+  const addon = await db.query.addons.findFirst({
     columns: {
       id: true,
     },
     where: and(eq(addons.id, inputs.id), eq(addons.storeId, inputs.storeId)),
   })
 
-  if (!product) {
+  if (!addon) {
     throw new Error('Addon not found.')
   }
 
@@ -47,36 +46,32 @@ export async function deleteAddonAction(inputs: {
   revalidatePath(`/dashboard/${inputs.storeId}/addons`)
 }
 
-export async function updateAddonStatusAction({
-  addonId,
-}: {
-  addonId: string
-}) {
-  const addonExist = await db.query.addons.findFirst({
-    where: eq(addons.id, addonId),
+export async function updateAddonStatus(inputs: { id: string }) {
+  const addon = await db.query.addons.findFirst({
+    where: eq(addons.id, inputs.id),
   })
 
-  if (!addonExist) {
+  if (!addon) {
     throw new Error('Product not found.')
   }
 
   await db
     .update(addons)
-    .set({ active: !addonExist.active })
-    .where(eq(addons.id, addonId))
+    .set({ active: !addon.active })
+    .where(eq(addons.id, inputs.id))
 
-  revalidatePath(`/dashboard/${addonExist.storeId}/addons`)
+  revalidatePath(`/dashboard/${addon.storeId}/addons`)
 }
 
-const schemaWithoutItems = productCategoriesWithAddonsSchema.omit({
-  items: true,
-})
+const extendProductCategoriesWithAddonsSchema =
+  productCategoriesWithAddonsSchema
+    .omit({
+      items: true,
+    })
+    .merge(getAddonSchema)
 
-export async function updateProductCategoryAddonsAction(
-  inputs: z.infer<typeof schemaWithoutItems> & {
-    productId: string
-    storeId: string
-  },
+export async function updateProductCategoryAddons(
+  inputs: z.infer<typeof extendProductCategoriesWithAddonsSchema>,
 ) {
   const categoryExist = await db.query.addonCategories.findFirst({
     where: eq(addonCategories.id, inputs.categoryId),
@@ -92,18 +87,16 @@ export async function updateProductCategoryAddonsAction(
       name: inputs.name,
       quantityMax: inputs.quantityMax,
       quantityMin: inputs.quantityMin,
-      productId: inputs.productId,
+      productId: inputs.id,
       active: inputs.active,
       mandatory: inputs.mandatory,
     })
     .where(eq(addonCategories.id, inputs.categoryId))
 
-  revalidatePath(
-    `/dashboard/${inputs.storeId}/products/${inputs.productId}/addons`,
-  )
+  revalidatePath(`/dashboard/${inputs.storeId}/products/${inputs.id}/addons`)
 }
 
-export async function addProductCategoryAddonsAction(
+export async function addProductCategoryAddons(
   productId: string,
   storeId: string,
 ) {
@@ -125,7 +118,7 @@ export async function addProductCategoryAddonsAction(
   revalidatePath(`/dashboard/${storeId}/products/${productId}/addons`)
 }
 
-export async function deleteProductCategoryAddonsAction(inputs: {
+export async function deleteProductCategoryAddons(inputs: {
   productId: string
   storeId: string
   categoryId: string

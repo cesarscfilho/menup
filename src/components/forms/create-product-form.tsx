@@ -1,5 +1,5 @@
 import React from 'react'
-import { createProductAction } from '@/actions/product'
+import { createProduct } from '@/actions/product'
 import { Category } from '@/db/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -54,7 +54,7 @@ export function CreateProductForm({
   function onSubmit(inputs: Inputs) {
     startTransition(async () => {
       try {
-        await createProductAction({ ...inputs, storeId })
+        await createProduct({ ...inputs, storeId })
         setIsOpen(false)
         toast.success('Category created successfully')
       } catch (error) {}

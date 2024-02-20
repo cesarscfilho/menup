@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { updateProductAction } from '@/actions/product'
+import { updateProduct } from '@/actions/product'
 import { Category, Product } from '@/db/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -51,9 +51,9 @@ export function UpdateProductForm({
   function onSubmit(inputs: Inputs) {
     startTransition(async () => {
       try {
-        await updateProductAction({
+        await updateProduct({
           ...inputs,
-          productId: product.id,
+          id: product.id,
           storeId: product.storeId,
         })
         toast.success('Product updated successfully.')

@@ -6,12 +6,14 @@ import { categories } from '@/db/schema'
 import { and, eq } from 'drizzle-orm'
 import { z } from 'zod'
 
-import { categorySchema } from '@/lib/validations/category'
+import { categorySchema, getCategorySchema } from '@/lib/validations/category'
 
-export async function createCategoryAction(
-  inputs: z.infer<typeof categorySchema> & {
-    storeId: string
-  },
+const categorySchemaWithStoreId = categorySchema.extend({
+  storeId: z.string(),
+})
+
+export async function createCategory(
+  inputs: z.infer<typeof categorySchemaWithStoreId>,
 ) {
   const categoryWithSameName = await db.query.categories.findFirst({
     where: and(
@@ -32,16 +34,18 @@ export async function createCategoryAction(
   revalidatePath('/products')
 }
 
-export async function deleteCategoryAction(categoryId: string) {
-  const categoryExist = await db.query.categories.findFirst({
-    where: eq(categories.id, categoryId),
+export async function deleteCategory(
+  inputs: z.infer<typeof getCategorySchema>,
+) {
+  const category = await db.query.categories.findFirst({
+    where: eq(categories.id, inputs.id),
   })
 
-  if (!categoryExist) {
+  if (!category) {
     throw new Error('Category not found.')
   }
 
-  await db.delete(categories).where(eq(categories.id, categoryId))
+  await db.delete(categories).where(eq(categories.id, inputs.id))
 
   revalidatePath('/products')
 }

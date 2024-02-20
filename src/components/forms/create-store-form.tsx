@@ -1,5 +1,5 @@
 import React from 'react'
-import { createStoreAction } from '@/actions/store'
+import { createStore } from '@/actions/store'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -42,7 +42,7 @@ export function CreateStoreForm({
   function onSubmit(inputs: Inputs) {
     startTransition(async () => {
       try {
-        await createStoreAction({ ...inputs, userId })
+        await createStore({ ...inputs, userId })
         setIsOpen(false)
         toast.success('Store created successfully')
       } catch (error) {}

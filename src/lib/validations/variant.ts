@@ -6,3 +6,8 @@ export const addonsSchema = z.object({
     message: 'Must be a valid price',
   }),
 })
+
+export const getAddonSchema = z.object({
+  id: z.string(),
+  storeId: z.string(),
+})
