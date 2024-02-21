@@ -20,7 +20,8 @@ export default async function ProductAddonsPage({
   const { productId, storeId } = params
 
   const { productCategoriesWithAddons } = await getProductCategoriesWithAddons({
-    productId,
+    id: productId,
+    storeId,
   })
 
   return (

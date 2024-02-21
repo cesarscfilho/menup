@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { addProductCategoryAddonsAction } from '@/actions/addon'
+import { addProductCategoryAddons } from '@/actions/addon'
 import { toast } from 'sonner'
 
 import { Button } from '../ui/button'
@@ -20,7 +20,7 @@ export function AddProductCategoryAddons({
       onClick={() => {
         startTransition(async () => {
           try {
-            await addProductCategoryAddonsAction(productId, storeId)
+            await addProductCategoryAddons(productId, storeId)
             toast.success('Category added successfully')
           } catch (e) {}
         })

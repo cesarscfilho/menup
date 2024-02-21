@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { deleteStoreAction } from '@/actions/store'
+import { deleteStore } from '@/actions/store'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -26,7 +26,7 @@ export function DeleteStoreForm({ storeId }: CreateStoreFormProps) {
   function onSubmit() {
     startDeletingStore(async () => {
       try {
-        await deleteStoreAction(storeId)
+        await deleteStore(storeId)
         toast.success('Store delete successfully.')
       } catch (error) {
         toast.error('Error')

@@ -1,5 +1,5 @@
 import React from 'react'
-import { createAddonsAction } from '@/actions/addon'
+import { createAddons } from '@/actions/addon'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -41,7 +41,7 @@ export function CreateAddonsForm({
   function onSubmit(inputs: Inputs) {
     startTransition(async () => {
       try {
-        await createAddonsAction({ ...inputs, storeId })
+        await createAddons({ ...inputs, storeId })
 
         if (setIsOpen) {
           setIsOpen(false)

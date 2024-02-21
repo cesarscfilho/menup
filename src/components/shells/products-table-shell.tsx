@@ -2,10 +2,7 @@
 
 import React from 'react'
 import Link from 'next/link'
-import {
-  deleteProductAction,
-  updateProductStatusAction,
-} from '@/actions/product'
+import { deleteProduct, updateProductStatus } from '@/actions/product'
 import { Category } from '@/db/schema'
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { ColumnDef } from '@tanstack/react-table'
@@ -132,8 +129,8 @@ export function ProductsTableShell({
               checked={cell.getValue() as boolean}
               onCheckedChange={() => {
                 startTransition(async () => {
-                  await updateProductStatusAction({
-                    productId: row.original.id,
+                  await updateProductStatus({
+                    id: row.original.id,
                   })
                 })
               }}
@@ -184,7 +181,7 @@ export function ProductsTableShell({
                   })
 
                   toast.promise(
-                    deleteProductAction({
+                    deleteProduct({
                       id: row.original.id,
                       storeId,
                     }),
@@ -215,7 +212,7 @@ export function ProductsTableShell({
     toast.promise(
       Promise.all(
         selectedRowIds.map((id) =>
-          deleteProductAction({
+          deleteProduct({
             id,
             storeId,
           }),

@@ -1,5 +1,5 @@
 import React from 'react'
-import { createCategoryAction } from '@/actions/category'
+import { createCategory } from '@/actions/category'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -40,7 +40,7 @@ export function CreateCategoryForm({
   function onSubmit(inputs: Inputs) {
     startTransition(async () => {
       try {
-        await createCategoryAction({ ...inputs, storeId })
+        await createCategory({ ...inputs, storeId })
 
         if (setIsOpen) {
           setIsOpen(false)

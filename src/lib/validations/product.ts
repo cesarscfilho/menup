@@ -9,6 +9,11 @@ export const productSchema = z.object({
   }),
 })
 
+export const getProductSchema = z.object({
+  id: z.string(),
+  storeId: z.string(),
+})
+
 export const productCategoriesWithAddonsSchema = z.object({
   categoryId: z.string(),
   name: z.string(),

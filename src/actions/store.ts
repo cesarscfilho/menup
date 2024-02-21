@@ -10,7 +10,7 @@ import { z } from 'zod'
 import { slugify } from '@/lib/utils'
 import { storeSchema } from '@/lib/validations/store'
 
-export async function deleteStoreAction(storeId: string) {
+export async function deleteStore(storeId: string) {
   const store = await db.query.stores.findFirst({
     where: eq(stores.id, storeId),
   })
@@ -28,10 +28,12 @@ export async function deleteStoreAction(storeId: string) {
   redirect(path)
 }
 
-export async function createStoreAction(
-  inputs: z.infer<typeof storeSchema> & {
-    userId: string
-  },
+const storeSchemaWithUserId = storeSchema.extend({
+  userId: z.string(),
+})
+
+export async function createStore(
+  inputs: z.infer<typeof storeSchemaWithUserId>,
 ) {
   const storeWithSameName = await db.query.stores.findFirst({
     where: eq(stores.name, inputs.name),
@@ -51,7 +53,7 @@ export async function createStoreAction(
   revalidatePath('/dashboard')
 }
 
-export async function getStoresAction(userId: string) {
+export async function getStores(userId: string) {
   const items = await db.select().from(stores).where(eq(stores.userId, userId))
 
   return items

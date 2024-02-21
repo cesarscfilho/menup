@@ -12,12 +12,14 @@ import { and, asc, desc, eq } from 'drizzle-orm'
 import { z } from 'zod'
 
 import { ProductCategoriesWithAddons } from '@/types/product'
-import { productSchema } from '@/lib/validations/product'
+import { getProductSchema, productSchema } from '@/lib/validations/product'
 
-export async function createProductAction(
-  inputs: z.infer<typeof productSchema> & {
-    storeId: string
-  },
+const productSchemaWithStoreId = productSchema.extend({
+  storeId: z.string(),
+})
+
+export async function createProduct(
+  inputs: z.infer<typeof productSchemaWithStoreId>,
 ) {
   const productWithSameName = await db.query.products.findFirst({
     where: and(
@@ -39,10 +41,7 @@ export async function createProductAction(
   revalidatePath(path)
 }
 
-export async function deleteProductAction(inputs: {
-  id: string
-  storeId: string
-}) {
+export async function deleteProduct(inputs: z.infer<typeof getProductSchema>) {
   const product = await db.query.products.findFirst({
     columns: {
       id: true,
@@ -62,13 +61,9 @@ export async function deleteProductAction(inputs: {
   revalidatePath(`/dashboard/${inputs.storeId}/products`)
 }
 
-export async function updateProductStatusAction({
-  productId,
-}: {
-  productId: string
-}) {
+export async function updateProductStatus(inputs: { id: string }) {
   const productExist = await db.query.products.findFirst({
-    where: eq(products.id, productId),
+    where: eq(products.id, inputs.id),
   })
 
   if (!productExist) {
@@ -78,20 +73,19 @@ export async function updateProductStatusAction({
   await db
     .update(products)
     .set({ active: !productExist.active })
-    .where(eq(products.id, productId))
+    .where(eq(products.id, inputs.id))
 
   revalidatePath(`/dashboard/${productExist.storeId}/products`)
 }
 
-export async function updateProductAction(
-  inputs: z.infer<typeof productSchema> & {
-    productId: string
-    storeId: string
-  },
+const productSchemaWithId = productSchemaWithStoreId.extend({ id: z.string() })
+
+export async function updateProduct(
+  inputs: z.infer<typeof productSchemaWithId>,
 ) {
   const product = await db.query.products.findFirst({
     where: and(
-      eq(products.id, inputs.productId),
+      eq(products.id, inputs.id),
       eq(products.storeId, inputs.storeId),
     ),
   })
@@ -108,17 +102,15 @@ export async function updateProductAction(
       categoryId: inputs.categoryId,
       description: inputs.description,
     })
-    .where(eq(products.id, inputs.productId))
+    .where(eq(products.id, inputs.id))
 
-  revalidatePath(`/dashboard/${inputs.storeId}/products/${inputs.productId}`)
+  revalidatePath(`/dashboard/${inputs.storeId}/products/${inputs.id}`)
 }
 
-export async function getProductCategoriesWithAddons({
-  productId,
-}: {
-  productId: string
-}) {
-  const productCategoriesWithAddons = await db
+export async function getProductCategoriesWithAddons(
+  inputs: z.infer<typeof getProductSchema>,
+) {
+  const items = await db
     .select({
       category: {
         categoryId: addonCategories.id,
@@ -135,11 +127,11 @@ export async function getProductCategoriesWithAddons({
       },
     })
     .from(addonCategories)
-    .where(eq(addonCategories.productId, productId))
+    .where(eq(addonCategories.productId, inputs.id))
     .leftJoin(
       productAddonCategoryRelation,
       and(
-        eq(productAddonCategoryRelation.productId, productId),
+        eq(productAddonCategoryRelation.productId, inputs.id),
         eq(productAddonCategoryRelation.addonCategoriesId, addonCategories.id),
       ),
     )
@@ -170,6 +162,6 @@ export async function getProductCategoriesWithAddons({
     })
 
   return {
-    productCategoriesWithAddons,
+    productCategoriesWithAddons: items,
   }
 }

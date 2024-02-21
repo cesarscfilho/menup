@@ -2,8 +2,8 @@
 
 import React from 'react'
 import {
-  deleteProductCategoryAddonsAction,
-  updateProductCategoryAddonsAction,
+  deleteProductCategoryAddons,
+  updateProductCategoryAddons,
 } from '@/actions/addon'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { MinusCircle, Trash } from 'lucide-react'
@@ -64,9 +64,9 @@ export function ProductCategoriesAddonsForm({
   function onSubmit(inputs: Inputs) {
     startTransition(async () => {
       try {
-        await updateProductCategoryAddonsAction({
+        await updateProductCategoryAddons({
           ...inputs,
-          productId,
+          id: productId,
           storeId,
         })
 
@@ -102,7 +102,7 @@ export function ProductCategoriesAddonsForm({
                   onClick={() => {
                     startTransitionDeleting(async () => {
                       try {
-                        await deleteProductCategoryAddonsAction({
+                        await deleteProductCategoryAddons({
                           categoryId: category.categoryId,
                           productId,
                           storeId,

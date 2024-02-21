@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { deleteCategoryAction } from '@/actions/category'
+import { deleteCategory } from '@/actions/category'
 import { Category } from '@/db/schema'
 import { Pencil1Icon } from '@radix-ui/react-icons'
 import { Trash, X } from 'lucide-react'
@@ -76,7 +76,7 @@ export function CreateCategoryButton({
                       onClick={() => {
                         startTransition(async () => {
                           try {
-                            await deleteCategoryAction(category.id)
+                            await deleteCategory({ id: category.id })
                           } catch (err) {
                             toast.success('Category deleted succefully.')
                           }

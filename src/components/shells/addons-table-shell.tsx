@@ -2,7 +2,7 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { deleteAddonAction, updateAddonStatusAction } from '@/actions/addon'
+import { deleteAddon, updateAddonStatus } from '@/actions/addon'
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { ColumnDef } from '@tanstack/react-table'
 import { toast } from 'sonner'
@@ -108,8 +108,8 @@ export function AddonsTableShell({
               checked={cell.getValue() as boolean}
               onCheckedChange={() => {
                 startTransition(async () => {
-                  await updateAddonStatusAction({
-                    addonId: row.original.id,
+                  await updateAddonStatus({
+                    id: row.original.id,
                   })
                 })
               }}
@@ -152,7 +152,7 @@ export function AddonsTableShell({
                   })
 
                   toast.promise(
-                    deleteAddonAction({
+                    deleteAddon({
                       id: row.original.id,
                       storeId,
                     }),
@@ -183,7 +183,7 @@ export function AddonsTableShell({
     toast.promise(
       Promise.all(
         selectedRowIds.map((id) =>
-          deleteAddonAction({
+          deleteAddon({
             id,
             storeId,
           }),
