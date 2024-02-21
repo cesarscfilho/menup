@@ -106,7 +106,7 @@ export default function StoreSwitcher({
             role="combobox"
             aria-expanded={open}
             aria-label="Select a team"
-            className={cn('w-[200px] justify-between', className)}
+            className={cn('justify-between md:w-[200px]', className)}
           >
             <Avatar className="mr-2 h-5 w-5">
               <AvatarImage
@@ -115,7 +115,7 @@ export default function StoreSwitcher({
               />
               <AvatarFallback>SC</AvatarFallback>
             </Avatar>
-            {selectedTeam?.name}
+            <span className="hidden md:flex">{selectedTeam?.name}</span>
             <CaretSortIcon className="ml-auto size-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
