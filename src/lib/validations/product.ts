@@ -21,9 +21,9 @@ export const productCategoriesWithAddonsSchema = z.object({
   quantityMax: z.number(),
   mandatory: z.boolean(),
   active: z.boolean(),
-  items: z.array(
+  addons: z.array(
     z.object({
-      id: z.string(),
+      addonId: z.string(),
       name: z.string(),
       price: z.string().nullable(),
     }),

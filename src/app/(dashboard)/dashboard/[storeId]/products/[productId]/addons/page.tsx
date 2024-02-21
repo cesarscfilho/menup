@@ -1,4 +1,7 @@
 import { getProductCategoriesWithAddons } from '@/actions/product'
+import { db } from '@/db'
+import { addons } from '@/db/schema'
+import { eq } from 'drizzle-orm'
 
 import { BackToProduct } from '@/components/back-to-product'
 import { Container } from '@/components/container'
@@ -24,6 +27,11 @@ export default async function ProductAddonsPage({
     storeId,
   })
 
+  const allAddons = await db
+    .select({ addonId: addons.id, name: addons.name, price: addons.price })
+    .from(addons)
+    .where(eq(addons.storeId, storeId))
+
   return (
     <Container className="my-8 space-y-4">
       <div className="flex flex-row items-center gap-4">
@@ -47,10 +55,11 @@ export default async function ProductAddonsPage({
           <div className="col-span-2 space-y-6">
             {productCategoriesWithAddons.map((category) => (
               <ProductCategoriesAddonsForm
+                key={category.categoryId}
                 storeId={storeId}
                 productId={productId}
+                allAddons={allAddons}
                 category={category}
-                key={category.categoryId}
               />
             ))}
           </div>

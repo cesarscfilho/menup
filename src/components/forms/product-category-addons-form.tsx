@@ -7,9 +7,8 @@ import {
 } from '@/actions/addon'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { MinusCircle, Trash } from 'lucide-react'
-import { useForm } from 'react-hook-form'
+import { useFieldArray, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
-import { z } from 'zod'
 
 import { ProductCategoriesWithAddons } from '@/types/product'
 import { productCategoriesWithAddonsSchema } from '@/lib/validations/product'
@@ -20,6 +19,7 @@ import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { Switch } from '@/components/ui/switch'
 
+import { EditProductCategoryAddons } from '../modals/edit-product-category-addons'
 import {
   Form,
   FormControl,
@@ -30,18 +30,18 @@ import {
 } from '../ui/form'
 
 interface Props {
+  allAddons: {
+    addonId: string
+    name: string
+    price: string | null
+  }[]
   category: ProductCategoriesWithAddons
   productId: string
   storeId: string
 }
 
-const schemaWithoutItems = productCategoriesWithAddonsSchema.omit({
-  items: true,
-})
-
-type Inputs = z.infer<typeof schemaWithoutItems>
-
 export function ProductCategoriesAddonsForm({
+  allAddons,
   category,
   productId,
   storeId,
@@ -49,8 +49,8 @@ export function ProductCategoriesAddonsForm({
   const [isPending, startTransition] = React.useTransition()
   const [isDeleting, startTransitionDeleting] = React.useTransition()
 
-  const form = useForm<Inputs>({
-    resolver: zodResolver(schemaWithoutItems),
+  const form = useForm<ProductCategoriesWithAddons>({
+    resolver: zodResolver(productCategoriesWithAddonsSchema),
     defaultValues: {
       name: category.name,
       categoryId: category.categoryId,
@@ -58,10 +58,15 @@ export function ProductCategoriesAddonsForm({
       quantityMax: category.quantityMax,
       mandatory: category.mandatory,
       active: category.active,
+      addons: category.addons.map((addon) => ({
+        addonId: addon.addonId,
+        name: addon.name,
+        price: addon.price,
+      })),
     },
   })
 
-  function onSubmit(inputs: Inputs) {
+  function onSubmit(inputs: ProductCategoriesWithAddons) {
     startTransition(async () => {
       try {
         await updateProductCategoryAddons({
@@ -74,6 +79,11 @@ export function ProductCategoriesAddonsForm({
       } catch (e) {}
     })
   }
+
+  const { fields, append, remove } = useFieldArray({
+    name: 'addons',
+    control: form.control,
+  })
 
   return (
     <Form {...form}>
@@ -139,7 +149,7 @@ export function ProductCategoriesAddonsForm({
                     </FormItem>
                   )}
                 />
-                <span className="text-sm">Max</span>{' '}
+                <span className="text-sm">Max</span>
                 <FormField
                   control={form.control}
                   name="quantityMax"
@@ -184,37 +194,44 @@ export function ProductCategoriesAddonsForm({
           </CardHeader>
           <Separator />
           <CardContent className="grid gap-4 p-4">
-            {category.items.length < 1 ? <p>No results...</p> : null}
+            {category.addons.length < 1 ? <p>No results...</p> : null}
 
-            {category.items.map((item) => (
-              <div
-                key={item.id}
-                className="flex items-center justify-between space-x-2"
-              >
-                <div className="flex items-center space-x-4">
-                  <div className="h-12 w-12 rounded-sm bg-green-400/80" />
-                  <span className="text-base">{item.name}</span>
-                </div>
+            {category.addons.map((item) => {
+              return (
+                <div
+                  key={item.addonId}
+                  className="flex items-center justify-between space-x-2"
+                >
+                  <div className="flex items-center space-x-4">
+                    <div className="h-12 w-12 rounded-sm bg-green-400/80" />
+                    <span className="text-base">{item.name}</span>
+                  </div>
 
-                <div className="flex items-center gap-2">
-                  <Input className="w-[100px] bg-background" placeholder="$0" />
-                  <Button variant={'destructive'} size={'icon'}>
-                    <MinusCircle size={16} />
-                  </Button>
+                  <div className="flex items-center gap-2">
+                    <Input
+                      className="w-[100px] bg-background"
+                      placeholder="$0"
+                    />
+                    <Button variant={'destructive'} size={'icon'}>
+                      <MinusCircle size={16} />
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </CardContent>
 
           <CardFooter className="space-x-4 p-4">
-            <Button
-              size={'sm'}
-              type="button"
-              variant="outline"
-              className="w-full"
-            >
-              Add addon
-            </Button>
+            <EditProductCategoryAddons
+              addonCategoriesId={category.categoryId}
+              productId={productId}
+              removeFieldArray={remove}
+              appendFieldArray={append}
+              categoryName={category.name}
+              allAddons={allAddons}
+              fields={fields}
+              storeId={storeId}
+            />
             <Button
               isLoading={isPending}
               size={'sm'}

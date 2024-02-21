@@ -26,13 +26,9 @@ export default async function AddonsPage({
 
   const { page, per_page, sort, active, name } =
     addonsSearchParamsSchema.parse(searchParams)
-
   const fallbackPage = isNaN(page) || page < 1 ? 1 : page
-
   const limit = isNaN(per_page) ? 10 : per_page
-
   const offset = fallbackPage > 1 ? (fallbackPage - 1) * limit : 0
-
   const [column, order] = (sort.split('.') as [
     keyof Addon | undefined,
     'asc' | 'desc' | undefined,

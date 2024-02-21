@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache'
 import { db } from '@/db'
 import {
+  Addon,
   addonCategories,
   addons,
   productAddonCategoryRelation,
@@ -66,7 +67,7 @@ export async function updateAddonStatus(inputs: { id: string }) {
 const extendProductCategoriesWithAddonsSchema =
   productCategoriesWithAddonsSchema
     .omit({
-      items: true,
+      addons: true,
     })
     .merge(getAddonSchema)
 
@@ -139,4 +140,26 @@ export async function deleteProductCategoryAddons(inputs: {
   revalidatePath(
     `/dashboard/${inputs.storeId}/products/${inputs.productId}/addons`,
   )
+}
+
+export async function addAddonInProductAddonCategoryRelation({
+  items,
+  productId,
+  addonCategoriesId,
+  storeId,
+}: {
+  items: Pick<Addon, 'id' | 'name' | 'price'>[]
+  addonCategoriesId: string
+  productId: string
+  storeId: string
+}) {
+  const itemsWithIds = items.map((item) => ({
+    addonsId: item.id,
+    productId,
+    addonCategoriesId,
+  }))
+
+  await db.insert(productAddonCategoryRelation).values(itemsWithIds)
+
+  revalidatePath(`/dashboard/${storeId}/products/${productId}/addons`)
 }

@@ -120,8 +120,8 @@ export async function getProductCategoriesWithAddons(
         mandatory: addonCategories.mandatory,
         active: addonCategories.active,
       },
-      items: {
-        id: addons.id,
+      addons: {
+        addonId: addons.id,
         name: addons.name,
         price: addons.price,
       },
@@ -142,17 +142,17 @@ export async function getProductCategoriesWithAddons(
         Record<string, ProductCategoriesWithAddons>
       >((acc, row) => {
         const category = row.category
-        const item = row.items
+        const item = row.addons
 
         if (!acc[category.name]) {
           acc[category.name] = {
             ...category,
-            items: [],
+            addons: [],
           }
         }
 
         if (item) {
-          acc[category.name].items.push(item)
+          acc[category.name].addons.push(item)
         }
 
         return acc
