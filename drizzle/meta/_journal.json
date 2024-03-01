@@ -1,166 +1,19 @@
 {
   "version": "5",
-  "dialect": "mysql",
+  "dialect": "pg",
   "entries": [
     {
       "idx": 0,
       "version": "5",
-      "when": 1705237234544,
-      "tag": "0000_chunky_grey_gargoyle",
+      "when": 1709325729185,
+      "tag": "0000_dashing_colossus",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "5",
-      "when": 1705418697052,
-      "tag": "0001_supreme_lifeguard",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1705666951626,
-      "tag": "0002_faulty_zaladane",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1705667195816,
-      "tag": "0003_hard_karen_page",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "5",
-      "when": 1705668821608,
-      "tag": "0004_blushing_proudstar",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "5",
-      "when": 1706018822940,
-      "tag": "0005_last_shadow_king",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "5",
-      "when": 1706123617549,
-      "tag": "0006_numerous_cannonball",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "5",
-      "when": 1706124359467,
-      "tag": "0007_glamorous_pixie",
-      "breakpoints": true
-    },
-    {
-      "idx": 8,
-      "version": "5",
-      "when": 1706125497423,
-      "tag": "0008_mighty_demogoblin",
-      "breakpoints": true
-    },
-    {
-      "idx": 9,
-      "version": "5",
-      "when": 1707247703458,
-      "tag": "0009_numerous_green_goblin",
-      "breakpoints": true
-    },
-    {
-      "idx": 10,
-      "version": "5",
-      "when": 1707249277609,
-      "tag": "0010_certain_marrow",
-      "breakpoints": true
-    },
-    {
-      "idx": 11,
-      "version": "5",
-      "when": 1707249337036,
-      "tag": "0011_brief_shen",
-      "breakpoints": true
-    },
-    {
-      "idx": 12,
-      "version": "5",
-      "when": 1707515134924,
-      "tag": "0012_fresh_shooting_star",
-      "breakpoints": true
-    },
-    {
-      "idx": 13,
-      "version": "5",
-      "when": 1707517675914,
-      "tag": "0013_giant_caretaker",
-      "breakpoints": true
-    },
-    {
-      "idx": 14,
-      "version": "5",
-      "when": 1707918500244,
-      "tag": "0014_spotty_swordsman",
-      "breakpoints": true
-    },
-    {
-      "idx": 15,
-      "version": "5",
-      "when": 1707921536411,
-      "tag": "0015_talented_changeling",
-      "breakpoints": true
-    },
-    {
-      "idx": 16,
-      "version": "5",
-      "when": 1707930150594,
-      "tag": "0016_shallow_paibok",
-      "breakpoints": true
-    },
-    {
-      "idx": 17,
-      "version": "5",
-      "when": 1708005293837,
-      "tag": "0017_worried_thunderbird",
-      "breakpoints": true
-    },
-    {
-      "idx": 18,
-      "version": "5",
-      "when": 1708006448284,
-      "tag": "0018_lucky_stick",
-      "breakpoints": true
-    },
-    {
-      "idx": 19,
-      "version": "5",
-      "when": 1708006621683,
-      "tag": "0019_dry_blacklash",
-      "breakpoints": true
-    },
-    {
-      "idx": 20,
-      "version": "5",
-      "when": 1708218081243,
-      "tag": "0020_white_stardust",
-      "breakpoints": true
-    },
-    {
-      "idx": 21,
-      "version": "5",
-      "when": 1708218398180,
-      "tag": "0021_eager_red_wolf",
-      "breakpoints": true
-    },
-    {
-      "idx": 22,
-      "version": "5",
-      "when": 1709319148890,
-      "tag": "0022_wise_ben_urich",
+      "when": 1709325835848,
+      "tag": "0001_nappy_skaar",
       "breakpoints": true
     }
   ]

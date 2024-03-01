@@ -35,10 +35,10 @@ type AwaitedProduct = {
 }
 
 interface ProductsTableShellProps {
-  promise: Promise<{
+  promise: {
     data: AwaitedProduct[]
     pageCount: number
-  }>
+  }
   storeId: string
   categories: Pick<Category, 'id' | 'name'>[]
 }
@@ -48,7 +48,7 @@ export function ProductsTableShell({
   storeId,
   categories,
 }: ProductsTableShellProps) {
-  const { data, pageCount } = React.use(promise)
+  const { data, pageCount } = promise
 
   const [isPending, startTransition] = React.useTransition()
   const [selectedRowIds, setSelectedRowIds] = React.useState<string[]>([])

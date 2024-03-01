@@ -69,63 +69,60 @@ export default async function StoreProductsPage({
   ]) ?? ['createdAt', 'desc']
   const categoriesFilter = (category?.split('.') as string[]) ?? []
 
-  const productsPromise = db.transaction(async (tx) => {
-    try {
-      const data = await tx
-        .select({
-          id: products.id,
-          name: products.name,
-          price: products.price,
-          active: products.active,
-          createdAt: products.createdAt,
-          category: categories.name,
-        })
-        .from(products)
-        .limit(limit)
-        .offset(offset)
-        .where(
-          and(
-            eq(products.storeId, storeId),
-            name ? like(products.name, `%${name}`) : undefined,
-            categoriesFilter.length > 0
-              ? inArray(products.categoryId, categoriesFilter)
-              : undefined,
-            active
-              ? active === 'false'
-                ? eq(products.active, false)
-                : eq(products.active, true)
-              : undefined,
-          ),
-        )
-        .innerJoin(categories, eq(categories.id, products.categoryId))
-        .orderBy(
-          column && column in products
-            ? order === 'asc'
-              ? asc(products[column])
-              : desc(products[column])
-            : desc(products.createdAt),
-        )
+  const [data, pageCount] = await Promise.all([
+    db
+      .select({
+        id: products.id,
+        name: products.name,
+        price: products.price,
+        active: products.active,
+        category: categories.name,
+        createdAt: products.createdAt,
+      })
+      .from(products)
+      .limit(limit)
+      .offset(offset)
+      .where(
+        and(
+          eq(products.storeId, storeId),
+          name ? like(products.name, `%${name}`) : undefined,
+          categoriesFilter.length > 0
+            ? inArray(products.categoryId, categoriesFilter)
+            : undefined,
+          active
+            ? active === 'false'
+              ? eq(products.active, false)
+              : eq(products.active, true)
+            : undefined,
+        ),
+      )
+      .innerJoin(categories, eq(categories.id, products.categoryId))
+      .orderBy(
+        column && column in products
+          ? order === 'asc'
+            ? asc(products[column])
+            : desc(products[column])
+          : desc(products.createdAt),
+      ),
 
-      const count = await tx
-        .select({
-          count: sql<number>`count(${products.id})`,
-        })
-        .from(products)
-        .where(
-          and(
-            eq(products.storeId, storeId),
-            name ? like(products.name, `%${name}`) : undefined,
-          ),
-        )
-        .then((res) => res[0].count ?? 0)
+    db
+      .select({
+        count: sql<number>`count(${products.id})`,
+      })
+      .from(products)
+      .innerJoin(categories, eq(categories.id, products.categoryId))
+      .where(
+        and(
+          eq(products.storeId, storeId),
+          name ? like(products.name, `%${name}`) : undefined,
+        ),
+      )
+      .then((res) => {
+        const count = res[0].count ?? 0
 
-      const pageCount = Math.ceil(count / limit)
-
-      return { data, pageCount }
-    } catch (error) {
-      return { data: [], pageCount: 0 }
-    }
-  })
+        return Math.ceil(count / limit)
+      }),
+  ])
 
   return (
     <Container className="mt-8 space-y-4">
@@ -151,7 +148,7 @@ export default async function StoreProductsPage({
       >
         <ProductsTableShell
           categories={existCategory}
-          promise={productsPromise}
+          promise={{ data, pageCount }}
           storeId={storeId}
         />
       </React.Suspense>

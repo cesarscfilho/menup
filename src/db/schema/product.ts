@@ -13,13 +13,15 @@ import { stores } from '../schema'
 
 // Products
 
-export const products = pgTable('users', {
+export const products = pgTable('products', {
   id: uuid('id').primaryKey().defaultRandom(),
   name: text('name').notNull(),
   description: text('description'),
   price: decimal('price', { precision: 10, scale: 2 }).default('0'),
   active: boolean('active').default(false).notNull(),
-  categoryId: text('category_id').notNull(),
+  categoryId: uuid('category_id')
+    .notNull()
+    .references(() => categories.id),
   storeId: text('store_id').notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 })
@@ -44,8 +46,8 @@ export const productsRelations = relations(products, ({ one, many }) => ({
 
 export const categories = pgTable('categories', {
   id: uuid('id').primaryKey().defaultRandom(),
-  storeId: text('store_id').notNull(),
   name: text('name').notNull(),
+  storeId: text('store_id').notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 })
 
