@@ -1,27 +1,16 @@
 import { relations } from 'drizzle-orm'
-import {
-  boolean,
-  mysqlTable,
-  text,
-  timestamp,
-  varchar,
-} from 'drizzle-orm/mysql-core'
-
-import { createId } from '@/lib/utils'
+import { boolean, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core'
 
 import { users } from './user'
 
-export const stores = mysqlTable('stores', {
-  id: varchar('id', { length: 128 })
-    .$defaultFn(() => createId())
-    .primaryKey(),
-  userId: varchar('userId', { length: 191 }).notNull(),
-  name: varchar('name', { length: 191 }).notNull(),
+export const stores = pgTable('stores', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  name: text('name').notNull(),
   description: text('description'),
   slug: text('slug'),
   active: boolean('active').notNull().default(true),
-  createdAt: timestamp('createdAt').defaultNow(),
-  updatedAt: timestamp('updatedAt').onUpdateNow(),
+  userId: text('user_id').notNull(),
+  createdAt: timestamp('created_at').defaultNow(),
 })
 
 export type NewStore = typeof stores.$inferInsert

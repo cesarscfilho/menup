@@ -18,18 +18,11 @@ export default async function MenuLayout({
 }: MenuLayoutProps) {
   const { storeId } = params
 
-  const store = await db.query.stores.findFirst({
-    where: eq(stores.id, storeId),
-  })
+  const [store] = await db.select().from(stores).where(eq(stores.id, storeId))
 
   if (!store) {
     notFound()
   }
-
-  //   const storeProducts = await db
-  //     .select()
-  //     .from(products)
-  //     .where(and(eq(products.storeId, store.id), eq(products.active, true)))
 
   return (
     <div className="relative flex min-h-screen flex-col">

@@ -18,14 +18,14 @@ export function EditProductCategoryAddons({
   allAddons,
   categoryName,
   productId,
-  addonCategoriesId,
+  addonCategoryId,
   storeId,
   appendFieldArray,
   removeFieldArray,
 }: {
   storeId: string
   productId: string
-  addonCategoriesId: string
+  addonCategoryId: string
   fields: {
     addonId: string
     name: string
@@ -143,7 +143,7 @@ export function EditProductCategoryAddons({
                     price: field.price,
                   })),
                   productId,
-                  addonCategoriesId,
+                  addonCategoryId,
                   storeId,
                 })
                 setIsOpen(false)

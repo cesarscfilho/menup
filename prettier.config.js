@@ -1,5 +1,4 @@
 module.exports = {
-  semi: true,
   importOrder: [
     '^(react/(.*)$)|^(react$)',
     '^(next/(.*)$)|^(next$)',

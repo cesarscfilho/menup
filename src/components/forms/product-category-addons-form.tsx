@@ -223,7 +223,7 @@ export function ProductCategoriesAddonsForm({
 
           <CardFooter className="space-x-4 p-4">
             <EditProductCategoryAddons
-              addonCategoriesId={category.categoryId}
+              addonCategoryId={category.categoryId}
               productId={productId}
               removeFieldArray={remove}
               appendFieldArray={append}

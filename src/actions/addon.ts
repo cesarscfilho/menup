@@ -132,7 +132,7 @@ export async function deleteProductCategoryAddons(inputs: {
     .delete(productAddonCategoryRelation)
     .where(
       and(
-        eq(productAddonCategoryRelation.addonCategoriesId, inputs.categoryId),
+        eq(productAddonCategoryRelation.addonCategoryId, inputs.categoryId),
         eq(productAddonCategoryRelation.productId, inputs.productId),
       ),
     )
@@ -145,18 +145,18 @@ export async function deleteProductCategoryAddons(inputs: {
 export async function addAddonInProductAddonCategoryRelation({
   items,
   productId,
-  addonCategoriesId,
+  addonCategoryId,
   storeId,
 }: {
   items: Pick<Addon, 'id' | 'name' | 'price'>[]
-  addonCategoriesId: string
+  addonCategoryId: string
   productId: string
   storeId: string
 }) {
   const itemsWithIds = items.map((item) => ({
     addonsId: item.id,
     productId,
-    addonCategoriesId,
+    addonCategoryId,
   }))
 
   await db.insert(productAddonCategoryRelation).values(itemsWithIds)

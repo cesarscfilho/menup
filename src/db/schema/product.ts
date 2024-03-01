@@ -2,31 +2,26 @@ import { relations } from 'drizzle-orm'
 import {
   boolean,
   decimal,
-  int,
-  mysqlTable,
+  integer,
+  pgTable,
   text,
   timestamp,
-  varchar,
-} from 'drizzle-orm/mysql-core'
-
-import { createId } from '@/lib/utils'
+  uuid,
+} from 'drizzle-orm/pg-core'
 
 import { stores } from '../schema'
 
 // Products
 
-export const products = mysqlTable('products', {
-  id: varchar('id', { length: 128 })
-    .$defaultFn(() => createId())
-    .primaryKey(),
-  name: varchar('name', { length: 191 }).notNull(),
+export const products = pgTable('users', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  name: text('name').notNull(),
   description: text('description'),
   price: decimal('price', { precision: 10, scale: 2 }).default('0'),
-  active: boolean('active').notNull().default(true),
-  categoryId: varchar('categoryId', { length: 128 }).notNull(),
-  storeId: varchar('storeId', { length: 128 }).notNull(),
-  createdAt: timestamp('createdAt').defaultNow(),
-  updatedAt: timestamp('updatedAt').onUpdateNow(),
+  active: boolean('active').default(false).notNull(),
+  categoryId: text('category_id').notNull(),
+  storeId: text('store_id').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
 })
 
 export type NewProduct = typeof products.$inferInsert
@@ -47,14 +42,11 @@ export const productsRelations = relations(products, ({ one, many }) => ({
 
 // Categories
 
-export const categories = mysqlTable('categories', {
-  id: varchar('id', { length: 128 })
-    .$defaultFn(() => createId())
-    .primaryKey(),
-  storeId: varchar('storeId', { length: 128 }).notNull(),
-  name: varchar('name', { length: 191 }).notNull(),
-  createdAt: timestamp('createdAt').defaultNow(),
-  updatedAt: timestamp('updatedAt').onUpdateNow(),
+export const categories = pgTable('categories', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  storeId: text('store_id').notNull(),
+  name: text('name').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
 })
 
 export type NewCategory = typeof categories.$inferInsert
@@ -67,16 +59,13 @@ export const categoriesRelations = relations(categories, ({ one, many }) => ({
 
 // Addons
 
-export const addons = mysqlTable('addons', {
-  id: varchar('id', { length: 128 })
-    .$defaultFn(() => createId())
-    .primaryKey(),
-  name: varchar('name', { length: 191 }).notNull(),
+export const addons = pgTable('addons', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  name: text('name').notNull(),
   price: decimal('price', { precision: 10, scale: 2 }).default('0'),
-  active: boolean('active').notNull().default(true),
-  storeId: varchar('storeId', { length: 128 }).notNull(),
-  createdAt: timestamp('createdAt').defaultNow(),
-  updatedAt: timestamp('updatedAt').onUpdateNow(),
+  active: boolean('active').default(true).notNull(),
+  storeId: text('store_id').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
 })
 
 export type NewAddon = typeof addons.$inferInsert
@@ -92,18 +81,15 @@ export const variantsRelations = relations(addons, ({ many, one }) => ({
 
 // Addons category
 
-export const addonCategories = mysqlTable('addon_categories', {
-  id: varchar('id', { length: 128 })
-    .$defaultFn(() => createId())
-    .primaryKey(),
-  name: varchar('name', { length: 191 }).notNull(),
-  productId: varchar('productId', { length: 191 }).notNull(),
-  quantityMin: int('quantityMin').notNull().default(0),
-  quantityMax: int('quantityMax').notNull().default(1),
+export const addonCategories = pgTable('addon_categories', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  name: text('name').notNull(),
+  quantityMin: integer('quantity_min').notNull().default(0),
+  quantityMax: integer('quantity_max').notNull().default(1),
   mandatory: boolean('mandatory').notNull().default(false),
   active: boolean('active').notNull().default(true),
-  createdAt: timestamp('createdAt').defaultNow(),
-  updatedAt: timestamp('updatedAt').onUpdateNow(),
+  productId: text('product_id').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
 })
 
 export type NewAddonsCategory = typeof addonCategories.$inferInsert
@@ -122,15 +108,13 @@ export const addonCategoriesRelations = relations(
 
 // Product category addons
 
-export const productAddonCategoryRelation = mysqlTable(
+export const productAddonCategoryRelation = pgTable(
   'product_addon_category_relation',
   {
-    id: varchar('id', { length: 128 })
-      .$defaultFn(() => createId())
-      .primaryKey(),
-    productId: varchar('productId', { length: 128 }).notNull(),
-    addonsId: varchar('addonsId', { length: 128 }).notNull(),
-    addonCategoriesId: varchar('addonCategoriesId', { length: 128 }).notNull(),
+    id: uuid('id').primaryKey().defaultRandom(),
+    productId: text('product_id').notNull(),
+    addonsId: text('addon_id').notNull(),
+    addonCategoryId: text('addon_category_id').notNull(),
     active: boolean('active').notNull().default(true),
   },
 )
@@ -152,7 +136,7 @@ export const productAddonCategoryRelationRelations = relations(
       references: [addons.id],
     }),
     addonCategory: one(addonCategories, {
-      fields: [productAddonCategoryRelation.addonCategoriesId],
+      fields: [productAddonCategoryRelation.addonCategoryId],
       references: [addonCategories.id],
     }),
   }),

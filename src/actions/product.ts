@@ -8,7 +8,7 @@ import {
   productAddonCategoryRelation,
   products,
 } from '@/db/schema'
-import { and, asc, desc, eq } from 'drizzle-orm'
+import { and, eq } from 'drizzle-orm'
 import { z } from 'zod'
 
 import { ProductCategoriesWithAddons } from '@/types/product'
@@ -132,11 +132,10 @@ export async function getProductCategoriesWithAddons(
       productAddonCategoryRelation,
       and(
         eq(productAddonCategoryRelation.productId, inputs.id),
-        eq(productAddonCategoryRelation.addonCategoriesId, addonCategories.id),
+        eq(productAddonCategoryRelation.addonCategoryId, addonCategories.id),
       ),
     )
-    .leftJoin(addons, eq(addons.id, productAddonCategoryRelation.addonsId))
-    .orderBy(desc(addonCategories.active), asc(addonCategories.updatedAt))
+    .leftJoin(addons, eq(addons.id, productAddonCategoryRelation.addonsId)) // TODO: Add orderBy
     .then((res) => {
       const addonsListItems = res.reduce<
         Record<string, ProductCategoriesWithAddons>
