@@ -1,13 +1,13 @@
-import React from 'react'
-import { createAddons } from '@/actions/addon'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { toast } from 'sonner'
-import { z } from 'zod'
+import React from "react"
+import { createAddons } from "@/actions/addon"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import { z } from "zod"
 
-import { addonsSchema } from '@/lib/validations/variant'
+import { addonsSchema } from "@/lib/validations/variant"
 
-import { Button } from '../ui/button'
+import { Button } from "../ui/button"
 import {
   Form,
   FormControl,
@@ -16,8 +16,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '../ui/form'
-import { Input } from '../ui/input'
+} from "../ui/form"
+import { Input } from "../ui/input"
 
 type Inputs = z.infer<typeof addonsSchema>
 
@@ -33,8 +33,8 @@ export function CreateAddonsForm({
   const form = useForm<Inputs>({
     resolver: zodResolver(addonsSchema),
     defaultValues: {
-      name: '',
-      price: '',
+      name: "",
+      price: "",
     },
   })
 
@@ -47,7 +47,7 @@ export function CreateAddonsForm({
           setIsOpen(false)
         }
 
-        toast.success('Addon created successfully')
+        toast.success("Addon created successfully")
       } catch (error) {}
     })
   }
@@ -57,7 +57,7 @@ export function CreateAddonsForm({
       <form className="h-full space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
-          name={'name'}
+          name={"name"}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Addon name:</FormLabel>

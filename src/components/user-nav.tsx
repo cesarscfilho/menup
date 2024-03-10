@@ -1,9 +1,9 @@
-import Link from 'next/link'
-import { redirect } from 'next/navigation'
+import Link from "next/link"
+import { redirect } from "next/navigation"
 
-import { auth } from '@/lib/auth'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
+import { auth } from "@/lib/auth"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,18 +13,18 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+} from "@/components/ui/dropdown-menu"
 
-import { SignOutButton } from './auth/signout-button'
+import { SignOutButton } from "./auth/signout-button"
 
 export async function UserNav() {
   const session = await auth()
 
   if (!session) {
-    redirect('/login')
+    redirect("/login")
   }
 
-  const initials = session.user.name?.substring(0, 2).toLocaleUpperCase() ?? ''
+  const initials = session.user.name?.substring(0, 2).toLocaleUpperCase() ?? ""
 
   return (
     <DropdownMenu>
@@ -32,8 +32,8 @@ export async function UserNav() {
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
             <AvatarImage
-              src={session.user.image ?? 'https://avatar.vercel.sh/04.png'}
-              alt={session.user.name ?? 'User nav'}
+              src={session.user.image ?? "https://avatar.vercel.sh/04.png"}
+              alt={session.user.name ?? "User nav"}
             />
             <AvatarFallback>{initials}</AvatarFallback>
           </Avatar>
@@ -53,19 +53,19 @@ export async function UserNav() {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link href={'/dashboard'}>
+            <Link href={"/dashboard"}>
               My stores
               <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href={'/dashboard/settings'}>
+            <Link href={"/dashboard/settings"}>
               Settings
               <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href={'/dashboard/news'}>
+            <Link href={"/dashboard/news"}>
               News
               <DropdownMenuShortcut>⌘N</DropdownMenuShortcut>
             </Link>

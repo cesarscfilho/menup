@@ -1,52 +1,58 @@
-import NextAuth from 'next-auth'
+import { NextRequest, NextResponse } from "next/server"
 
-import {
-  apiAuthPrefix,
-  authRoutes,
-  DEFAULT_LOGIN_REDIRECT,
-  publicRoutes,
-} from '@/lib/routes'
+import { auth } from "./lib/auth"
 
-import { authConfig } from './lib/auth'
+export default async function middleware(req: NextRequest) {
+  const url = req.nextUrl
 
-// import { conn } from './lib/planetscale'
+  // Get hostname of request (e.g. demo.vercel.pub, demo.localhost:3000)
+  let hostname = req.headers
+    .get("host")!
+    .replace(".localhost:3000", `.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`)
 
-const { auth } = NextAuth(authConfig)
-
-export default auth(async (req) => {
-  const { nextUrl } = req
-  const isLoggedIn = !!req.auth
-
-  const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix)
-  const isPublicRoute = publicRoutes.includes(nextUrl.pathname)
-  const isAuthRoute = authRoutes.includes(nextUrl.pathname)
-
-  if (isApiAuthRoute) {
-    return null
+  // special case for Vercel preview deployment URLs
+  if (
+    hostname.includes("---") &&
+    hostname.endsWith(`.${process.env.NEXT_PUBLIC_VERCEL_DEPLOYMENT_SUFFIX}`)
+  ) {
+    hostname = `${hostname.split("---")[0]}.${
+      process.env.NEXT_PUBLIC_ROOT_DOMAIN
+    }`
   }
 
-  if (isAuthRoute) {
-    if (isLoggedIn) {
-      return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
-    }
-    return null
+  const searchParams = req.nextUrl.searchParams.toString()
+  // Get the pathname of the request (e.g. /, /about, /blog/first-post)
+  const path = `${url.pathname}${
+    searchParams.length > 0 ? `?${searchParams}` : ""
+  }`
+
+  // rewrites for app pages
+  if (hostname === `app.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) {
+    // const session = await auth()
+    // if (!session && path !== '/login') {
+    //   return NextResponse.redirect(new URL('/login', req.url))
+    // } else if (session && path === '/login') {
+    //   return NextResponse.redirect(new URL('/', req.url))
+    // }
+    // return NextResponse.rewrite(
+    //   new URL(`/app${path === '/' ? '' : path}`, req.url),
+    // )
   }
 
-  if (!isLoggedIn && !isPublicRoute) {
-    return Response.redirect(new URL('/login', nextUrl))
+  // rewrite root application to `/home` folder
+  if (
+    hostname === "localhost:3000" ||
+    hostname === process.env.NEXT_PUBLIC_ROOT_DOMAIN
+  ) {
+    return NextResponse.rewrite(
+      new URL(`/home${path === "/" ? "" : path}`, req.url)
+    )
   }
 
-  // const existingProject = await conn
-  //   ?.execute('SELECT id FROM stores WHERE userId = ?', [req.auth?.user.id])
-  //   .then((res) => res.rows[0])
-
-  // if (!existingProject) {
-  //   return Response.redirect(new URL('/onboarding', nextUrl))
-  // }
-
-  return null
-})
+  // rewrite everything else to `/[domain]/[slug] dynamic route
+  return NextResponse.rewrite(new URL(`/${hostname}${path}`, req.url))
+}
 
 export const config = {
-  matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
+  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
 }

@@ -1,18 +1,18 @@
-import { CheckIcon } from '@radix-ui/react-icons'
+import { CheckIcon } from "@radix-ui/react-icons"
 
-import { cn } from '@/lib/utils'
+import { cn } from "@/lib/utils"
 
-import { Button } from './ui/button'
+import { Button } from "./ui/button"
 
 const includedFeatures = [
-  'Private forum access',
-  'Private forum access',
-  'Member resources',
-  'Member resources',
-  'Entry to annual conference',
-  'Entry to annual conference',
-  'Official member t-shirt',
-  'Official member t-shirt',
+  "Private forum access",
+  "Private forum access",
+  "Member resources",
+  "Member resources",
+  "Entry to annual conference",
+  "Entry to annual conference",
+  "Official member t-shirt",
+  "Official member t-shirt",
 ]
 
 interface PrincigCardProps {
@@ -23,8 +23,8 @@ export default function PrincigCard({ popular }: PrincigCardProps) {
   return (
     <div
       className={cn(
-        'relative mx-auto w-full rounded-3xl bg-background ring-1 ring-border',
-        { 'border-2 border-blue-500': popular },
+        "relative mx-auto w-full rounded-3xl bg-background ring-1 ring-border",
+        { "border-2 border-blue-500": popular }
       )}
     >
       {popular && (

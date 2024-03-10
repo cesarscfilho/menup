@@ -1,17 +1,17 @@
-import Image from 'next/image'
+import Image from "next/image"
 
-import marketingConfig from '@/config/marketing'
+import marketingConfig from "@/config/marketing"
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion'
-import { Button } from '@/components/ui/button'
-import { Container } from '@/components/container'
-import { FeatureCard } from '@/components/feature-card'
-import { Icons } from '@/components/icons'
-import { InfiniteMovingCards } from '@/components/infinite-moving-cards'
+} from "@/components/ui/accordion"
+import { Button } from "@/components/ui/button"
+import { Container } from "@/components/container"
+import { FeatureCard } from "@/components/feature-card"
+import { Icons } from "@/components/icons"
+import { InfiniteMovingCards } from "@/components/infinite-moving-cards"
 
 export default async function Index() {
   return (
@@ -19,7 +19,7 @@ export default async function Index() {
       <section>
         <div className="mx-auto mt-20 max-w-md px-2.5 text-center sm:max-w-2xl sm:px-0 md:mt-24">
           <h1 className="mt-5 text-4xl font-extrabold leading-[1.15] sm:text-6xl sm:leading-[1.15]">
-            Digital{' '}
+            Digital{" "}
             <span
               className={`${marketingConfig.gradient} bg-clip-text text-transparent`}
             >
@@ -43,7 +43,7 @@ export default async function Index() {
         <div className="mx-auto max-w-7xl space-y-16 px-6 py-20 pb-10">
           <div className="text-center">
             <h2 className="text-3xl font-extrabold leading-[1.15] lg:text-4xl">
-              Design modern and{' '}
+              Design modern and{" "}
               <span className="text-orange-500">for anyone</span>
             </h2>
           </div>
@@ -74,7 +74,7 @@ export default async function Index() {
         <Container className="space-y-10 py-24">
           <div className="text-center">
             <h2 className="text-3xl font-extrabold leading-[1.15] lg:text-4xl">
-              <span className={`bg-clip-text text-blue-500`}>All tools,</span>{' '}
+              <span className={`bg-clip-text text-blue-500`}>All tools,</span>{" "}
               one place.
             </h2>
             <p className="text-muted-foreground sm:text-lg">

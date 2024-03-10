@@ -1,19 +1,19 @@
-'use client'
+"use client"
 
-import * as React from 'react'
-import Link from 'next/link'
-import { useParams } from 'next/navigation'
-import { Store } from '@/db/schema'
+import * as React from "react"
+import Link from "next/link"
+import { useParams } from "next/navigation"
+import { Store } from "@/db/schema"
 import {
   CaretSortIcon,
   CheckIcon,
   PlusCircledIcon,
-} from '@radix-ui/react-icons'
-import { User } from 'next-auth'
+} from "@radix-ui/react-icons"
+import { User } from "next-auth"
 
-import { cn } from '@/lib/utils'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
+import { cn } from "@/lib/utils"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
 import {
   Command,
   CommandEmpty,
@@ -22,7 +22,7 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from '@/components/ui/command'
+} from "@/components/ui/command"
 import {
   Dialog,
   DialogContent,
@@ -31,27 +31,27 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover'
+} from "@/components/ui/popover"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from "@/components/ui/select"
 
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<typeof PopoverTrigger>
 
 type TeamSwitcherProps = PopoverTriggerProps & {
-  user: Pick<User, 'id' | 'name' | 'image'>
-  stores: Pick<Store, 'id' | 'name'>[]
+  user: Pick<User, "id" | "name" | "image">
+  stores: Pick<Store, "id" | "name">[]
 }
 
 export default function StoreSwitcher({
@@ -65,31 +65,31 @@ export default function StoreSwitcher({
 
   const items = [
     {
-      label: 'Personal Account',
+      label: "Personal Account",
       items: [
         {
           id: user.id,
-          name: user.name ?? '',
-          image: user.image ?? '',
-          href: '/dashboard',
+          name: user.name ?? "",
+          image: user.image ?? "",
+          href: "/dashboard",
         },
       ],
     },
     {
-      label: 'Stores',
+      label: "Stores",
       items: stores.map((store) => {
         return {
           id: store.id,
           name: store.name,
           // TODO: add store image
-          image: 'https://avatar.vercel.sh/01.png',
+          image: "https://avatar.vercel.sh/01.png",
           href: `/dashboard/${store.id}`,
         }
       }),
     },
   ]
 
-  type Items = (typeof items)[number]['items'][number] | undefined
+  type Items = (typeof items)[number]["items"][number] | undefined
 
   const selected = storeId
     ? items[1].items.find((store) => store.id === storeId)
@@ -106,12 +106,12 @@ export default function StoreSwitcher({
             role="combobox"
             aria-expanded={open}
             aria-label="Select a team"
-            className={cn('justify-between md:w-[200px]', className)}
+            className={cn("justify-between md:w-[200px]", className)}
           >
             <Avatar className="mr-2 h-5 w-5">
               <AvatarImage
                 src={selected?.image ?? ``}
-                alt={selectedTeam?.name ?? ''}
+                alt={selectedTeam?.name ?? ""}
               />
               <AvatarFallback>SC</AvatarFallback>
             </Avatar>
@@ -140,17 +140,17 @@ export default function StoreSwitcher({
                             src={
                               store.image ?? `https://avatar.vercel.sh/01.png`
                             }
-                            alt={store.name ?? ''}
+                            alt={store.name ?? ""}
                           />
                           <AvatarFallback>SC</AvatarFallback>
                         </Avatar>
                         {store.name}
                         <CheckIcon
                           className={cn(
-                            'ml-auto size-4',
+                            "ml-auto size-4",
                             selectedTeam?.id === store.id
-                              ? 'opacity-100'
-                              : 'opacity-0',
+                              ? "opacity-100"
+                              : "opacity-0"
                           )}
                         />
                       </CommandItem>
@@ -201,13 +201,13 @@ export default function StoreSwitcher({
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="free">
-                    <span className="font-medium">Free</span> -{' '}
+                    <span className="font-medium">Free</span> -{" "}
                     <span className="text-muted-foreground">
                       Trial for two weeks
                     </span>
                   </SelectItem>
                   <SelectItem value="pro">
-                    <span className="font-medium">Pro</span> -{' '}
+                    <span className="font-medium">Pro</span> -{" "}
                     <span className="text-muted-foreground">
                       $9/month per user
                     </span>

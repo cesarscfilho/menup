@@ -5,9 +5,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
+} from "@/components/ui/table"
 
-import { Skeleton } from '../ui/skeleton'
+import { Skeleton } from "../ui/skeleton"
 
 interface DataTableSkeletonProps {
   columnCount: number

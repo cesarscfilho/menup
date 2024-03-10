@@ -1,19 +1,19 @@
-'use client'
+"use client"
 
-import React from 'react'
-import Link from 'next/link'
-import { Store as StoreType } from '@/db/schema'
-import { ShoppingBasket } from 'lucide-react'
+import React from "react"
+import Link from "next/link"
+import { Store as StoreType } from "@/db/schema"
+import { ShoppingBasket } from "lucide-react"
 
-import { Icons } from './icons'
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
+import { Icons } from "./icons"
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 import {
   Card,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from './ui/card'
+} from "./ui/card"
 
 interface StoreCardProps {
   store: StoreType

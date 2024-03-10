@@ -1,9 +1,9 @@
-import * as React from 'react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import * as React from "react"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import type {
   DataTableFilterableColumn,
   DataTableSearchableColumn,
-} from '@/types'
+} from "@/types"
 import {
   flexRender,
   getCoreRowModel,
@@ -18,9 +18,9 @@ import {
   type PaginationState,
   type SortingState,
   type VisibilityState,
-} from '@tanstack/react-table'
+} from "@tanstack/react-table"
 
-import { useDebounce } from '@/hooks/use-debounce'
+import { useDebounce } from "@/hooks/use-debounce"
 import {
   Table,
   TableBody,
@@ -28,9 +28,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
-import { DataTablePagination } from '@/components/data-table/data-table-pagination'
-import { DataTableToolbar } from '@/components/data-table/data-table-toolbar'
+} from "@/components/ui/table"
+import { DataTablePagination } from "@/components/data-table/data-table-pagination"
+import { DataTableToolbar } from "@/components/data-table/data-table-toolbar"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -58,15 +58,15 @@ export function DataTable<TData, TValue>({
   const searchParams = useSearchParams()
 
   // Search params
-  const page = searchParams?.get('page') ?? '1'
+  const page = searchParams?.get("page") ?? "1"
   const pageAsNumber = Number(page)
   const fallbackPage =
     isNaN(pageAsNumber) || pageAsNumber < 1 ? 1 : pageAsNumber
-  const per_page = searchParams?.get('per_page') ?? '10'
+  const per_page = searchParams?.get("per_page") ?? "10"
   const perPageAsNumber = Number(per_page)
   const fallbackPerPage = isNaN(perPageAsNumber) ? 10 : perPageAsNumber
-  const sort = searchParams?.get('sort')
-  const [column, order] = sort?.split('.') ?? []
+  const sort = searchParams?.get("sort")
+  const [column, order] = sort?.split(".") ?? []
 
   // Create query string
   const createQueryString = React.useCallback(
@@ -83,7 +83,7 @@ export function DataTable<TData, TValue>({
 
       return newSearchParams.toString()
     },
-    [searchParams],
+    [searchParams]
   )
 
   // Table states
@@ -91,7 +91,7 @@ export function DataTable<TData, TValue>({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({})
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    [],
+    []
   )
 
   // Handle server-side pagination
@@ -106,7 +106,7 @@ export function DataTable<TData, TValue>({
       pageIndex,
       pageSize,
     }),
-    [pageIndex, pageSize],
+    [pageIndex, pageSize]
   )
 
   React.useEffect(() => {
@@ -124,7 +124,7 @@ export function DataTable<TData, TValue>({
       })}`,
       {
         scroll: false,
-      },
+      }
     )
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -133,8 +133,8 @@ export function DataTable<TData, TValue>({
   // Handle server-side sorting
   const [sorting, setSorting] = React.useState<SortingState>([
     {
-      id: column ?? '',
-      desc: order === 'desc',
+      id: column ?? "",
+      desc: order === "desc",
     },
   ])
 
@@ -143,12 +143,12 @@ export function DataTable<TData, TValue>({
       `${pathname}?${createQueryString({
         page,
         sort: sorting[0]?.id
-          ? `${sorting[0]?.id}.${sorting[0]?.desc ? 'desc' : 'asc'}`
+          ? `${sorting[0]?.id}.${sorting[0]?.desc ? "desc" : "asc"}`
           : null,
       })}`,
       {
         scroll: false,
-      },
+      }
     )
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -160,10 +160,10 @@ export function DataTable<TData, TValue>({
       JSON.stringify(
         columnFilters.filter((filter) => {
           return searchableColumns.find((column) => column.id === filter.id)
-        }),
+        })
       ),
-      500,
-    ),
+      500
+    )
   ) as ColumnFiltersState
 
   const filterableColumnFilters = columnFilters.filter((filter) => {
@@ -172,15 +172,15 @@ export function DataTable<TData, TValue>({
 
   React.useEffect(() => {
     for (const column of debouncedSearchableColumnFilters) {
-      if (typeof column.value === 'string') {
+      if (typeof column.value === "string") {
         router.push(
           `${pathname}?${createQueryString({
             page: 1,
-            [column.id]: typeof column.value === 'string' ? column.value : null,
+            [column.id]: typeof column.value === "string" ? column.value : null,
           })}`,
           {
             scroll: false,
-          },
+          }
         )
       }
     }
@@ -197,7 +197,7 @@ export function DataTable<TData, TValue>({
           })}`,
           {
             scroll: false,
-          },
+          }
         )
       }
     }
@@ -206,15 +206,15 @@ export function DataTable<TData, TValue>({
 
   React.useEffect(() => {
     for (const column of filterableColumnFilters) {
-      if (typeof column.value === 'object' && Array.isArray(column.value)) {
+      if (typeof column.value === "object" && Array.isArray(column.value)) {
         router.push(
           `${pathname}?${createQueryString({
             page: 1,
-            [column.id]: column.value.join('.'),
+            [column.id]: column.value.join("."),
           })}`,
           {
             scroll: false,
-          },
+          }
         )
       }
     }
@@ -231,7 +231,7 @@ export function DataTable<TData, TValue>({
           })}`,
           {
             scroll: false,
-          },
+          }
         )
       }
     }
@@ -288,7 +288,7 @@ export function DataTable<TData, TValue>({
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext(),
+                            header.getContext()
                           )}
                     </TableHead>
                   )
@@ -301,13 +301,13 @@ export function DataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
+                  data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext(),
+                        cell.getContext()
                       )}
                     </TableCell>
                   ))}

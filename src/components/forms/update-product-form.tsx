@@ -1,16 +1,16 @@
-'use client'
+"use client"
 
-import React from 'react'
-import { updateProduct } from '@/actions/product'
-import { Category, Product } from '@/db/schema'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { toast } from 'sonner'
-import { z } from 'zod'
+import React from "react"
+import { updateProduct } from "@/actions/product"
+import { Category, Product } from "@/db/schema"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import { z } from "zod"
 
-import { productSchema } from '@/lib/validations/product'
+import { productSchema } from "@/lib/validations/product"
 
-import { Button } from '../ui/button'
+import { Button } from "../ui/button"
 import {
   Form,
   FormControl,
@@ -19,16 +19,16 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '../ui/form'
-import { Input } from '../ui/input'
+} from "../ui/form"
+import { Input } from "../ui/input"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '../ui/select'
-import { Textarea } from '../ui/textarea'
+} from "../ui/select"
+import { Textarea } from "../ui/textarea"
 
 type Inputs = z.infer<typeof productSchema>
 
@@ -36,7 +36,7 @@ export function UpdateProductForm({
   categories,
   product,
 }: {
-  categories: Pick<Category, 'id' | 'name'>[]
+  categories: Pick<Category, "id" | "name">[]
   product: Product
 }) {
   const [isPending, startTransition] = React.useTransition()
@@ -56,7 +56,7 @@ export function UpdateProductForm({
           id: product.id,
           storeId: product.storeId,
         })
-        toast.success('Product updated successfully.')
+        toast.success("Product updated successfully.")
       } catch (error) {}
     })
   }
@@ -73,7 +73,7 @@ export function UpdateProductForm({
             <Input
               defaultValue={product.name}
               placeholder="Acme Inc."
-              {...form.register('name')}
+              {...form.register("name")}
             />
           </FormControl>
           <FormDescription>
@@ -86,8 +86,8 @@ export function UpdateProductForm({
           <FormControl>
             <Textarea
               placeholder="Description..."
-              {...form.register('description')}
-              defaultValue={product.description ?? ''}
+              {...form.register("description")}
+              defaultValue={product.description ?? ""}
             />
           </FormControl>
           <FormDescription>
@@ -127,8 +127,8 @@ export function UpdateProductForm({
           <FormControl>
             <Input
               placeholder="Type product price here."
-              defaultValue={product.price ?? ''}
-              {...form.register('price')}
+              defaultValue={product.price ?? ""}
+              {...form.register("price")}
             />
           </FormControl>
           <FormMessage />

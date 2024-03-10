@@ -1,21 +1,21 @@
-'use client'
+"use client"
 
-import React from 'react'
-import Link from 'next/link'
-import { deleteProduct, updateProductStatus } from '@/actions/product'
-import { Category } from '@/db/schema'
-import { DotsHorizontalIcon } from '@radix-ui/react-icons'
-import { ColumnDef } from '@tanstack/react-table'
-import { toast } from 'sonner'
+import React from "react"
+import Link from "next/link"
+import { deleteProduct, updateProductStatus } from "@/actions/product"
+import { Category } from "@/db/schema"
+import { DotsHorizontalIcon } from "@radix-ui/react-icons"
+import { ColumnDef } from "@tanstack/react-table"
+import { toast } from "sonner"
 
-import { formatDate, formatPrice } from '@/lib/utils'
+import { formatDate, formatPrice } from "@/lib/utils"
 
-import { DataTable } from '../data-table/data-table'
-import { DataTableColumnHeader } from '../data-table/data-table-column-header'
-import { CreateProductButton } from '../modals/create-product-button'
-import { Badge } from '../ui/badge'
-import { Button } from '../ui/button'
-import { Checkbox } from '../ui/checkbox'
+import { DataTable } from "../data-table/data-table"
+import { DataTableColumnHeader } from "../data-table/data-table-column-header"
+import { CreateProductButton } from "../modals/create-product-button"
+import { Badge } from "../ui/badge"
+import { Button } from "../ui/button"
+import { Checkbox } from "../ui/checkbox"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,8 +23,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from '../ui/dropdown-menu'
-import { Switch } from '../ui/switch'
+} from "../ui/dropdown-menu"
+import { Switch } from "../ui/switch"
 
 type AwaitedProduct = {
   id: string
@@ -40,7 +40,7 @@ interface ProductsTableShellProps {
     pageCount: number
   }
   storeId: string
-  categories: Pick<Category, 'id' | 'name'>[]
+  categories: Pick<Category, "id" | "name">[]
 }
 
 export function ProductsTableShell({
@@ -57,14 +57,14 @@ export function ProductsTableShell({
   const columns = React.useMemo<ColumnDef<AwaitedProduct, unknown>[]>(
     () => [
       {
-        id: 'select',
+        id: "select",
         header: ({ table }) => (
           <Checkbox
             checked={table.getIsAllPageRowsSelected()}
             onCheckedChange={(value) => {
               table.toggleAllPageRowsSelected(!!value)
               setSelectedRowIds((prev) =>
-                prev.length === data.length ? [] : data.map((row) => row.id),
+                prev.length === data.length ? [] : data.map((row) => row.id)
               )
             }}
             aria-label="Select all"
@@ -79,7 +79,7 @@ export function ProductsTableShell({
               setSelectedRowIds((prev) =>
                 value
                   ? [...prev, row.original.id]
-                  : prev.filter((id) => id !== row.original.id),
+                  : prev.filter((id) => id !== row.original.id)
               )
             }}
             aria-label="Select row"
@@ -90,13 +90,13 @@ export function ProductsTableShell({
         enableHiding: false,
       },
       {
-        accessorKey: 'name',
+        accessorKey: "name",
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Name" />
         ),
       },
       {
-        accessorKey: 'category',
+        accessorKey: "category",
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Category" />
         ),
@@ -111,14 +111,14 @@ export function ProductsTableShell({
         },
       },
       {
-        accessorKey: 'price',
+        accessorKey: "price",
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Price" />
         ),
         cell: ({ cell }) => formatPrice(cell.getValue() as number),
       },
       {
-        accessorKey: 'active',
+        accessorKey: "active",
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Active" />
         ),
@@ -140,7 +140,7 @@ export function ProductsTableShell({
         enableColumnFilter: false,
       },
       {
-        accessorKey: 'createdAt',
+        accessorKey: "createdAt",
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Created At" />
         ),
@@ -148,7 +148,7 @@ export function ProductsTableShell({
         enableColumnFilter: false,
       },
       {
-        id: 'actions',
+        id: "actions",
         cell: ({ row }) => (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -186,13 +186,13 @@ export function ProductsTableShell({
                       storeId,
                     }),
                     {
-                      loading: 'Deleting...',
-                      success: () => 'Product deleted successfully.',
+                      loading: "Deleting...",
+                      success: () => "Product deleted successfully.",
                       error: (err: unknown) => {
                         console.log(err)
                         return null
                       },
-                    },
+                    }
                   )
                 }}
                 disabled={isPending}
@@ -205,7 +205,7 @@ export function ProductsTableShell({
         ),
       },
     ],
-    [data, storeId, isPending],
+    [data, storeId, isPending]
   )
 
   function deleteSelectedRows() {
@@ -215,21 +215,21 @@ export function ProductsTableShell({
           deleteProduct({
             id,
             storeId,
-          }),
-        ),
+          })
+        )
       ),
       {
-        loading: 'Deleting...',
+        loading: "Deleting...",
         success: () => {
           setSelectedRowIds([])
-          return 'Products deleted successfully.'
+          return "Products deleted successfully."
         },
         error: (err: unknown) => {
           setSelectedRowIds([])
           console.log(err)
           return null
         },
-      },
+      }
     )
   }
 
@@ -240,32 +240,32 @@ export function ProductsTableShell({
       columns={columns}
       filterableColumns={[
         {
-          id: 'category',
-          title: 'Category',
+          id: "category",
+          title: "Category",
           options: categories.map((category) => ({
             value: category.id.toLocaleLowerCase(),
             label: category.name,
           })),
         },
         {
-          id: 'active',
-          title: 'Active',
+          id: "active",
+          title: "Active",
           options: [
             {
-              value: 'true',
-              label: 'Active',
+              value: "true",
+              label: "Active",
             },
             {
-              value: 'false',
-              label: 'Inactive',
+              value: "false",
+              label: "Inactive",
             },
           ],
         },
       ]}
       searchableColumns={[
         {
-          id: 'name',
-          title: 'names',
+          id: "name",
+          title: "names",
         },
       ]}
       newRowButton={

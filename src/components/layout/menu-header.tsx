@@ -1,4 +1,4 @@
-import { Store } from '@/db/schema'
+import { Store } from "@/db/schema"
 
 interface MenuHeaderProps {
   store: Store

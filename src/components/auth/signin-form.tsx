@@ -1,15 +1,15 @@
-'use client'
+"use client"
 
-import React from 'react'
-import { checkEmailExist } from '@/actions/auth'
-import { signIn } from 'next-auth/react'
-import { toast } from 'sonner'
+import React from "react"
+import { checkEmailExist } from "@/actions/auth"
+import { signIn } from "next-auth/react"
+import { toast } from "sonner"
 
-import { Button } from '../ui/button'
-import { Input } from '../ui/input'
+import { Button } from "../ui/button"
+import { Input } from "../ui/input"
 
 export default function SignInForm() {
-  const [email, setEmail] = React.useState('')
+  const [email, setEmail] = React.useState("")
   const [isPending, startTransition] = React.useTransition()
   const [showEmailOption, setShowEmailOption] = React.useState(false)
 
@@ -17,8 +17,8 @@ export default function SignInForm() {
     <div className="space-y-3">
       <Button
         onClick={() => {
-          signIn('github', {
-            callbackUrl: '/dashboard',
+          signIn("github", {
+            callbackUrl: "/dashboard",
           })
         }}
         className="w-full"
@@ -35,16 +35,16 @@ export default function SignInForm() {
               const existingEmail = await checkEmailExist(email)
 
               if (existingEmail) {
-                signIn('email', {
+                signIn("email", {
                   email,
                   redirect: false,
-                  callbackUrl: '/dashboard',
+                  callbackUrl: "/dashboard",
                 })
 
-                setEmail('')
-                toast.success('Email sent - Check your checkbox')
+                setEmail("")
+                toast.success("Email sent - Check your checkbox")
               } else {
-                toast.error('No account found with that email address.')
+                toast.error("No account found with that email address.")
               }
             } catch (err) {
               // TODO: fix error Failed to construct 'URL': Invalid base URL at signIn
@@ -68,7 +68,7 @@ export default function SignInForm() {
 
         <Button
           {...(!showEmailOption && {
-            type: 'button',
+            type: "button",
             onClick: (e) => {
               e.preventDefault()
               setShowEmailOption(true)

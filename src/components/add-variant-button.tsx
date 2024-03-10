@@ -5,9 +5,9 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet'
+} from "@/components/ui/sheet"
 
-import { Button } from './ui/button'
+import { Button } from "./ui/button"
 
 export default function AddVariantButton() {
   return (

@@ -1,25 +1,25 @@
-'use server'
+"use server"
 
-import { revalidatePath } from 'next/cache'
-import { db } from '@/db'
+import { revalidatePath } from "next/cache"
+import { db } from "@/db"
 import {
   Addon,
   addonCategories,
   addons,
   productAddonCategoryRelation,
-} from '@/db/schema'
-import { and, eq, sql } from 'drizzle-orm'
-import { z } from 'zod'
+} from "@/db/schema"
+import { and, eq, sql } from "drizzle-orm"
+import { z } from "zod"
 
-import { productCategoriesWithAddonsSchema } from '@/lib/validations/product'
-import { addonsSchema, getAddonSchema } from '@/lib/validations/variant'
+import { productCategoriesWithAddonsSchema } from "@/lib/validations/product"
+import { addonsSchema, getAddonSchema } from "@/lib/validations/variant"
 
 const addonsSchemaWithStoreId = addonsSchema.extend({
   storeId: z.string(),
 })
 
 export async function createAddons(
-  inputs: z.infer<typeof addonsSchemaWithStoreId>,
+  inputs: z.infer<typeof addonsSchemaWithStoreId>
 ) {
   await db.insert(addons).values({
     name: inputs.name,
@@ -39,7 +39,7 @@ export async function deleteAddon(inputs: z.infer<typeof getAddonSchema>) {
   })
 
   if (!addon) {
-    throw new Error('Addon not found.')
+    throw new Error("Addon not found.")
   }
 
   await db.delete(addons).where(eq(addons.id, inputs.id))
@@ -53,7 +53,7 @@ export async function updateAddonStatus(inputs: { id: string }) {
   })
 
   if (!addon) {
-    throw new Error('Product not found.')
+    throw new Error("Product not found.")
   }
 
   await db
@@ -72,14 +72,14 @@ const extendProductCategoriesWithAddonsSchema =
     .merge(getAddonSchema)
 
 export async function updateProductCategoryAddons(
-  inputs: z.infer<typeof extendProductCategoriesWithAddonsSchema>,
+  inputs: z.infer<typeof extendProductCategoriesWithAddonsSchema>
 ) {
   const categoryExist = await db.query.addonCategories.findFirst({
     where: eq(addonCategories.id, inputs.categoryId),
   })
 
   if (!categoryExist) {
-    throw new Error('Not found')
+    throw new Error("Not found")
   }
 
   await db
@@ -99,7 +99,7 @@ export async function updateProductCategoryAddons(
 
 export async function addProductCategoryAddons(
   productId: string,
-  storeId: string,
+  storeId: string
 ) {
   const count = await db
     .select({ count: sql<number>`count(${addonCategories.id})` })
@@ -133,12 +133,12 @@ export async function deleteProductCategoryAddons(inputs: {
     .where(
       and(
         eq(productAddonCategoryRelation.addonCategoryId, inputs.categoryId),
-        eq(productAddonCategoryRelation.productId, inputs.productId),
-      ),
+        eq(productAddonCategoryRelation.productId, inputs.productId)
+      )
     )
 
   revalidatePath(
-    `/dashboard/${inputs.storeId}/products/${inputs.productId}/addons`,
+    `/dashboard/${inputs.storeId}/products/${inputs.productId}/addons`
   )
 }
 
@@ -148,7 +148,7 @@ export async function addAddonInProductAddonCategoryRelation({
   addonCategoryId,
   storeId,
 }: {
-  items: Pick<Addon, 'id' | 'name' | 'price'>[]
+  items: Pick<Addon, "id" | "name" | "price">[]
   addonCategoryId: string
   productId: string
   storeId: string

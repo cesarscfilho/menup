@@ -1,16 +1,16 @@
-'use client'
+"use client"
 
-import React from 'react'
-import { deleteCategory } from '@/actions/category'
-import { Category } from '@/db/schema'
-import { Pencil1Icon } from '@radix-ui/react-icons'
-import { Trash, X } from 'lucide-react'
-import { toast } from 'sonner'
+import React from "react"
+import { deleteCategory } from "@/actions/category"
+import { Category } from "@/db/schema"
+import { Pencil1Icon } from "@radix-ui/react-icons"
+import { Trash, X } from "lucide-react"
+import { toast } from "sonner"
 
-import { CreateCategoryForm } from '../forms/create-category-form'
-import { Button } from '../ui/button'
-import { Modal } from '../ui/modal'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
+import { CreateCategoryForm } from "../forms/create-category-form"
+import { Button } from "../ui/button"
+import { Modal } from "../ui/modal"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
 
 export function CreateCategoryButton({
   storeId,
@@ -45,7 +45,7 @@ export function CreateCategoryButton({
 
         <Tabs
           className="flex flex-col justify-center"
-          defaultValue={categories.length > 0 ? 'all' : 'new'}
+          defaultValue={categories.length > 0 ? "all" : "new"}
         >
           <TabsList className="mx-auto mt-5">
             <TabsTrigger value="new">New</TabsTrigger>
@@ -78,7 +78,7 @@ export function CreateCategoryButton({
                           try {
                             await deleteCategory({ id: category.id })
                           } catch (err) {
-                            toast.success('Category deleted succefully.')
+                            toast.success("Category deleted succefully.")
                           }
                         })
                       }}

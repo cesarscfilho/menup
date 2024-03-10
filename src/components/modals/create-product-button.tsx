@@ -1,12 +1,12 @@
-'use client'
+"use client"
 
-import React from 'react'
-import { Category } from '@/db/schema'
-import { X } from 'lucide-react'
+import React from "react"
+import { Category } from "@/db/schema"
+import { X } from "lucide-react"
 
-import { CreateProductForm } from '../forms/create-product-form'
-import { Button } from '../ui/button'
-import { Modal } from '../ui/modal'
+import { CreateProductForm } from "../forms/create-product-form"
+import { Button } from "../ui/button"
+import { Modal } from "../ui/modal"
 
 export function CreateProductButton({
   storeId,
@@ -15,13 +15,13 @@ export function CreateProductButton({
 }: {
   storeId: string
   label: string
-  categories: Pick<Category, 'id' | 'name'>[]
+  categories: Pick<Category, "id" | "name">[]
 }) {
   const [isOpen, setIsOpen] = React.useState(false)
 
   return (
     <>
-      <Button size={'sm'} onClick={() => setIsOpen(true)}>
+      <Button size={"sm"} onClick={() => setIsOpen(true)}>
         {label}
       </Button>
       <Modal showModal={isOpen} setShowModal={setIsOpen}>

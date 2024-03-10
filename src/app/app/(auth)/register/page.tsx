@@ -1,6 +1,6 @@
-import Link from 'next/link'
+import Link from "next/link"
 
-import { Button } from '@/components/ui/button'
+import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
@@ -8,7 +8,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
+} from "@/components/ui/card"
 
 export default function RegisterPage() {
   return (
@@ -29,7 +29,7 @@ export default function RegisterPage() {
             </CardContent>
             <CardFooter>
               <p className="mx-auto text-sm text-muted-foreground">
-                Already have an account? <Link href={'/login'}>Sign in.</Link>
+                Already have an account? <Link href={"/login"}>Sign in.</Link>
               </p>
             </CardFooter>
           </Card>

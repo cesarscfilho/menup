@@ -1,14 +1,14 @@
-import React from 'react'
-import { createProduct } from '@/actions/product'
-import { Category } from '@/db/schema'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { toast } from 'sonner'
-import { z } from 'zod'
+import React from "react"
+import { createProduct } from "@/actions/product"
+import { Category } from "@/db/schema"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import { z } from "zod"
 
-import { productSchema } from '@/lib/validations/product'
+import { productSchema } from "@/lib/validations/product"
 
-import { Button } from '../ui/button'
+import { Button } from "../ui/button"
 import {
   Form,
   FormControl,
@@ -17,16 +17,16 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '../ui/form'
-import { Input } from '../ui/input'
+} from "../ui/form"
+import { Input } from "../ui/input"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '../ui/select'
-import { Textarea } from '../ui/textarea'
+} from "../ui/select"
+import { Textarea } from "../ui/textarea"
 
 type Inputs = z.infer<typeof productSchema>
 
@@ -35,7 +35,7 @@ export function CreateProductForm({
   setIsOpen,
   categories,
 }: {
-  categories: Pick<Category, 'id' | 'name'>[]
+  categories: Pick<Category, "id" | "name">[]
   storeId: string
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }) {
@@ -44,10 +44,10 @@ export function CreateProductForm({
   const form = useForm<Inputs>({
     resolver: zodResolver(productSchema),
     defaultValues: {
-      name: '',
-      description: '',
+      name: "",
+      description: "",
       categoryId: String(categories[0].id),
-      price: '',
+      price: "",
     },
   })
 
@@ -56,7 +56,7 @@ export function CreateProductForm({
       try {
         await createProduct({ ...inputs, storeId })
         setIsOpen(false)
-        toast.success('Category created successfully')
+        toast.success("Category created successfully")
       } catch (error) {}
     })
   }
@@ -66,7 +66,7 @@ export function CreateProductForm({
       <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
-          name={'name'}
+          name={"name"}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Name</FormLabel>
@@ -83,7 +83,7 @@ export function CreateProductForm({
 
         <FormField
           control={form.control}
-          name={'description'}
+          name={"description"}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Description</FormLabel>

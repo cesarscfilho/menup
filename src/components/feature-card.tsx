@@ -1,5 +1,5 @@
-import * as React from 'react'
-import { CheckIcon } from '@radix-ui/react-icons'
+import * as React from "react"
+import { CheckIcon } from "@radix-ui/react-icons"
 
 import {
   Card,
@@ -7,7 +7,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from './ui/card'
+} from "./ui/card"
 
 export function FeatureCard({
   title,

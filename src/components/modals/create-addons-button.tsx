@@ -1,11 +1,11 @@
-'use client'
+"use client"
 
-import React from 'react'
-import { X } from 'lucide-react'
+import React from "react"
+import { X } from "lucide-react"
 
-import { CreateAddonsForm } from '../forms/create-addons-form'
-import { Button } from '../ui/button'
-import { Modal } from '../ui/modal'
+import { CreateAddonsForm } from "../forms/create-addons-form"
+import { Button } from "../ui/button"
+import { Modal } from "../ui/modal"
 
 export function CreateAddonsButton({
   storeId,
@@ -18,7 +18,7 @@ export function CreateAddonsButton({
 
   return (
     <>
-      <Button size={'sm'} onClick={() => setIsOpen(true)}>
+      <Button size={"sm"} onClick={() => setIsOpen(true)}>
         {label}
       </Button>
       <Modal showModal={isOpen} setShowModal={setIsOpen}>

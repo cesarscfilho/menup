@@ -1,28 +1,28 @@
-import { db } from '@/db'
-import { users } from '@/db/schema'
-import { env } from '@/env.mjs'
-import { DrizzleAdapter } from '@auth/drizzle-adapter'
-import { eq } from 'drizzle-orm'
-import NextAuth, { type NextAuthConfig } from 'next-auth'
-import Github from 'next-auth/providers/github'
+import { db } from "@/db"
+import { users } from "@/db/schema"
+import { env } from "@/env.mjs"
+import { DrizzleAdapter } from "@auth/drizzle-adapter"
+import { eq } from "drizzle-orm"
+import NextAuth, { type NextAuthConfig } from "next-auth"
+import Github from "next-auth/providers/github"
 
-import { sendVerificationEmail } from './mail'
+import { sendVerificationEmail } from "./mail"
 
 export const authConfig: NextAuthConfig = {
   adapter: DrizzleAdapter(db),
-  session: { strategy: 'jwt' },
+  session: { strategy: "jwt" },
   providers: [
     // Email provider
     {
-      id: 'email',
-      type: 'email',
-      from: 'asdf@asdf.ca',
+      id: "email",
+      type: "email",
+      from: "asdf@asdf.ca",
       server: {},
       maxAge: 24 * 60 * 60,
-      name: 'Email',
+      name: "Email",
       options: {},
       sendVerificationRequest: async ({ url, identifier }) => {
-        if (env.NODE_ENV === 'development') {
+        if (env.NODE_ENV === "development") {
           console.log(identifier, url)
         } else {
           await sendVerificationEmail(identifier, url)

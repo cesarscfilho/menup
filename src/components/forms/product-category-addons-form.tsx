@@ -1,25 +1,25 @@
-'use client'
+"use client"
 
-import React from 'react'
+import React from "react"
 import {
   deleteProductCategoryAddons,
   updateProductCategoryAddons,
-} from '@/actions/addon'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { MinusCircle, Trash } from 'lucide-react'
-import { useFieldArray, useForm } from 'react-hook-form'
-import { toast } from 'sonner'
+} from "@/actions/addon"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { MinusCircle, Trash } from "lucide-react"
+import { useFieldArray, useForm } from "react-hook-form"
+import { toast } from "sonner"
 
-import { ProductCategoriesWithAddons } from '@/types/product'
-import { productCategoriesWithAddonsSchema } from '@/lib/validations/product'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
-import { Checkbox } from '@/components/ui/checkbox'
-import { Input } from '@/components/ui/input'
-import { Separator } from '@/components/ui/separator'
-import { Switch } from '@/components/ui/switch'
+import { ProductCategoriesWithAddons } from "@/types/product"
+import { productCategoriesWithAddonsSchema } from "@/lib/validations/product"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Input } from "@/components/ui/input"
+import { Separator } from "@/components/ui/separator"
+import { Switch } from "@/components/ui/switch"
 
-import { EditProductCategoryAddons } from '../modals/edit-product-category-addons'
+import { EditProductCategoryAddons } from "../modals/edit-product-category-addons"
 import {
   Form,
   FormControl,
@@ -27,7 +27,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '../ui/form'
+} from "../ui/form"
 
 interface Props {
   allAddons: {
@@ -75,13 +75,13 @@ export function ProductCategoriesAddonsForm({
           storeId,
         })
 
-        toast.success('Category updated successfully')
+        toast.success("Category updated successfully")
       } catch (e) {}
     })
   }
 
   const { fields, append, remove } = useFieldArray({
-    name: 'addons',
+    name: "addons",
     control: form.control,
   })
 
@@ -139,7 +139,7 @@ export function ProductCategoriesAddonsForm({
                         <Input
                           {...field}
                           type="number"
-                          value={Number.isNaN(field.value) ? '' : field.value}
+                          value={Number.isNaN(field.value) ? "" : field.value}
                           onChange={(e) =>
                             field.onChange(e.target.valueAsNumber)
                           }
@@ -159,7 +159,7 @@ export function ProductCategoriesAddonsForm({
                         <Input
                           {...field}
                           type="number"
-                          value={Number.isNaN(field.value) ? '' : field.value}
+                          value={Number.isNaN(field.value) ? "" : field.value}
                           onChange={(e) =>
                             field.onChange(e.target.valueAsNumber)
                           }
@@ -212,7 +212,7 @@ export function ProductCategoriesAddonsForm({
                       className="w-[100px] bg-background"
                       placeholder="$0"
                     />
-                    <Button variant={'destructive'} size={'icon'}>
+                    <Button variant={"destructive"} size={"icon"}>
                       <MinusCircle size={16} />
                     </Button>
                   </div>
@@ -234,7 +234,7 @@ export function ProductCategoriesAddonsForm({
             />
             <Button
               isLoading={isPending}
-              size={'sm'}
+              size={"sm"}
               type="submit"
               className="w-full"
             >

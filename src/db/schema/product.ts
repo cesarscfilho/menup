@@ -1,4 +1,4 @@
-import { relations } from 'drizzle-orm'
+import { relations } from "drizzle-orm"
 import {
   boolean,
   decimal,
@@ -7,23 +7,23 @@ import {
   text,
   timestamp,
   uuid,
-} from 'drizzle-orm/pg-core'
+} from "drizzle-orm/pg-core"
 
-import { stores } from '../schema'
+import { stores } from "../schema"
 
 // Products
 
-export const products = pgTable('products', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  name: text('name').notNull(),
-  description: text('description'),
-  price: decimal('price', { precision: 10, scale: 2 }).default('0'),
-  active: boolean('active').default(false).notNull(),
-  categoryId: uuid('category_id')
+export const products = pgTable("products", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  name: text("name").notNull(),
+  description: text("description"),
+  price: decimal("price", { precision: 10, scale: 2 }).default("0"),
+  active: boolean("active").default(false).notNull(),
+  categoryId: uuid("category_id")
     .notNull()
     .references(() => categories.id),
-  storeId: text('store_id').notNull(),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
+  storeId: text("store_id").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 })
 
 export type NewProduct = typeof products.$inferInsert
@@ -44,11 +44,11 @@ export const productsRelations = relations(products, ({ one, many }) => ({
 
 // Categories
 
-export const categories = pgTable('categories', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  name: text('name').notNull(),
-  storeId: text('store_id').notNull(),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
+export const categories = pgTable("categories", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  name: text("name").notNull(),
+  storeId: text("store_id").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 })
 
 export type NewCategory = typeof categories.$inferInsert
@@ -61,13 +61,13 @@ export const categoriesRelations = relations(categories, ({ one, many }) => ({
 
 // Addons
 
-export const addons = pgTable('addons', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  name: text('name').notNull(),
-  price: decimal('price', { precision: 10, scale: 2 }).default('0'),
-  active: boolean('active').default(true).notNull(),
-  storeId: text('store_id').notNull(),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
+export const addons = pgTable("addons", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  name: text("name").notNull(),
+  price: decimal("price", { precision: 10, scale: 2 }).default("0"),
+  active: boolean("active").default(true).notNull(),
+  storeId: text("store_id").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 })
 
 export type NewAddon = typeof addons.$inferInsert
@@ -83,15 +83,15 @@ export const variantsRelations = relations(addons, ({ many, one }) => ({
 
 // Addons category
 
-export const addonCategories = pgTable('addon_categories', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  name: text('name').notNull(),
-  quantityMin: integer('quantity_min').notNull().default(0),
-  quantityMax: integer('quantity_max').notNull().default(1),
-  mandatory: boolean('mandatory').notNull().default(false),
-  active: boolean('active').notNull().default(true),
-  productId: text('product_id').notNull(),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
+export const addonCategories = pgTable("addon_categories", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  name: text("name").notNull(),
+  quantityMin: integer("quantity_min").notNull().default(0),
+  quantityMax: integer("quantity_max").notNull().default(1),
+  mandatory: boolean("mandatory").notNull().default(false),
+  active: boolean("active").notNull().default(true),
+  productId: text("product_id").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 })
 
 export type NewAddonsCategory = typeof addonCategories.$inferInsert
@@ -105,20 +105,20 @@ export const addonCategoriesRelations = relations(
       fields: [addonCategories.productId],
       references: [products.id],
     }),
-  }),
+  })
 )
 
 // Product category addons
 
 export const productAddonCategoryRelation = pgTable(
-  'product_addon_category_relation',
+  "product_addon_category_relation",
   {
-    id: uuid('id').primaryKey().defaultRandom(),
-    productId: text('product_id').notNull(),
-    addonsId: text('addon_id').notNull(),
-    addonCategoryId: text('addon_category_id').notNull(),
-    active: boolean('active').notNull().default(true),
-  },
+    id: uuid("id").primaryKey().defaultRandom(),
+    productId: text("product_id").notNull(),
+    addonsId: text("addon_id").notNull(),
+    addonCategoryId: text("addon_category_id").notNull(),
+    active: boolean("active").notNull().default(true),
+  }
 )
 
 export type NewProductAddonCategoryRelation =
@@ -141,5 +141,5 @@ export const productAddonCategoryRelationRelations = relations(
       fields: [productAddonCategoryRelation.addonCategoryId],
       references: [addonCategories.id],
     }),
-  }),
+  })
 )

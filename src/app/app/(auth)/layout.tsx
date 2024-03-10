@@ -1,4 +1,4 @@
-import { Background } from '@/components/background'
+import { Background } from "@/components/background"
 
 interface AuthLayoutProps {
   children: React.ReactNode

@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from "zod"
 
 export const updateAddonSchema = z.object({
   items: z.array(
@@ -14,10 +14,10 @@ export const updateAddonSchema = z.object({
           id: z.string(),
           name: z.string().min(1),
           price: z.string().regex(/^\d+(\.\d{1,2})?$/, {
-            message: 'Must be a valid price',
+            message: "Must be a valid price",
           }),
-        }),
+        })
       ),
-    }),
+    })
   ),
 })

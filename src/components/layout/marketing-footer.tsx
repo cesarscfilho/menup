@@ -1,13 +1,13 @@
-import Link from 'next/link'
-import { GitHubLogoIcon } from '@radix-ui/react-icons'
+import Link from "next/link"
+import { GitHubLogoIcon } from "@radix-ui/react-icons"
 
-import marketingConfig from '@/config/marketing'
-import siteConfig from '@/config/site'
-import { cn } from '@/lib/utils'
+import marketingConfig from "@/config/marketing"
+import siteConfig from "@/config/site"
+import { cn } from "@/lib/utils"
 
-import { Logo } from '../logo'
-import { ToggleTheme } from '../toggle-theme'
-import { buttonVariants } from '../ui/button'
+import { Logo } from "../logo"
+import { ToggleTheme } from "../toggle-theme"
+import { buttonVariants } from "../ui/button"
 
 export function MarketingFooter() {
   return (
@@ -28,8 +28,8 @@ export function MarketingFooter() {
                   <li key={link.title}>
                     <Link
                       href={link.href}
-                      target={link?.external ? '_blank' : undefined}
-                      rel={link?.external ? 'noreferrer' : undefined}
+                      target={link?.external ? "_blank" : undefined}
+                      rel={link?.external ? "noreferrer" : undefined}
                       className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                     >
                       {link.title}
@@ -43,7 +43,7 @@ export function MarketingFooter() {
         </section>
         <section className="flex items-center border-t pt-8">
           <div className="flex-1 text-left text-sm leading-loose text-muted-foreground">
-            Built by{' '}
+            Built by{" "}
             <Link
               href="/"
               target="_blank"
@@ -59,7 +59,7 @@ export function MarketingFooter() {
               target="_blank"
               href={siteConfig.links.github}
               className={cn(
-                buttonVariants({ size: 'icon', variant: 'outline' }),
+                buttonVariants({ size: "icon", variant: "outline" })
               )}
             >
               <GitHubLogoIcon />

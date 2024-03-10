@@ -1,11 +1,11 @@
-'use client'
+"use client"
 
-import React from 'react'
-import { X } from 'lucide-react'
+import React from "react"
+import { X } from "lucide-react"
 
-import { CreateStoreForm } from '../forms/create-store-form'
-import { Button } from '../ui/button'
-import { Modal } from '../ui/modal'
+import { CreateStoreForm } from "../forms/create-store-form"
+import { Button } from "../ui/button"
+import { Modal } from "../ui/modal"
 
 export function CreateStoreButton({ userId }: { userId: string }) {
   const [isOpen, setIsOpen] = React.useState(false)

@@ -1,13 +1,13 @@
-import marketingConfig from '@/config/marketing'
+import marketingConfig from "@/config/marketing"
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion'
-import { Badge } from '@/components/ui/badge'
-import { Container } from '@/components/container'
-import PrincigCard from '@/components/pricing-card'
+} from "@/components/ui/accordion"
+import { Badge } from "@/components/ui/badge"
+import { Container } from "@/components/container"
+import PrincigCard from "@/components/pricing-card"
 
 export default function PrincigPage() {
   return (

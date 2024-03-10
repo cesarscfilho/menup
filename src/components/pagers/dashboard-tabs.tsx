@@ -1,15 +1,15 @@
-'use client'
+"use client"
 
-import Link from 'next/link'
+import Link from "next/link"
 import {
   useParams,
   useRouter,
   useSelectedLayoutSegment,
   useSelectedLayoutSegments,
-} from 'next/navigation'
-import { Tabs, TabsList, TabsTrigger } from '@radix-ui/react-tabs'
+} from "next/navigation"
+import { Tabs, TabsList, TabsTrigger } from "@radix-ui/react-tabs"
 
-import { cn } from '@/lib/utils'
+import { cn } from "@/lib/utils"
 
 export function DashboardTabs() {
   const router = useRouter()
@@ -22,32 +22,32 @@ export function DashboardTabs() {
   if (storeId) {
     tabs = [
       {
-        title: 'Store',
+        title: "Store",
         href: `/dashboard/${storeId}`,
         isActive: pathname[1] === undefined,
       },
       {
-        title: 'Orders',
+        title: "Orders",
         href: `/dashboard/${storeId}/orders`,
         isActive: pathname[1] === `orders`,
       },
       {
-        title: 'Products',
+        title: "Products",
         href: `/dashboard/${storeId}/products`,
         isActive: pathname[1] === `products`,
       },
       {
-        title: 'Addons',
+        title: "Addons",
         href: `/dashboard/${storeId}/addons`,
         isActive: pathname[1] === `addons`,
       },
       {
-        title: 'Notifications',
+        title: "Notifications",
         href: `/dashboard/${storeId}/notifications`,
         isActive: pathname[1] === `notifications`,
       },
       {
-        title: 'Settings',
+        title: "Settings",
         href: `/dashboard/${storeId}/settings`,
         isActive: pathname[1] === `settings`,
       },
@@ -55,19 +55,19 @@ export function DashboardTabs() {
   } else {
     tabs = [
       {
-        title: 'Stores',
+        title: "Stores",
         href: `/dashboard`,
         isActive: segment === null,
       },
       {
-        title: 'Settings',
+        title: "Settings",
         href: `/dashboard/settings`,
-        isActive: segment === 'settings',
+        isActive: segment === "settings",
       },
       {
-        title: 'News',
+        title: "News",
         href: `/dashboard/news`,
-        isActive: segment === 'news',
+        isActive: segment === "news",
       },
     ]
   }
@@ -83,15 +83,15 @@ export function DashboardTabs() {
             role="none"
             key={tab.href}
             className={cn(
-              'border-b-2 border-transparent py-1.5',
-              tab.isActive && 'border-foreground',
+              "border-b-2 border-transparent py-1.5",
+              tab.isActive && "border-foreground"
             )}
           >
             <TabsTrigger
               value={tab.href}
               className={cn(
-                'inline-flex items-center justify-center rounded-sm px-3 py-1.5 text-sm font-medium text-muted-foreground ring-offset-background transition-all hover:bg-muted hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1',
-                tab.isActive && 'text-foreground',
+                "inline-flex items-center justify-center rounded-sm px-3 py-1.5 text-sm font-medium text-muted-foreground ring-offset-background transition-all hover:bg-muted hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1",
+                tab.isActive && "text-foreground"
               )}
               asChild
             >

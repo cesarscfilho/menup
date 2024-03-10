@@ -1,11 +1,11 @@
-import * as React from 'react'
-import { type Option } from '@/types'
-import { CheckIcon, PlusCircledIcon } from '@radix-ui/react-icons'
-import { type Column } from '@tanstack/react-table'
+import * as React from "react"
+import { type Option } from "@/types"
+import { CheckIcon, PlusCircledIcon } from "@radix-ui/react-icons"
+import { type Column } from "@tanstack/react-table"
 
-import { cn } from '@/lib/utils'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import { cn } from "@/lib/utils"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import {
   Command,
   CommandEmpty,
@@ -14,13 +14,13 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from '@/components/ui/command'
+} from "@/components/ui/command"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover'
-import { Separator } from '@/components/ui/separator'
+} from "@/components/ui/popover"
+import { Separator } from "@/components/ui/separator"
 
 interface DataTableFacetedFilter<TData, TValue> {
   column?: Column<TData, TValue>
@@ -100,19 +100,19 @@ export function DataTableFacetedFilter<TData, TValue>({
                       }
                       const filterValues = Array.from(selectedValues)
                       column?.setFilterValue(
-                        filterValues.length ? filterValues : undefined,
+                        filterValues.length ? filterValues : undefined
                       )
                     }}
                   >
                     <div
                       className={cn(
-                        'mr-2 flex size-4 items-center justify-center rounded-sm border border-primary',
+                        "mr-2 flex size-4 items-center justify-center rounded-sm border border-primary",
                         isSelected
-                          ? 'bg-primary text-primary-foreground'
-                          : 'opacity-50 [&_svg]:invisible',
+                          ? "bg-primary text-primary-foreground"
+                          : "opacity-50 [&_svg]:invisible"
                       )}
                     >
-                      <CheckIcon className={cn('size-4')} aria-hidden="true" />
+                      <CheckIcon className={cn("size-4")} aria-hidden="true" />
                     </div>
                     {option.icon && (
                       <option.icon

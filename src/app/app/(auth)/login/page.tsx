@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from "next/link"
 
 import {
   Card,
@@ -7,8 +7,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import SignInForm from '@/components/auth/signin-form'
+} from "@/components/ui/card"
+import SignInForm from "@/components/auth/signin-form"
 
 export default function LoginPage() {
   return (
@@ -24,8 +24,8 @@ export default function LoginPage() {
       </CardContent>
       <CardFooter>
         <p className="mx-auto text-sm font-semibold">
-          Don&apos;t have an account?{' '}
-          <Link className="font-normal" href={'/register'}>
+          Don&apos;t have an account?{" "}
+          <Link className="font-normal" href={"/register"}>
             Sign up.
           </Link>
         </p>

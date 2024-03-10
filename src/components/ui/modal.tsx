@@ -1,12 +1,12 @@
-'use client'
+"use client"
 
-import { Dispatch, SetStateAction } from 'react'
-import { useRouter } from 'next/navigation'
-import * as Dialog from '@radix-ui/react-dialog'
-import { Drawer } from 'vaul'
+import { Dispatch, SetStateAction } from "react"
+import { useRouter } from "next/navigation"
+import * as Dialog from "@radix-ui/react-dialog"
+import { Drawer } from "vaul"
 
-import { cn } from '@/lib/utils'
-import useMediaQuery from '@/hooks/use-media-query'
+import { cn } from "@/lib/utils"
+import useMediaQuery from "@/hooks/use-media-query"
 
 export function Modal({
   children,
@@ -58,8 +58,8 @@ export function Modal({
         <Drawer.Portal>
           <Drawer.Content
             className={cn(
-              'fixed bottom-0 left-0 right-0 z-50 mt-24 rounded-t-[10px] border-t border-border bg-background',
-              className,
+              "fixed bottom-0 left-0 right-0 z-50 mt-24 rounded-t-[10px] border-t border-border bg-background",
+              className
             )}
           >
             <div className="sticky top-0 z-20 flex w-full items-center justify-center rounded-t-[10px] bg-inherit">
@@ -91,8 +91,8 @@ export function Modal({
           onOpenAutoFocus={(e) => e.preventDefault()}
           onCloseAutoFocus={(e) => e.preventDefault()}
           className={cn(
-            'fixed inset-0 z-40 m-auto max-h-fit w-full max-w-md animate-scale-in overflow-hidden border border-border bg-background p-0 shadow-xl md:rounded-2xl',
-            className,
+            "fixed inset-0 z-40 m-auto max-h-fit w-full max-w-md animate-scale-in overflow-hidden border border-border bg-background p-0 shadow-xl md:rounded-2xl",
+            className
           )}
         >
           {children}

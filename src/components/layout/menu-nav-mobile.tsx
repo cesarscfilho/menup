@@ -1,10 +1,10 @@
-'use client'
+"use client"
 
-import { useSelectedLayoutSegment } from 'next/navigation'
+import { useSelectedLayoutSegment } from "next/navigation"
 
-import { cn } from '@/lib/utils'
+import { cn } from "@/lib/utils"
 
-import { Icons } from '../icons'
+import { Icons } from "../icons"
 
 export function MenuNavMobile() {
   const segment = useSelectedLayoutSegment()
@@ -12,24 +12,24 @@ export function MenuNavMobile() {
   const items: { label: string; icon: keyof typeof Icons; active: boolean }[] =
     [
       {
-        label: 'Home',
-        icon: 'home',
+        label: "Home",
+        icon: "home",
         active: segment === null,
       },
       {
-        label: 'Offers',
-        icon: 'badgepercent',
-        active: segment === 'offers',
+        label: "Offers",
+        icon: "badgepercent",
+        active: segment === "offers",
       },
       {
-        label: 'Orders',
-        icon: 'shopbasket',
-        active: segment === 'orders',
+        label: "Orders",
+        icon: "shopbasket",
+        active: segment === "orders",
       },
       {
-        label: 'Profile',
-        icon: 'profile',
-        active: segment === 'profile',
+        label: "Profile",
+        icon: "profile",
+        active: segment === "profile",
       },
     ]
   return (
@@ -58,14 +58,14 @@ function NavItem({ icon, label, active }: NavItemProps) {
   return (
     <div
       className={cn(
-        'flex cursor-pointer select-none flex-col items-center justify-center space-y-1 p-1 transition-colors',
+        "flex cursor-pointer select-none flex-col items-center justify-center space-y-1 p-1 transition-colors",
         {
-          'text-muted-foreground': !active,
-        },
+          "text-muted-foreground": !active,
+        }
       )}
     >
       <Icon className="h-5 w-5" />
-      <span className={cn('text-xs font-semibold')}>{label}</span>
+      <span className={cn("text-xs font-semibold")}>{label}</span>
     </div>
   )
 }

@@ -1,18 +1,18 @@
-'use client'
+"use client"
 
-import Link from 'next/link'
-import { User } from '@auth/core/types'
+import Link from "next/link"
+import { User } from "@auth/core/types"
 
-import marketingConfig from '@/config/marketing'
-import siteConfig from '@/config/site'
-import { cn } from '@/lib/utils'
-import useScroll from '@/hooks/use-scroll'
+import marketingConfig from "@/config/marketing"
+import siteConfig from "@/config/site"
+import { cn } from "@/lib/utils"
+import useScroll from "@/hooks/use-scroll"
 
-import { Container } from '../container'
-import { Logo } from '../logo'
-import { buttonVariants } from '../ui/button'
-import MarketingMobileNav from './marketing-mobile-nav'
-import { MarketingNavLinks } from './marketing-nav-links'
+import { Container } from "../container"
+import { Logo } from "../logo"
+import { buttonVariants } from "../ui/button"
+import MarketingMobileNav from "./marketing-mobile-nav"
+import { MarketingNavLinks } from "./marketing-nav-links"
 
 interface MarketingHeaderProps {
   scroll?: boolean
@@ -27,8 +27,8 @@ export function MarketingHeader({ scroll = true, user }: MarketingHeaderProps) {
       className={`sticky top-0 z-40 bg-transparent transition-all duration-100 ${
         scroll
           ? scrolled
-            ? 'border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/70'
-            : 'bg-background/0'
+            ? "border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/70"
+            : "bg-background/0"
           : null
       }`}
     >
@@ -48,8 +48,8 @@ export function MarketingHeader({ scroll = true, user }: MarketingHeaderProps) {
             <Link
               href="/dashboard"
               className={cn(
-                buttonVariants({ variant: 'default', size: 'sm' }),
-                'font-bold',
+                buttonVariants({ variant: "default", size: "sm" }),
+                "font-bold"
               )}
             >
               Dashboard
@@ -58,8 +58,8 @@ export function MarketingHeader({ scroll = true, user }: MarketingHeaderProps) {
             <Link
               href="/login"
               className={cn(
-                buttonVariants({ variant: 'default', size: 'sm' }),
-                'font-bold',
+                buttonVariants({ variant: "default", size: "sm" }),
+                "font-bold"
               )}
             >
               Sign In

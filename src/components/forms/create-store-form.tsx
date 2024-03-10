@@ -1,13 +1,13 @@
-import React from 'react'
-import { createStore } from '@/actions/store'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { toast } from 'sonner'
-import { z } from 'zod'
+import React from "react"
+import { createStore } from "@/actions/store"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import { z } from "zod"
 
-import { storeSchema } from '@/lib/validations/store'
+import { storeSchema } from "@/lib/validations/store"
 
-import { Button } from '../ui/button'
+import { Button } from "../ui/button"
 import {
   Form,
   FormControl,
@@ -16,9 +16,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '../ui/form'
-import { Input } from '../ui/input'
-import { Textarea } from '../ui/textarea'
+} from "../ui/form"
+import { Input } from "../ui/input"
+import { Textarea } from "../ui/textarea"
 
 type Inputs = z.infer<typeof storeSchema>
 
@@ -34,8 +34,8 @@ export function CreateStoreForm({
   const form = useForm<Inputs>({
     resolver: zodResolver(storeSchema),
     defaultValues: {
-      name: '',
-      description: '',
+      name: "",
+      description: "",
     },
   })
 
@@ -44,7 +44,7 @@ export function CreateStoreForm({
       try {
         await createStore({ ...inputs, userId })
         setIsOpen(false)
-        toast.success('Store created successfully')
+        toast.success("Store created successfully")
       } catch (error) {}
     })
   }
@@ -54,7 +54,7 @@ export function CreateStoreForm({
       <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
-          name={'name'}
+          name={"name"}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Name</FormLabel>
@@ -71,7 +71,7 @@ export function CreateStoreForm({
         />
         <FormField
           control={form.control}
-          name={'description'}
+          name={"description"}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Description</FormLabel>

@@ -1,7 +1,7 @@
-import { auth } from '@/lib/auth'
-import { Background } from '@/components/background'
-import { MarketingFooter } from '@/components/layout/marketing-footer'
-import { MarketingHeader } from '@/components/layout/marketing-header'
+import { auth } from "@/lib/auth"
+import { Background } from "@/components/background"
+import { MarketingFooter } from "@/components/layout/marketing-footer"
+import { MarketingHeader } from "@/components/layout/marketing-header"
 
 interface LayoutProps {
   children: React.ReactNode

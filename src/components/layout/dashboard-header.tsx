@@ -1,22 +1,22 @@
-import { redirect } from 'next/navigation'
-import { db } from '@/db'
-import { stores } from '@/db/schema'
-import { eq } from 'drizzle-orm'
+import { redirect } from "next/navigation"
+import { db } from "@/db"
+import { stores } from "@/db/schema"
+import { eq } from "drizzle-orm"
 
-import { auth } from '@/lib/auth'
+import { auth } from "@/lib/auth"
 
-import { Container } from '../container'
-import { LinkToStoreFront } from '../link-to-storefront'
-import { Notifications } from '../notifications'
-import { DashboardTabs } from '../pagers/dashboard-tabs'
-import StoreSwitcher from '../store-switcher'
-import { UserNav } from '../user-nav'
+import { Container } from "../container"
+import { LinkToStoreFront } from "../link-to-storefront"
+import { Notifications } from "../notifications"
+import { DashboardTabs } from "../pagers/dashboard-tabs"
+import StoreSwitcher from "../store-switcher"
+import { UserNav } from "../user-nav"
 
 export async function DashboardHeader() {
   const session = await auth()
 
   if (!session) {
-    redirect('/login')
+    redirect("/login")
   }
 
   const strs = await db

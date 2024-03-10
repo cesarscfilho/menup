@@ -1,9 +1,9 @@
-import Link from 'next/link'
+import Link from "next/link"
 
-import { Icons } from './icons'
-import { Button } from './ui/button'
-import { Popover, PopoverContent, PopoverTrigger } from './ui/popover'
-import { Separator } from './ui/separator'
+import { Icons } from "./icons"
+import { Button } from "./ui/button"
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover"
+import { Separator } from "./ui/separator"
 
 export async function Notifications() {
   return (

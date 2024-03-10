@@ -1,11 +1,11 @@
-'use client'
+"use client"
 
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useTheme } from 'next-themes'
-import { useForm } from 'react-hook-form'
-import * as z from 'zod'
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useTheme } from "next-themes"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
 
-import { Button } from '@/components/ui/button'
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -14,12 +14,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+} from "@/components/ui/form"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
 const appearanceFormSchema = z.object({
-  theme: z.enum(['light', 'dark'], {
-    required_error: 'Please select a theme.',
+  theme: z.enum(["light", "dark"], {
+    required_error: "Please select a theme.",
   }),
 })
 
@@ -31,7 +31,7 @@ export function AppearanceForm() {
   const form = useForm<AppearanceFormValues>({
     resolver: zodResolver(appearanceFormSchema),
     defaultValues: {
-      theme: 'light',
+      theme: "light",
     },
   })
 

@@ -1,13 +1,13 @@
-import React from 'react'
-import { createCategory } from '@/actions/category'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { toast } from 'sonner'
-import { z } from 'zod'
+import React from "react"
+import { createCategory } from "@/actions/category"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { toast } from "sonner"
+import { z } from "zod"
 
-import { storeSchema } from '@/lib/validations/store'
+import { storeSchema } from "@/lib/validations/store"
 
-import { Button } from '../ui/button'
+import { Button } from "../ui/button"
 import {
   Form,
   FormControl,
@@ -16,8 +16,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '../ui/form'
-import { Input } from '../ui/input'
+} from "../ui/form"
+import { Input } from "../ui/input"
 
 type Inputs = z.infer<typeof storeSchema>
 
@@ -33,7 +33,7 @@ export function CreateCategoryForm({
   const form = useForm<Inputs>({
     resolver: zodResolver(storeSchema),
     defaultValues: {
-      name: '',
+      name: "",
     },
   })
 
@@ -46,7 +46,7 @@ export function CreateCategoryForm({
           setIsOpen(false)
         }
 
-        toast.success('Category created successfully')
+        toast.success("Category created successfully")
       } catch (error) {}
     })
   }
@@ -56,7 +56,7 @@ export function CreateCategoryForm({
       <form className="h-full space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
-          name={'name'}
+          name={"name"}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Category name:</FormLabel>

@@ -1,18 +1,18 @@
-'use client'
+"use client"
 
-import React from 'react'
-import Link from 'next/link'
-import { deleteAddon, updateAddonStatus } from '@/actions/addon'
-import { DotsHorizontalIcon } from '@radix-ui/react-icons'
-import { ColumnDef } from '@tanstack/react-table'
-import { toast } from 'sonner'
+import React from "react"
+import Link from "next/link"
+import { deleteAddon, updateAddonStatus } from "@/actions/addon"
+import { DotsHorizontalIcon } from "@radix-ui/react-icons"
+import { ColumnDef } from "@tanstack/react-table"
+import { toast } from "sonner"
 
-import { formatPrice } from '@/lib/utils'
+import { formatPrice } from "@/lib/utils"
 
-import { DataTable } from '../data-table/data-table'
-import { DataTableColumnHeader } from '../data-table/data-table-column-header'
-import { Button } from '../ui/button'
-import { Checkbox } from '../ui/checkbox'
+import { DataTable } from "../data-table/data-table"
+import { DataTableColumnHeader } from "../data-table/data-table-column-header"
+import { Button } from "../ui/button"
+import { Checkbox } from "../ui/checkbox"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,8 +20,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from '../ui/dropdown-menu'
-import { Switch } from '../ui/switch'
+} from "../ui/dropdown-menu"
+import { Switch } from "../ui/switch"
 
 type AwaitedAddon = {
   id: string
@@ -51,14 +51,14 @@ export function AddonsTableShell({
   const columns = React.useMemo<ColumnDef<AwaitedAddon, unknown>[]>(
     () => [
       {
-        id: 'select',
+        id: "select",
         header: ({ table }) => (
           <Checkbox
             checked={table.getIsAllPageRowsSelected()}
             onCheckedChange={(value) => {
               table.toggleAllPageRowsSelected(!!value)
               setSelectedRowIds((prev) =>
-                prev.length === data.length ? [] : data.map((row) => row.id),
+                prev.length === data.length ? [] : data.map((row) => row.id)
               )
             }}
             aria-label="Select all"
@@ -73,7 +73,7 @@ export function AddonsTableShell({
               setSelectedRowIds((prev) =>
                 value
                   ? [...prev, row.original.id]
-                  : prev.filter((id) => id !== row.original.id),
+                  : prev.filter((id) => id !== row.original.id)
               )
             }}
             aria-label="Select row"
@@ -84,20 +84,20 @@ export function AddonsTableShell({
         enableHiding: false,
       },
       {
-        accessorKey: 'name',
+        accessorKey: "name",
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Name" />
         ),
       },
       {
-        accessorKey: 'price',
+        accessorKey: "price",
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Price" />
         ),
         cell: ({ cell }) => formatPrice(cell.getValue() as number),
       },
       {
-        accessorKey: 'active',
+        accessorKey: "active",
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Active" />
         ),
@@ -119,7 +119,7 @@ export function AddonsTableShell({
         enableColumnFilter: false,
       },
       {
-        id: 'actions',
+        id: "actions",
         cell: ({ row }) => (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -157,13 +157,13 @@ export function AddonsTableShell({
                       storeId,
                     }),
                     {
-                      loading: 'Deleting...',
-                      success: () => 'Addon deleted successfully.',
+                      loading: "Deleting...",
+                      success: () => "Addon deleted successfully.",
                       error: (err: unknown) => {
                         console.log(err)
                         return null
                       },
-                    },
+                    }
                   )
                 }}
                 disabled={isPending}
@@ -176,7 +176,7 @@ export function AddonsTableShell({
         ),
       },
     ],
-    [data, storeId, isPending],
+    [data, storeId, isPending]
   )
 
   function deleteSelectedRows() {
@@ -186,21 +186,21 @@ export function AddonsTableShell({
           deleteAddon({
             id,
             storeId,
-          }),
-        ),
+          })
+        )
       ),
       {
-        loading: 'Deleting...',
+        loading: "Deleting...",
         success: () => {
           setSelectedRowIds([])
-          return 'Addonds deleted successfully.'
+          return "Addonds deleted successfully."
         },
         error: (err: unknown) => {
           setSelectedRowIds([])
           console.log(err)
           return null
         },
-      },
+      }
     )
   }
 
@@ -211,24 +211,24 @@ export function AddonsTableShell({
       columns={columns}
       filterableColumns={[
         {
-          id: 'active',
-          title: 'Active',
+          id: "active",
+          title: "Active",
           options: [
             {
-              value: 'true',
-              label: 'Active',
+              value: "true",
+              label: "Active",
             },
             {
-              value: 'false',
-              label: 'Inactive',
+              value: "false",
+              label: "Inactive",
             },
           ],
         },
       ]}
       searchableColumns={[
         {
-          id: 'name',
-          title: 'names',
+          id: "name",
+          title: "names",
         },
       ]}
       //   newRowButton={

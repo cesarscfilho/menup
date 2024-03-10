@@ -1,7 +1,7 @@
-import Link from 'next/link'
+import Link from "next/link"
 
-import { Icons } from '../icons'
-import { Logo } from '../logo'
+import { Icons } from "../icons"
+import { Logo } from "../logo"
 import {
   Sheet,
   SheetClose,
@@ -9,7 +9,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '../ui/sheet'
+} from "../ui/sheet"
 
 interface MarketingMobileNavProps {
   navItems: {

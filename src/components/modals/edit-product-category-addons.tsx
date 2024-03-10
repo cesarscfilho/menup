@@ -1,17 +1,17 @@
-'use client'
+"use client"
 
-import React from 'react'
-import { addAddonInProductAddonCategoryRelation } from '@/actions/addon'
-import { MinusCircle, Plus, X } from 'lucide-react'
-import { UseFieldArrayAppend, UseFieldArrayRemove } from 'react-hook-form'
-import { toast } from 'sonner'
+import React from "react"
+import { addAddonInProductAddonCategoryRelation } from "@/actions/addon"
+import { MinusCircle, Plus, X } from "lucide-react"
+import { UseFieldArrayAppend, UseFieldArrayRemove } from "react-hook-form"
+import { toast } from "sonner"
 
-import { ProductCategoriesWithAddons } from '@/types/product'
+import { ProductCategoriesWithAddons } from "@/types/product"
 
-import { Button } from '../ui/button'
-import { Input } from '../ui/input'
-import { Modal } from '../ui/modal'
-import { Separator } from '../ui/separator'
+import { Button } from "../ui/button"
+import { Input } from "../ui/input"
+import { Modal } from "../ui/modal"
+import { Separator } from "../ui/separator"
 
 export function EditProductCategoryAddons({
   fields,
@@ -37,7 +37,7 @@ export function EditProductCategoryAddons({
     price: string | null
   }[]
   categoryName: string
-  appendFieldArray: UseFieldArrayAppend<ProductCategoriesWithAddons, 'addons'>
+  appendFieldArray: UseFieldArrayAppend<ProductCategoriesWithAddons, "addons">
   removeFieldArray: UseFieldArrayRemove
 }) {
   const [isPending, startTransition] = React.useTransition()
@@ -47,7 +47,7 @@ export function EditProductCategoryAddons({
     <>
       <Button
         onClick={() => setIsOpen(true)}
-        size={'sm'}
+        size={"sm"}
         type="button"
         variant="outline"
         className="w-full"
@@ -87,8 +87,8 @@ export function EditProductCategoryAddons({
                   <Input className="w-[100px] bg-background" placeholder="$0" />
                   <Button
                     onClick={() => removeFieldArray(i)}
-                    variant={'destructive'}
-                    size={'icon'}
+                    variant={"destructive"}
+                    size={"icon"}
                   >
                     <MinusCircle size={16} />
                   </Button>
@@ -120,8 +120,8 @@ export function EditProductCategoryAddons({
                         price: addon.price,
                       })
                     }
-                    variant={'outline'}
-                    size={'icon'}
+                    variant={"outline"}
+                    size={"icon"}
                   >
                     <Plus size={16} />
                   </Button>
@@ -148,7 +148,7 @@ export function EditProductCategoryAddons({
                 })
                 setIsOpen(false)
 
-                toast.success('Addons added successfully.')
+                toast.success("Addons added successfully.")
               } catch (e) {}
             })
           }}
