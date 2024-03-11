@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { ImageResponse } from "next/og"
+import { env } from "@/env"
 import { sql } from "@vercel/postgres"
 
 import { truncate } from "@/lib/utils"
@@ -15,8 +16,8 @@ export default async function PostOG({
   const domain = decodeURIComponent(params.domain)
   const slug = decodeURIComponent(params.slug)
 
-  const subdomain = domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`)
-    ? domain.replace(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`, "")
+  const subdomain = domain.endsWith(`.${env.NEXT_PUBLIC_ROOT_DOMAIN}`)
+    ? domain.replace(`.${env.NEXT_PUBLIC_ROOT_DOMAIN}`, "")
     : null
 
   const response = await sql`

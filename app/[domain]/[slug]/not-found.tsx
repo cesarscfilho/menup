@@ -1,5 +1,6 @@
 import { headers } from "next/headers"
 import Image from "next/image"
+import { env } from "@/env"
 
 import { getSiteData } from "@/lib/fetchers"
 
@@ -7,7 +8,7 @@ export default async function NotFound() {
   const headersList = headers()
   const domain = headersList
     .get("host")
-    ?.replace(".localhost:3000", `.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`)
+    ?.replace(".localhost:3000", `.${env.NEXT_PUBLIC_ROOT_DOMAIN}`)
   const data = await getSiteData(domain as string)
 
   return (

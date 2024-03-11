@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { env } from "@/env"
 import { Post, Site } from "@prisma/client"
 import { BarChart, ExternalLink } from "lucide-react"
 
@@ -10,7 +11,7 @@ export default function PostCard({
 }: {
   data: Post & { site: Site | null }
 }) {
-  const url = `${data.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}/${data.slug}`
+  const url = `${data.site?.subdomain}.${env.NEXT_PUBLIC_ROOT_DOMAIN}/${data.slug}`
 
   return (
     <div className="relative rounded-lg border border-stone-200 pb-10 shadow-md transition-all hover:shadow-xl dark:border-stone-700 dark:hover:border-white">
@@ -46,7 +47,7 @@ export default function PostCard({
       <div className="absolute bottom-4 flex w-full px-4">
         <a
           href={
-            process.env.NEXT_PUBLIC_VERCEL_ENV
+            env.NEXT_PUBLIC_VERCEL_ENV
               ? `https://${url}`
               : `http://${data.site?.subdomain}.localhost:3000/${data.slug}`
           }

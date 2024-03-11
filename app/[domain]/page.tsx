@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
+import { env } from "@/env"
 
 import { getPostsForSite, getSiteData } from "@/lib/fetchers"
 import prisma from "@/lib/prisma"
@@ -23,7 +24,7 @@ export async function generateStaticParams() {
   const allPaths = allSites
     .flatMap(({ subdomain, customDomain }) => [
       subdomain && {
-        domain: `${subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`,
+        domain: `${subdomain}.${env.NEXT_PUBLIC_ROOT_DOMAIN}`,
       },
       customDomain && {
         domain: customDomain,

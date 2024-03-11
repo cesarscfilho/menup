@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState, useTransition } from "react"
+import { env } from "@/env"
 import { Post } from "@prisma/client"
 import { ExternalLink } from "lucide-react"
 import { Editor as NovelEditor } from "novel"
@@ -20,8 +21,8 @@ export default function Editor({ post }: { post: PostWithSite }) {
   const [data, setData] = useState<PostWithSite>(post)
   const [hydrated, setHydrated] = useState(false)
 
-  const url = process.env.NEXT_PUBLIC_VERCEL_ENV
-    ? `https://${data.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}/${data.slug}`
+  const url = env.NEXT_PUBLIC_VERCEL_ENV
+    ? `https://${data.site?.subdomain}.${env.NEXT_PUBLIC_ROOT_DOMAIN}/${data.slug}`
     : `http://${data.site?.subdomain}.localhost:3000/${data.slug}`
 
   // listen to CMD + S and override the default behavior

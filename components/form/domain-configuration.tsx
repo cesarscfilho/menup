@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { env } from "@/env"
 import { AlertCircle, XCircle } from "lucide-react"
 
 import { getSubdomain } from "@/lib/domains"
@@ -148,7 +149,7 @@ export default function DomainConfiguration({ domain }: { domain: string }) {
                 <p className="mt-2 font-mono text-sm">
                   {recordType === "A"
                     ? `76.76.21.21`
-                    : `cname.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`}
+                    : `cname.${env.NEXT_PUBLIC_ROOT_DOMAIN}`}
                 </p>
               </div>
               <div>

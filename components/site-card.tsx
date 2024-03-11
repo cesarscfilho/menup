@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { env } from "@/env"
 import { Site } from "@prisma/client"
 import { BarChart, ExternalLink } from "lucide-react"
 
@@ -6,7 +7,7 @@ import { placeholderBlurhash, random } from "@/lib/utils"
 import BlurImage from "@/components/blur-image"
 
 export default function SiteCard({ data }: { data: Site }) {
-  const url = `${data.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`
+  const url = `${data.subdomain}.${env.NEXT_PUBLIC_ROOT_DOMAIN}`
   return (
     <div className="relative rounded-lg border border-stone-200 pb-10 shadow-md transition-all hover:shadow-xl dark:border-stone-700 dark:hover:border-white">
       <Link
@@ -34,7 +35,7 @@ export default function SiteCard({ data }: { data: Site }) {
       <div className="absolute bottom-4 flex w-full justify-between space-x-4 px-4">
         <a
           href={
-            process.env.NEXT_PUBLIC_VERCEL_ENV
+            env.NEXT_PUBLIC_VERCEL_ENV
               ? `https://${url}`
               : `http://${data.subdomain}.localhost:3000`
           }

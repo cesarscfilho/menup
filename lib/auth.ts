@@ -1,3 +1,4 @@
+import { env } from "@/env.js"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { getServerSession, type NextAuthOptions } from "next-auth"
 import GitHubProvider from "next-auth/providers/github"
@@ -9,8 +10,8 @@ const VERCEL_DEPLOYMENT = !!process.env.VERCEL_URL
 export const authOptions: NextAuthOptions = {
   providers: [
     GitHubProvider({
-      clientId: process.env.AUTH_GITHUB_ID as string,
-      clientSecret: process.env.AUTH_GITHUB_SECRET as string,
+      clientId: env.AUTH_GITHUB_ID,
+      clientSecret: env.AUTH_GITHUB_SECRET,
       profile(profile) {
         return {
           id: profile.id.toString(),
@@ -38,7 +39,7 @@ export const authOptions: NextAuthOptions = {
         path: "/",
         // When working on localhost, the cookie domain must be omitted entirely (https://stackoverflow.com/a/1188145)
         domain: VERCEL_DEPLOYMENT
-          ? `.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`
+          ? `.${env.NEXT_PUBLIC_ROOT_DOMAIN}`
           : undefined,
         secure: VERCEL_DEPLOYMENT,
       },

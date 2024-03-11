@@ -3,6 +3,7 @@ import { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import { notFound, redirect } from "next/navigation"
+import { env } from "@/env"
 
 import { getSiteData } from "@/lib/fetchers"
 import CTA from "@/components/cta"
@@ -49,7 +50,7 @@ export async function generateMetadata({
     icons: [logo],
     metadataBase: new URL(`https://${domain}`),
     // Optional: Set canonical URL to custom domain if it exists
-    // ...(params.domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) &&
+    // ...(params.domain.endsWith(`.${env.NEXT_PUBLIC_ROOT_DOMAIN}`) &&
     //   data.customDomain && {
     //     alternates: {
     //       canonical: `https://${data.customDomain}`,
@@ -74,9 +75,9 @@ export default async function SiteLayout({
 
   // Optional: Redirect to custom domain if it exists
   if (
-    domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) &&
+    domain.endsWith(`.${env.NEXT_PUBLIC_ROOT_DOMAIN}`) &&
     data.customDomain &&
-    process.env.REDIRECT_TO_CUSTOM_DOMAIN_IF_EXISTS === "true"
+    env.REDIRECT_TO_CUSTOM_DOMAIN_IF_EXISTS === "true"
   ) {
     return redirect(`https://${data.customDomain}`)
   }
@@ -103,7 +104,7 @@ export default async function SiteLayout({
 
       <div className="mt-20">{children}</div>
 
-      {domain == `demo.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` ||
+      {domain == `demo.${env.NEXT_PUBLIC_ROOT_DOMAIN}` ||
       domain == `platformize.co` ? (
         <CTA />
       ) : (

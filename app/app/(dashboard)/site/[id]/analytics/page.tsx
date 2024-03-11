@@ -1,4 +1,5 @@
 import { notFound, redirect } from "next/navigation"
+import { env } from "@/env"
 
 import { getSession } from "@/lib/auth"
 import prisma from "@/lib/prisma"
@@ -22,7 +23,7 @@ export default async function SiteAnalytics({
     notFound()
   }
 
-  const url = `${data.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`
+  const url = `${data.subdomain}.${env.NEXT_PUBLIC_ROOT_DOMAIN}`
 
   return (
     <>

@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server"
+import { env } from "@/env"
 import { put } from "@vercel/blob"
 import { nanoid } from "nanoid"
 
 export const runtime = "edge"
 
 export async function POST(req: Request) {
-  if (!process.env.BLOB_READ_WRITE_TOKEN) {
+  if (!env.BLOB_READ_WRITE_TOKEN) {
     return new Response(
       "Missing BLOB_READ_WRITE_TOKEN. Don't forget to add that to your .env file.",
       {

@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation"
+import { env } from "@/env"
 
 import { getPostData, getSiteData } from "@/lib/fetchers"
 import prisma from "@/lib/prisma"
@@ -38,7 +39,7 @@ export async function generateMetadata({
       creator: "@vercel",
     },
     // Optional: Set canonical URL to custom domain if it exists
-    // ...(params.domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) &&
+    // ...(params.domain.endsWith(`.${env.NEXT_PUBLIC_ROOT_DOMAIN}`) &&
     //   siteData.customDomain && {
     //     alternates: {
     //       canonical: `https://${siteData.customDomain}/${params.slug}`,
@@ -69,7 +70,7 @@ export async function generateStaticParams() {
   const allPaths = allPosts
     .flatMap(({ site, slug }) => [
       site?.subdomain && {
-        domain: `${site.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`,
+        domain: `${site.subdomain}.${env.NEXT_PUBLIC_ROOT_DOMAIN}`,
         slug,
       },
       site?.customDomain && {
