@@ -1,5 +1,4 @@
 import { Suspense } from "react"
-import Link from "next/link"
 
 import OverviewSitesCTA from "@/components/overview-sites-cta"
 import OverviewStats from "@/components/overview-stats"

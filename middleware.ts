@@ -3,8 +3,8 @@ import { getToken } from "next-auth/jwt"
 
 import { env } from "./env"
 import { APP_HOSTNAMES } from "./lib/constants"
-import { parse } from "./lib/middleware/utils"
 import AppMiddleware from "./lib/middleware/app"
+import { parse } from "./lib/middleware/utils"
 
 export const config = {
   matcher: [
@@ -22,8 +22,9 @@ export const config = {
 export default async function middleware(req: NextRequest) {
   const { hostname, path } = parse(req)
 
-  if(APP_HOSTNAMES.has(hostname)){
-   AppMiddleware(req)
+  // for app.
+  if (APP_HOSTNAMES.has(hostname)) {
+    return AppMiddleware(req)
   }
 
   // rewrite root application to `/marketing` folder

@@ -4,6 +4,7 @@ import { Metadata } from "next"
 import { Analytics } from "@vercel/analytics/react"
 
 import { cn } from "@/lib/utils"
+import { ThemeProvider } from "@/components/theme-provider"
 import { cal, inter } from "@/styles/fonts"
 
 import { Providers } from "./providers"
@@ -40,11 +41,24 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn(cal.variable, inter.variable)}>
-        <Providers>
-          {children}
-          <Analytics />
-        </Providers>
+      <body
+        className={cn(
+          "bg-background min-h-screen font-sans antialiased",
+          cal.variable,
+          inter.variable
+        )}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Providers>
+            {children}
+            <Analytics />
+          </Providers>
+        </ThemeProvider>
       </body>
     </html>
   )
