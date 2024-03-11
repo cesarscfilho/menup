@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from "next/server"
 import { getToken } from "next-auth/jwt"
 
 import { env } from "./env"
+import { APP_HOSTNAMES } from "./lib/constants"
+import { parse } from "./lib/middleware/utils"
+import AppMiddleware from "./lib/middleware/app"
 
 export const config = {
   matcher: [
@@ -17,45 +20,10 @@ export const config = {
 }
 
 export default async function middleware(req: NextRequest) {
-  const url = req.nextUrl
+  const { hostname, path } = parse(req)
 
-  // Get hostname of request (e.g. demo.vercel.pub, demo.localhost:3000)
-  let hostname = req.headers
-    .get("host")!
-    .replace(".localhost:3000", `.${env.NEXT_PUBLIC_ROOT_DOMAIN}`)
-
-  // special case for Vercel preview deployment URLs
-  if (
-    hostname.includes("---") &&
-    hostname.endsWith(`.${env.NEXT_PUBLIC_VERCEL_DEPLOYMENT_SUFFIX}`)
-  ) {
-    hostname = `${hostname.split("---")[0]}.${env.NEXT_PUBLIC_ROOT_DOMAIN}`
-  }
-
-  const searchParams = req.nextUrl.searchParams.toString()
-  // Get the pathname of the request (e.g. /, /about, /blog/first-post)
-  const path = `${url.pathname}${
-    searchParams.length > 0 ? `?${searchParams}` : ""
-  }`
-
-  // rewrites for app pages
-  if (hostname == `app.${env.NEXT_PUBLIC_ROOT_DOMAIN}`) {
-    const session = await getToken({ req })
-    if (!session && path !== "/login") {
-      return NextResponse.redirect(new URL("/login", req.url))
-    } else if (session && path == "/login") {
-      return NextResponse.redirect(new URL("/", req.url))
-    }
-    return NextResponse.rewrite(
-      new URL(`/app${path === "/" ? "" : path}`, req.url)
-    )
-  }
-
-  // special case for `vercel.pub` domain
-  if (hostname === "vercel.pub") {
-    return NextResponse.redirect(
-      "https://vercel.com/blog/platforms-starter-kit"
-    )
+  if(APP_HOSTNAMES.has(hostname)){
+   AppMiddleware(req)
   }
 
   // rewrite root application to `/marketing` folder
