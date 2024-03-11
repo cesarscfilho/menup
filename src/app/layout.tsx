@@ -4,15 +4,13 @@ import { fontSans } from "@/lib/font"
 
 import "@/styles/globals.css"
 
-import siteConfig from "@/config/site"
 import { cn } from "@/lib/utils"
-import { Toaster } from "@/components/ui/sonner"
 import { ThemeProvider } from "@/components/theme-provider"
 
 import Providers from "./providers"
 
 export const metadata: Metadata = {
-  title: siteConfig.name,
+  title: "Menup",
 }
 
 export default function RootLayout({
@@ -21,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="pt-BR" suppressHydrationWarning>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
@@ -36,7 +34,6 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             {children}
-            <Toaster position="top-right" richColors />
           </ThemeProvider>
         </Providers>
       </body>
