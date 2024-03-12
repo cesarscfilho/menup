@@ -59,7 +59,7 @@ export default function CTA() {
         } flex w-full flex-col space-y-3 text-center sm:flex-row sm:space-x-3 sm:space-y-0 lg:w-auto`}
       >
         <a
-          className="whitespace-no-wrap flex-auto rounded-md border border-stone-200 px-5 py-1 font-title text-lg text-black transition-all duration-150 ease-in-out hover:border-black dark:border-stone-700 dark:text-white dark:hover:border-white sm:py-3"
+          className="whitespace-no-wrap font-title flex-auto rounded-md border border-stone-200 px-5 py-1 text-lg text-black transition-all duration-150 ease-in-out hover:border-black dark:border-stone-700 dark:text-white dark:hover:border-white sm:py-3"
           href="https://app.vercel.pub"
           rel="noreferrer"
           target="_blank"
@@ -67,7 +67,7 @@ export default function CTA() {
           Create your publication
         </a>
         <a
-          className="whitespace-no-wrap flex-auto rounded-md border border-black bg-black px-5 py-1 font-title text-lg text-white transition-all duration-150 ease-in-out hover:bg-white hover:text-black dark:border-white dark:bg-white dark:text-black dark:hover:bg-black dark:hover:text-white sm:py-3"
+          className="whitespace-no-wrap font-title flex-auto rounded-md border border-black bg-black px-5 py-1 text-lg text-white transition-all duration-150 ease-in-out hover:bg-white hover:text-black dark:border-white dark:bg-white dark:text-black dark:hover:bg-black dark:hover:text-white sm:py-3"
           href="https://vercel.com/guides/nextjs-multi-tenant-application"
           rel="noreferrer"
           target="_blank"

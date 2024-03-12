@@ -95,7 +95,7 @@ export default async function SiteLayout({
                 width={40}
               />
             </div>
-            <span className="ml-3 inline-block truncate font-title font-medium">
+            <span className="font-title ml-3 inline-block truncate font-medium">
               {data.name}
             </span>
           </Link>

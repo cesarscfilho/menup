@@ -103,7 +103,7 @@ export default async function SitePostPage({
           <p className="m-auto my-5 w-10/12 text-sm font-light text-stone-500 dark:text-stone-400 md:text-base">
             {toDateString(data.createdAt)}
           </p>
-          <h1 className="mb-10 font-title text-3xl font-bold text-stone-800 dark:text-white md:text-6xl">
+          <h1 className="font-title mb-10 text-3xl font-bold text-stone-800 dark:text-white md:text-6xl">
             {data.title}
           </h1>
           <p className="text-md m-auto w-10/12 text-stone-600 dark:text-stone-400 md:text-lg">
@@ -141,7 +141,7 @@ export default async function SitePostPage({
           </div>
         </a>
       </div>
-      <div className="relative m-auto mb-10 h-80 w-full max-w-screen-lg overflow-hidden md:mb-20 md:h-150 md:w-5/6 md:rounded-2xl lg:w-2/3">
+      <div className="md:h-150 relative m-auto mb-10 h-80 w-full max-w-screen-lg overflow-hidden md:mb-20 md:w-5/6 md:rounded-2xl lg:w-2/3">
         <BlurImage
           alt={data.title ?? "Post image"}
           width={1200}

@@ -56,7 +56,7 @@ export default async function SiteHomePage({
         {posts.length > 0 ? (
           <div className="mx-auto w-full max-w-screen-xl md:mb-28 lg:w-5/6">
             <Link href={`/${posts[0].slug}`}>
-              <div className="group relative mx-auto h-80 w-full overflow-hidden sm:h-150 lg:rounded-xl">
+              <div className="sm:h-150 group relative mx-auto h-80 w-full overflow-hidden lg:rounded-xl">
                 <BlurImage
                   alt={posts[0].title ?? ""}
                   blurDataURL={posts[0].imageBlurhash ?? placeholderBlurhash}
@@ -68,7 +68,7 @@ export default async function SiteHomePage({
                 />
               </div>
               <div className="mx-auto mt-10 w-5/6 lg:w-full">
-                <h2 className="my-10 font-title text-4xl dark:text-white md:text-6xl">
+                <h2 className="font-title my-10 text-4xl dark:text-white md:text-6xl">
                   {posts[0].title}
                 </h2>
                 <p className="w-full text-base dark:text-white md:text-lg lg:w-2/3">
@@ -126,7 +126,7 @@ export default async function SiteHomePage({
 
       {posts.length > 1 && (
         <div className="mx-5 mb-20 max-w-screen-xl lg:mx-24 2xl:mx-auto">
-          <h2 className="mb-10 font-title text-4xl dark:text-white md:text-5xl">
+          <h2 className="font-title mb-10 text-4xl dark:text-white md:text-5xl">
             More stories
           </h2>
           <div className="grid w-full grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 xl:grid-cols-3">
