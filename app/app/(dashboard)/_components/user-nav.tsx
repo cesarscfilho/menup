@@ -13,6 +13,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
+import { LogoutButton } from "./logout-button"
+
 interface UserNavProps {
   user: User
 }
@@ -55,10 +57,7 @@ export function UserNav({ user }: UserNavProps) {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          Sair
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-        </DropdownMenuItem>
+        <LogoutButton />
       </DropdownMenuContent>
     </DropdownMenu>
   )

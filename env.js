@@ -14,6 +14,7 @@ export const env = createEnv({
   },
   client: {
     NEXT_PUBLIC_ROOT_DOMAIN: z.string().min(1),
+    NEXT_PUBLIC_APP_NAME: z.string().min(1),
   },
   runtimeEnv: {
     POSTGRES_PRISMA_URL: process.env.POSTGRES_PRISMA_URL,
@@ -25,5 +26,6 @@ export const env = createEnv({
     AUTH_BEARER_TOKEN: process.env.AUTH_BEARER_TOKEN,
     PROJECT_ID_VERCEL: process.env.PROJECT_ID_VERCEL,
     NEXT_PUBLIC_ROOT_DOMAIN: process.env.NEXT_PUBLIC_ROOT_DOMAIN,
+    NEXT_PUBLIC_APP_NAME: process.env.NEXT_PUBLIC_APP_NAME,
   },
 })
