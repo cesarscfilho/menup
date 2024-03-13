@@ -1,5 +1,13 @@
 import { env } from "@/env"
 
-export const HOME_DOMAIN = `https://${process.env.NEXT_PUBLIC_APP_DOMAIN}`
+type RedirectsType = {
+  [key: string]: string
+}
+
+export const HOME_DOMAIN = `https://${env.NEXT_PUBLIC_ROOT_DOMAIN}`
 
 export const APP_HOSTNAMES = new Set([`app.${env.NEXT_PUBLIC_ROOT_DOMAIN}`])
+
+export const DEFAULT_REDIRECTS: RedirectsType = {
+  login: `https://app.menup.com.br/login`,
+}

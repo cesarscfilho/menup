@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
-import { getToken } from "next-auth/jwt"
 
 import { env } from "./env"
-import { APP_HOSTNAMES } from "./lib/constants"
+import { APP_HOSTNAMES, DEFAULT_REDIRECTS } from "./lib/constants"
 import AppMiddleware from "./lib/middleware/app"
 import { parse } from "./lib/middleware/utils"
 
@@ -20,11 +19,15 @@ export const config = {
 }
 
 export default async function middleware(req: NextRequest) {
-  const { hostname, path } = parse(req)
+  const { hostname, path, key } = parse(req)
 
   // for app.
   if (APP_HOSTNAMES.has(hostname)) {
     return AppMiddleware(req)
+  }
+
+  if (hostname === "menup.com.br" && key in DEFAULT_REDIRECTS) {
+    return NextResponse.redirect(DEFAULT_REDIRECTS[key])
   }
 
   // rewrite root application to `/marketing` folder
