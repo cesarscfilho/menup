@@ -26,7 +26,7 @@ export default async function middleware(req: NextRequest) {
     return AppMiddleware(req)
   }
 
-  if (hostname === "menup.com.br" && key in DEFAULT_REDIRECTS) {
+  if (hostname === env.NEXT_PUBLIC_ROOT_DOMAIN && key in DEFAULT_REDIRECTS) {
     return NextResponse.redirect(DEFAULT_REDIRECTS[key])
   }
 

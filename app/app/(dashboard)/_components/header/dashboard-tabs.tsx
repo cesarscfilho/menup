@@ -11,7 +11,7 @@ export function DashboatdTabs() {
   const selectedSegment = useSelectedLayoutSegment()
 
   return (
-    <MaxWidthWrapper>
+    <MaxWidthWrapper className="pt-1">
       <TabsContainer hideSeparator>
         {tabsNavegation.map(({ title, segment, href }) => {
           const active = segment === selectedSegment

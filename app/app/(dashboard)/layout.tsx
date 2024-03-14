@@ -1,5 +1,5 @@
-import { DashboardHeader } from "./_components/dashboard-header"
-import { DashboatdTabs } from "./_components/dashboard-tabs"
+import { DashboardHeader } from "./_components/header/dashboard-header"
+import { DashboatdTabs } from "./_components/header/dashboard-tabs"
 import { Providers } from "./providers"
 
 interface DashboardLayoutProps {
